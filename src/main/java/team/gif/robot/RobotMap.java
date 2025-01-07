@@ -16,10 +16,10 @@ public abstract class RobotMap {
     public static final int REAR_LEFT_CANCODER_ID = 16;
     public static final int REAR_RIGHT_CANCODER_ID = 26;
 
-    public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 13; //Neo and Spark
-    public static final int REAR_LEFT_TURNING_MOTOR_PORT = 14;
-    public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 23;
-    public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 24;
+    public static final int FRONT_LEFT_TURNING_MOTOR_ID = 13; //Neo and Spark
+    public static final int REAR_LEFT_TURNING_MOTOR_ID = 14;
+    public static final int FRONT_RIGHT_TURNING_MOTOR_ID = 23;
+    public static final int REAR_RIGHT_TURNING_MOTOR_ID = 24;
 
     public static final int PIGEON_ID = 36;
 

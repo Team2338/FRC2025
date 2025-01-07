@@ -7,6 +7,9 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.robot.subsystems.SwerveDrivetrainMk3;
+import team.gif.robot.subsystems.SwerveDrivetrainMk4;
+import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
 /**
@@ -21,6 +24,10 @@ public class Robot extends TimedRobot {
 
   //Devices
   public static Pigeon pigeon;
+  public static SwerveDrivetrainMk3 swerveDrive;
+//  public static SwerveDrivetrainMk4 swerveDrive;
+  public static Limelight limelightCollector;
+  public static Limelight limelightShooter;
 
   public static final boolean fullDashboard = true;
 
@@ -32,7 +39,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-
+    swerveDrive = new SwerveDrivetrainMk3();
+//  swerveDrive = new SwerveDrivetrainMk4();
+    limelightCollector = new Limelight("limelight-collect");
+    limelightShooter = new Limelight("limelight-shooter");
     pigeon = new Pigeon(RobotMap.PIGEON_ID);
   }
 

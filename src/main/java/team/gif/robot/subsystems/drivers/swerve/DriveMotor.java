@@ -4,6 +4,7 @@ public interface DriveMotor {
     /**
      * Complete configuration of the drive motor,
      * including neutral/idle mode, pid, limits, etc
+     * @param inverted - boolean - whether the motor is inverted
      */
     void configure(boolean inverted);
 

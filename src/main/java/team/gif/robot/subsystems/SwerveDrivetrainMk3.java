@@ -25,7 +25,7 @@ import team.gif.robot.subsystems.drivers.swerve.*;
  * @author Rohan Cherukuri
  * @since 2/14/22
  */
-public class SwerveDrivetrainNEW extends SubsystemBase {
+public class SwerveDrivetrainMk3 extends SubsystemBase {
     public static SwerveModule fL;
     public static SwerveModule fR;
     public static SwerveModule rL;
@@ -61,7 +61,7 @@ public class SwerveDrivetrainNEW extends SubsystemBase {
     /**
      * Constructor for swerve drivetrain using 4 swerve modules using NEOs to drive and TalonSRX to control turning
      */
-    public SwerveDrivetrainNEW() {
+    public SwerveDrivetrainMk3() {
         super();
 
         fLDriveMotor = new SparkMaxDriveMotor(RobotMap.PRACTICE_FRONT_LEFT_DRIVE_ID);
@@ -164,7 +164,7 @@ public class SwerveDrivetrainNEW extends SubsystemBase {
         );
     }
 
-    public SwerveDrivetrainNEW(TelemetryFileLogger logger) {
+    public SwerveDrivetrainMk3(TelemetryFileLogger logger) {
         this();
 
 //        logger.addMetric("FL_Rotation", fL::getTurningHeading);
@@ -247,7 +247,7 @@ public class SwerveDrivetrainNEW extends SubsystemBase {
     /**
      * Set the desired states for each of the 4 swerve modules using a SwerveModuleState array
      * @param desiredStates SwerveModuleState array of desired states for each of the modules
-     * @implNote Only for use in the SwerveDrivetrain class and the RobotTrajectory Singleton, for any general use {@link SwerveDrivetrainNEW#drive(double, double, double)}
+     * @implNote Only for use in the SwerveDrivetrain class and the RobotTrajectory Singleton, for any general use {@link SwerveDrivetrainMk3#drive(double, double, double)}
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(
@@ -263,7 +263,7 @@ public class SwerveDrivetrainNEW extends SubsystemBase {
     /**
      * Set the desired states for each of the 4 swerve modules using a ChassisSpeeds class
      * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
-     * @implNote Use only in {@link SwerveDrivetrainNEW} or {@link team.gif.lib.RobotTrajectory}
+     * @implNote Use only in {@link SwerveDrivetrainMk3} or {@link team.gif.lib.RobotTrajectory}
      */
     public void setModuleChassisSpeeds(ChassisSpeeds chassisSpeeds) {
         SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);

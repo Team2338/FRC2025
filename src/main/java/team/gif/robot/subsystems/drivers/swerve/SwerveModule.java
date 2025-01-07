@@ -5,7 +5,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import team.gif.robot.Constants;
-import team.gif.robot.subsystems.SwerveDrivetrainNEW;
+import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 
 public class SwerveModule {
     /* ------ Devices ------*/
@@ -163,7 +163,7 @@ public class SwerveModule {
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
-        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainNEW.getDrivePace().getValue();
+        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainMk3.getDrivePace().getValue();
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
 
         //if error is negative, FF should also be negative
