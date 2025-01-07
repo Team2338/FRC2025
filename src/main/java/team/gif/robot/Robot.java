@@ -7,6 +7,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -18,6 +19,11 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer robotContainer;
 
+  //Devices
+  public static Pigeon pigeon;
+
+  public static final boolean fullDashboard = true;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -26,6 +32,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+
+    pigeon = new Pigeon(RobotMap.PIGEON_ID);
   }
 
   /**
