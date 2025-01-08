@@ -20,7 +20,10 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
-  private final RobotContainer robotContainer;
+  private static RobotContainer robotContainer;
+  public static OI oi;
+  public static UI ui;
+  public static UiSmartDashboard uiSmartDashboard;
 
   //Devices
   public static Pigeon pigeon;
@@ -44,6 +47,10 @@ public class Robot extends TimedRobot {
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     pigeon = new Pigeon(RobotMap.PIGEON_ID);
+
+    oi = new OI();
+    ui = new UI();
+    uiSmartDashboard = new UiSmartDashboard();
   }
 
   /**
