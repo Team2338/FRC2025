@@ -42,11 +42,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    swerveDrive = new SwerveDrivetrainMk3();
-//  swerveDrive = new SwerveDrivetrainMk4();
+    pigeon = new Pigeon(RobotMap.PIGEON_ID);
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
-    pigeon = new Pigeon(RobotMap.PIGEON_ID);
+    swerveDrive = new SwerveDrivetrainMk3();
+//  swerveDrive = new SwerveDrivetrainMk4();
 
     oi = new OI();
     ui = new UI();
