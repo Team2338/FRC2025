@@ -11,6 +11,7 @@ import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
+import team.gif.robot.subsystems.drivers.PigeonNew;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -26,7 +27,7 @@ public class Robot extends TimedRobot {
   public static UiSmartDashboard uiSmartDashboard;
 
   //Devices
-  public static Pigeon pigeon;
+  public static PigeonNew pigeon;
   public static SwerveDrivetrainMk3 swerveDrive;
 //  public static SwerveDrivetrainMk4 swerveDrive;
   public static Limelight limelightCollector;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    pigeon = new Pigeon(RobotMap.PIGEON_ID);
+    pigeon = new PigeonNew(RobotMap.PIGEON_ID);
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     swerveDrive = new SwerveDrivetrainMk3();
