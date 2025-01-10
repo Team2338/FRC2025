@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
     pigeon = new PigeonNew(RobotMap.PIGEON_ID);
+    pigeon.addToShuffleboard("FRC 2025", "Heading");
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     swerveDrive = new SwerveDrivetrainMk3();

@@ -50,10 +50,10 @@ public class PigeonNew extends SubsystemBase {
         double[] ypr = new double[3];
 
         ypr[0] = _pigeon.getYaw().getValueAsDouble();
-        ypr[0] = _pigeon.getPitch().getValueAsDouble();
-        ypr[0] = _pigeon.getRoll().getValueAsDouble();
+        ypr[1] = _pigeon.getPitch().getValueAsDouble();
+        ypr[2] = _pigeon.getRoll().getValueAsDouble();
 
-        return ypr[0] / (7216.171875 / 7200);
+        return ypr[0];
     }
 
     public Rotation2d getRotation2d() {
