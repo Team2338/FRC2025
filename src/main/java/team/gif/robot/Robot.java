@@ -7,6 +7,9 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
+import team.gif.robot.commands.drivetrainPbot.DriveSwervePbot;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -47,6 +50,7 @@ public class Robot extends TimedRobot {
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     swerveDrive = new SwerveDrivetrainMk3();
+    swerveDrive.setDefaultCommand(new DriveSwerve());
 //  swerveDrive = new SwerveDrivetrainMk4();
 
     oi = new OI();
