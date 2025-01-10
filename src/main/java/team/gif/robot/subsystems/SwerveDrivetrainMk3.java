@@ -127,7 +127,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        resetHeading();
         resetDriveEncoders();
 
-        drivePace = drivePace.COAST_RR;
+        drivePace = drivePace.COAST_FR;
 
         if(Robot.fullDashboard) {
             enableShuffleboardDebug("Swerve");

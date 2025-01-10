@@ -7,14 +7,14 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
-import team.gif.robot.commands.drivetrainPbot.DriveSwervePbot;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
-import team.gif.robot.subsystems.drivers.Pigeon;
 import team.gif.robot.subsystems.drivers.PigeonNew;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -57,6 +57,9 @@ public class Robot extends TimedRobot {
     oi = new OI();
     ui = new UI();
     uiSmartDashboard = new UiSmartDashboard();
+
+    autonomousCommand = new PathPlannerAuto("Straight Line");
+//      autonomousCommand = new AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
   }
 
   /**

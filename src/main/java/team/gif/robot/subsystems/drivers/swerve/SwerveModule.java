@@ -196,7 +196,7 @@ public class SwerveModule {
 
         //TODO: idk why we multiply by 2176.5
         double adjust = 0.9578661376;
-        return new SwerveModulePosition(driveMotor.getPosition() * 2176.5 * adjust, new Rotation2d(getTurningHeading()));
+        return new SwerveModulePosition(driveMotor.getPosition(), new Rotation2d(getTurningHeading()));
     }
 
     /**
