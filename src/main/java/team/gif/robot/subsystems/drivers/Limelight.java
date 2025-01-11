@@ -312,4 +312,28 @@ public class Limelight {
         //calculate distance (shooter is 4 inches behind limelight)
         return offsetInches + (goalHeightInches - lensHeightInches) / Math.tan(angleToGoalRadians);
     }
+
+    /**
+     * This sets the current orientation of the robot to be used in the limelight's calculations
+     * for MegaTag 2, It should be updated every cycle
+     * @param yaw
+     * @param yawRate
+     * @param pitch
+     * @param pitchRate
+     * @param roll
+     * @param rollRate
+     */
+    public void setRobotOrientation(double yaw, double yawRate, double pitch, double pitchRate, double roll, double rollRate) {
+
+        double[] entries = new double[6];
+
+        entries[0] = yaw;
+        entries[1] = yawRate;
+        entries[2] = pitch;
+        entries[3] = pitchRate;
+        entries[4] = roll;
+        entries[5] = rollRate;
+
+        table.getEntry("robot_orientation_set").setDoubleArray(entries);
+    }
 }
