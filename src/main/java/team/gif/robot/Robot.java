@@ -4,9 +4,11 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
   public static Limelight limelightCollector;
   public static Limelight limelightShooter;
 
+
   public static final boolean fullDashboard = true;
 
   /**
@@ -59,7 +62,12 @@ public class Robot extends TimedRobot {
     uiSmartDashboard = new UiSmartDashboard();
 
     autonomousCommand = new PathPlannerAuto("Straight Line");
-//      autonomousCommand = new AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
+//    try {
+//      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
+//    } catch (Exception e) {
+//      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
+//      autonomousCommand =  Commands.none();
+//    }
   }
 
   /**
@@ -76,6 +84,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

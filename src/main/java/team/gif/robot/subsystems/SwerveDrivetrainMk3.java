@@ -127,7 +127,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        resetHeading();
         resetDriveEncoders();
 
-        drivePace = drivePace.COAST_RR;
+        drivePace = drivePace.COAST_FR;
 
         if(Robot.fullDashboard) {
             enableShuffleboardDebug("Swerve");
@@ -372,9 +372,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         return getPose().getY();
     }
 
+
     public void enableShuffleboardDebug(String shuffleboardTabName) {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
 
+        /*
         shuffleboardTab.addDouble("FL Heading", fL::getTurningHeadingDegrees).withPosition(0,0).withWidget(BuiltInWidgets.kGyro);
         shuffleboardTab.addDouble("FR Heading", fR::getTurningHeadingDegrees).withPosition(2,0).withWidget(BuiltInWidgets.kGyro);
         shuffleboardTab.addDouble("RR Heading", rR::getTurningHeadingDegrees).withPosition(2,2).withWidget(BuiltInWidgets.kGyro);
@@ -395,6 +397,12 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         shuffleboardTab.addDouble("FL Raw Radians", fL::getTurningHeading).withPosition(6,0);
         shuffleboardTab.addDouble("RR Raw Radians", rR::getTurningHeading).withPosition(7,1);
         shuffleboardTab.addDouble("RL Raw Radians", rL::getTurningHeading).withPosition(6,1);
+        */
+        shuffleboardTab.addDouble("FL Drive Encoder", fLDriveMotor::getPosition).withPosition(4, 2).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("FR Drive Encoder", fRDriveMotor::getPosition).withPosition(5, 2).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("RL Drive Encoder", rLDriveMotor::getPosition).withPosition(4, 3).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("RR Drive Encoder", rRDriveMotor::getPosition).withPosition(5, 3).withWidget(BuiltInWidgets.kTextView);
+
 
         //TODO: Add target to shuffleboard
     }
