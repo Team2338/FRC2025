@@ -18,7 +18,7 @@ public class ShooterTurn extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.moveMotor(Constants.SHOOTER_SPEED_PERCENT);
+        Robot.shooter.moveFromShuffleboard();
 
     }
 
