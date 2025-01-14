@@ -17,7 +17,11 @@ public class UiSmartDashboard {
      *  and save file as "YYYY shuffleboard layout.json"
      */
     public UiSmartDashboard() {
-        ShuffleboardTab tab = Shuffleboard.getTab("SmartDashboard"); // Gets a reference to the shuffleboard tab
+        ShuffleboardTab tab = Shuffleboard.getTab("SmartDashboard");
+        tab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
+
+        // Gets a reference to the shuffleboard tab
+
     }
 
     /**

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
+import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
   private static RobotContainer robotContainer;
+  public static Diagnostics diagnostics;
   public static OI oi;
   public static UI ui;
   public static UiSmartDashboard uiSmartDashboard;
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
     pigeon = new PigeonNew(RobotMap.PIGEON_ID);
     pigeon.addToShuffleboard("FRC 2025", "Heading");
+    diagnostics = new Diagnostics();
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     swerveDrive = new SwerveDrivetrainMk3();
