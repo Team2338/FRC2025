@@ -284,4 +284,6 @@ public final class Constants {
     public static final class LED {
         public static final int NUM_LEDS_TOTAL = 6;
     }
+
+    public static final double SHOOTER_SPEED_PERCENT = .50;
 }
