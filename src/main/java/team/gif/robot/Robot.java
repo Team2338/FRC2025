@@ -53,7 +53,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
     pigeon = new PigeonNew(RobotMap.PIGEON_ID);
-    pigeon.addToShuffleboard("FRC 2025", "Heading");
     limelightCollector = new Limelight("limelight-collect");
     limelightShooter = new Limelight("limelight-shooter");
     swerveDrive = new SwerveDrivetrainMk3();
@@ -64,7 +63,7 @@ public class Robot extends TimedRobot {
     oi = new OI();
     ui = new UI();
     uiSmartDashboard = new UiSmartDashboard();
-
+    pigeon.addToShuffleboard("FRC 2025", "Heading");
     autonomousCommand = new PathPlannerAuto("Straight Line");
 //    try {
 //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
@@ -89,6 +88,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
+    System.out.println(pigeon.get360Heading());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

@@ -24,7 +24,7 @@ public class PigeonNew extends SubsystemBase {
         ShuffleboardTab tab = Shuffleboard.getTab(tabName);
         tab.add(widgetTitle, (x) -> {
             x.setSmartDashboardType("Gyro");
-            x.addDoubleProperty("Value", () -> getCompassHeading(), null);
+            x.addDoubleProperty("Value", this::getCompassHeading, null);
         });
     }
 
@@ -54,6 +54,14 @@ public class PigeonNew extends SubsystemBase {
         ypr[2] = _pigeon.getRoll().getValueAsDouble();
 
         return ypr[0];
+    }
+    public double get360Heading() {
+        double heading = getHeading(); // Returns heading from 23040 to -23040
+
+        // Need to convert the heading to a value between 0 and 360
+        heading = heading < 0 ? 360 + (heading % 360) : heading % 360;
+
+        return heading;
     }
 
     public Rotation2d getRotation2d() {
