@@ -107,7 +107,7 @@ public class OI {
         dBack.and(dDPadDown).onTrue(new Reset0());
         dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
-        dRTrigger.onTrue(new ShooterTurn());
+        dRTrigger.whileTrue(new ShooterTurn());
 
 
     }
