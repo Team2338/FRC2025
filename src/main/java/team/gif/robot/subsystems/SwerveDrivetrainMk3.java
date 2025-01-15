@@ -4,11 +4,13 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.config.PIDConstants;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -46,7 +48,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     private static Encoder rLEncoder;
     private static Encoder rREncoder;
 
-    private static SwerveDriveOdometry odometry;
+    public static SwerveDrivePoseEstimator poseEstimator;
     private static drivePace drivePace;
 
     // Network Table publishers for the swerve
@@ -55,6 +57,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
             .getStructArrayTopic("TargetSwerveState", SwerveModuleState.struct).publish();
     private StructArrayPublisher<SwerveModuleState> actualPublisher = NetworkTableInstance.getDefault()
             .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
+    private StructPublisher<Pose2d> posePublisher = NetworkTableInstance.getDefault()
+            .getStructTopic("EstimatedPose", Pose2d.struct).publish();
+    private StructPublisher<ChassisSpeeds> chassisSpeedsStructPublisher = NetworkTableInstance.getDefault()
+            .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
 
 
 
@@ -122,12 +128,12 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
 
-        odometry = new SwerveDriveOdometry(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
+        poseEstimator = new SwerveDrivePoseEstimator(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(45)));
 
 //        resetHeading();
         resetDriveEncoders();
 
-        drivePace = drivePace.COAST_RR;
+        drivePace = drivePace.COAST_FR;
 
         if(Robot.fullDashboard) {
             enableShuffleboardDebug("Swerve");
@@ -157,6 +163,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                     var alliance = DriverStation.getAlliance();
                     if( alliance.isPresent() ){
                         return alliance.get() == DriverStation.Alliance.Red;
+//                        return false;
                     }
                     return false;
                  },
@@ -194,10 +201,12 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        odometry.update(
+        poseEstimator.update(
             Robot.pigeon.getRotation2d(),
             getPosition()
         );
+
+        posePublisher.set(poseEstimator.getEstimatedPosition());
 
         //TODO SwerveAuto can remove after PID constants are finalized and autos are running well
 //        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
@@ -210,7 +219,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
      * @param pose the pose to reset to
      */
     public void resetOdometry(Pose2d pose) {
-        odometry.resetPosition(Robot.pigeon.getRotation2d(), new SwerveModulePosition[]{fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()}, pose);
+        poseEstimator.resetPosition(Robot.pigeon.getRotation2d(), new SwerveModulePosition[]{fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()}, pose);
     }
 
     public ChassisSpeeds getRobotRelativeSpeed() {
@@ -275,6 +284,8 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         fR.setDesiredState(swerveModuleStates[1]);
         rL.setDesiredState(swerveModuleStates[2]);
         rR.setDesiredState(swerveModuleStates[3]);
+        chassisSpeedsStructPublisher.set(chassisSpeeds);
+        targetPublisher.set(swerveModuleStates);
     }
 
     /**
@@ -308,7 +319,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
      * @return The current pose of the robot (Pose2D)
      */
     public Pose2d getPose() {
-        return odometry.getPoseMeters();
+        return poseEstimator.getEstimatedPosition();
     }
 
     /**
@@ -372,9 +383,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         return getPose().getY();
     }
 
+
     public void enableShuffleboardDebug(String shuffleboardTabName) {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
 
+        /*
         shuffleboardTab.addDouble("FL Heading", fL::getTurningHeadingDegrees).withPosition(0,0).withWidget(BuiltInWidgets.kGyro);
         shuffleboardTab.addDouble("FR Heading", fR::getTurningHeadingDegrees).withPosition(2,0).withWidget(BuiltInWidgets.kGyro);
         shuffleboardTab.addDouble("RR Heading", rR::getTurningHeadingDegrees).withPosition(2,2).withWidget(BuiltInWidgets.kGyro);
@@ -395,6 +408,12 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         shuffleboardTab.addDouble("FL Raw Radians", fL::getTurningHeading).withPosition(6,0);
         shuffleboardTab.addDouble("RR Raw Radians", rR::getTurningHeading).withPosition(7,1);
         shuffleboardTab.addDouble("RL Raw Radians", rL::getTurningHeading).withPosition(6,1);
+        */
+        shuffleboardTab.addDouble("FL Drive Encoder", fLDriveMotor::getPosition).withPosition(4, 2).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("FR Drive Encoder", fRDriveMotor::getPosition).withPosition(5, 2).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("RL Drive Encoder", rLDriveMotor::getPosition).withPosition(4, 3).withWidget(BuiltInWidgets.kTextView);
+        shuffleboardTab.addDouble("RR Drive Encoder", rRDriveMotor::getPosition).withPosition(5, 3).withWidget(BuiltInWidgets.kTextView);
+
 
         //TODO: Add target to shuffleboard
     }
