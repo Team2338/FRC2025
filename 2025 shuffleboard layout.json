@@ -66,46 +66,6 @@
               ]
             }
           },
-          "9,0": {
-            "size": [
-              2,
-              3
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Heading",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "HIDDEN",
-              "_children": [
-                {
-                  "_type": "Gyro",
-                  "_source0": "network_table:///Shuffleboard/SmartDashboard/BotHead",
-                  "_title": "BotHead",
-                  "_glyph": 148,
-                  "_showGlyph": false,
-                  "Visuals/Major tick spacing": 45.0,
-                  "Visuals/Starting angle": 180.0,
-                  "Visuals/Show tick mark ring": true,
-                  "Visuals/Counter clockwise": false
-                },
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Reset",
-                  "_title": "SmartDashboard/Reset",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Reset 180",
-                  "_title": "SmartDashboard/Reset 180",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
           "4,1": {
             "size": [
               1,
@@ -302,6 +262,23 @@
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///Shuffleboard/FRC 2025/Heading/Value",
+              "_title": "Heading",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
             }
           }
         }
