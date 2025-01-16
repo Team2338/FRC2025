@@ -88,7 +88,6 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     uiSmartDashboard.updateUI();
-    System.out.println(pigeon.get360Heading());
     limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
   }
 

@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Pigeon2_0 extends SubsystemBase {
 
     public static Pigeon2 _pigeon;
-    private double pitchOffset = 0;
+
     public Pigeon2_0(int PigeonID) {
         _pigeon = new Pigeon2(PigeonID);
-
     }
+
     public void addToShuffleboard(String tabName, String widgetTitle) {
         // Puts a Gyro type widget on dashboard and assigns
         // the function getHeading_Shuffleboard
@@ -27,6 +27,7 @@ public class Pigeon2_0 extends SubsystemBase {
             x.addDoubleProperty("Value", this::getCompassHeading, null);
         });
     }
+
     /**
      * The heading value from the pigeon increases counterclockwise (0 North, 90 West, 180 South, 270 East)
      * Some features need degrees to look like a compass,
@@ -57,14 +58,9 @@ public class Pigeon2_0 extends SubsystemBase {
      * valid range is 23040 to -23040
      */
     public double getHeading() {
-        double[] ypr = new double[3];
-
-        ypr[0] = _pigeon.getYaw().getValueAsDouble();
-        ypr[0] = _pigeon.getPitch().getValueAsDouble();
-        ypr[0] = _pigeon.getRoll().getValueAsDouble();
-
-        return ypr[0];
+        return _pigeon.getYaw().getValueAsDouble();
     }
+
     /**
      * Returns heading from pigeon
      * from 0 to 359.99 turning counterclockwise
@@ -77,6 +73,7 @@ public class Pigeon2_0 extends SubsystemBase {
 
         return heading;
     }
+
     /**
      * Returns Rotation2d object using heading from the pigeon
      */
@@ -88,10 +85,6 @@ public class Pigeon2_0 extends SubsystemBase {
         _pigeon.setYaw(yaw);
     }
 
-    public void zeroPitch() {
-        pitchOffset = getYPR()[1];
-    }
-
     public double[] getYPR() {
         double[] ypr = new double[3];
 
@@ -101,10 +94,12 @@ public class Pigeon2_0 extends SubsystemBase {
 //        System.out.format("YPR %.1f %.1f %.1f", ypr[0], ypr[1], ypr[2]); // for debugging
         return ypr;
     }
+
     public void resetPigeonPosition() {
 //        System.out.println("resetting pigeon empty"); // for debugging
         resetPigeonPosition(0);
     }
+
     /**
      * Reset the pigeon position to something other than 0
      * @param angle the initial angle in degrees
@@ -112,7 +107,6 @@ public class Pigeon2_0 extends SubsystemBase {
     public void resetPigeonPosition(double angle) {
 //        System.out.println("resetting pigeon " + angle); // for debugging
         setYaw(angle);
-        zeroPitch();
     }
 
     public double getPitch() {
