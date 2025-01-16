@@ -135,10 +135,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
 
-        poseEstimator = new SwerveDrivePoseEstimator(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(45)));
+        resetDriveEncoders();
+
+        poseEstimator = new SwerveDrivePoseEstimator(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
 
 //        resetHeading();
-        resetDriveEncoders();
 
         drivePace = drivePace.COAST_FR;
 
@@ -220,10 +221,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         boolean ignoreShooterEstimate = false;
 
         //TODO ignore both if yaw rate is over 720º/s
-        if(collectEstimate.tagCount == 0) {
+        if(collectEstimate != null && collectEstimate.tagCount == 0) {
             ignoreCollectEstimate = true;
         }
-        if(shooterEstimate.tagCount == 0) {
+        if(shooterEstimate != null && shooterEstimate.tagCount == 0) {
             ignoreShooterEstimate = true;
         }
         if(!ignoreCollectEstimate) {

@@ -7,6 +7,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.LimelightHelpers;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
@@ -61,7 +62,7 @@ public class Robot extends TimedRobot {
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
 
-        autonomousCommand = new PathPlannerAuto("Straight Line");
+        autonomousCommand = new PathPlannerAuto("u-turn");
 //    try {
 //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
 //    } catch (Exception e) {
@@ -86,8 +87,10 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
 
         //Vision Localization
-        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
+//        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
+        limelightCollector.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
+        limelightShooter.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
+
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
