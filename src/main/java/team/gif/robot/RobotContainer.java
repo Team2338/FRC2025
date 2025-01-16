@@ -4,8 +4,10 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.Shoot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,8 +19,11 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    NamedCommands.registerCommand("Shoot", new Shoot());
+
     // Configure the trigger bindings
     configureBindings();
+
   }
 
   /**

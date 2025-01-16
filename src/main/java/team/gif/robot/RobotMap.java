@@ -33,4 +33,8 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_DRIVE_ID = 20;//14;
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
     public static final int PIGEON_PBOT_ID = 61;
+
+    //Shooter
+    public static final int SHOOTER_ID = 37;
+    public static final int INDEXER_ID = 22;
 }

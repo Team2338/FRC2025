@@ -229,7 +229,7 @@ public final class Constants {
         public static final double ENCODER_CPR = 42; //This is for DRIVE
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
         public static final double WHEEL_CIRCUMFERENCE_METER = Units.inchesToMeters(12.875);
-        public static final double DRIVE_ENCODER_ROT_2_METER = WHEEL_CIRCUMFERENCE_METER/ (GEAR_RATIO); //0.0004
+        public static final double DRIVE_ENCODER_ROT_2_METER = WHEEL_CIRCUMFERENCE_METER/ (GEAR_RATIO) * 0.98; //0.0004
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
         //4096.0 for talons
         public static final double kDriveEncoderDistancePerPulse =
@@ -284,4 +284,6 @@ public final class Constants {
     public static final class LED {
         public static final int NUM_LEDS_TOTAL = 6;
     }
+
+    public static final double SHOOTER_SPEED_PERCENT = .50;
 }

@@ -4,6 +4,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.config.PIDConstants;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,7 +22,13 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.drivers.swerve.*;
+import team.gif.robot.subsystems.drivers.swerve.SparkMaxDriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.TalonSRXTurnMotorEncoder;
+import team.gif.robot.subsystems.drivers.swerve.Encoder;
+import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
+import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
+import team.gif.lib.LimelightHelpers;
 
 /**
  * @author Rohan Cherukuri
@@ -48,7 +55,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     private static Encoder rLEncoder;
     private static Encoder rREncoder;
 
-    public static SwerveDrivePoseEstimator poseEstimator;
+    public SwerveDrivePoseEstimator poseEstimator;
     private static drivePace drivePace;
 
     // Network Table publishers for the swerve
@@ -128,10 +135,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
 
-        poseEstimator = new SwerveDrivePoseEstimator(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(45)));
+        resetDriveEncoders();
+
+        poseEstimator = new SwerveDrivePoseEstimator(Constants.DrivetrainMK3.DRIVE_KINEMATICS, Robot.pigeon.getRotation2d(), getPosition(), new Pose2d(0, 0, new Rotation2d(0)));
 
 //        resetHeading();
-        resetDriveEncoders();
 
         drivePace = drivePace.COAST_FR;
 
@@ -206,8 +214,33 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
             getPosition()
         );
 
-        posePublisher.set(poseEstimator.getEstimatedPosition());
 
+        LimelightHelpers.PoseEstimate collectEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-collect");
+        LimelightHelpers.PoseEstimate shooterEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-shooter");
+        boolean ignoreCollectEstimate = false;
+        boolean ignoreShooterEstimate = false;
+
+        //TODO ignore both if yaw rate is over 720º/s
+        if(collectEstimate != null && collectEstimate.tagCount == 0) {
+            ignoreCollectEstimate = true;
+        }
+        if(shooterEstimate != null && shooterEstimate.tagCount == 0) {
+            ignoreShooterEstimate = true;
+        }
+        if(!ignoreCollectEstimate) {
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+            poseEstimator.addVisionMeasurement(
+                    collectEstimate.pose,
+                    collectEstimate.timestampSeconds);
+        }
+        if(!ignoreShooterEstimate) {
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+            poseEstimator.addVisionMeasurement(
+                    shooterEstimate.pose,
+                    shooterEstimate.timestampSeconds);
+        }
+
+        posePublisher.set(poseEstimator.getEstimatedPosition());
         //TODO SwerveAuto can remove after PID constants are finalized and autos are running well
 //        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
 //                           "  Y "+ String.format("%3.2f", Robot.swervetrain.getPose().getY()) +
