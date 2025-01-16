@@ -21,6 +21,5 @@ public class UI {
 
     public UI() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("FRC 2025");
-
     }
 }

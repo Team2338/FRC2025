@@ -13,7 +13,7 @@ public class UiSmartDashboard {
      *  and Chooser options (e.g. auto mode)
      *
      *  Placed on a dashboard tab
-     *  After SmartDashboard loads for the first time, items from network table onto Dashboard tab
+     *  After SmartDashboard loads for the first time, move items from network table onto Dashboard tab
      *  and save file as "YYYY shuffleboard layout.json"
      */
     public UiSmartDashboard() {

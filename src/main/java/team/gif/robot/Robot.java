@@ -24,73 +24,70 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
-
     private static RobotContainer robotContainer;
     public static OI oi;
     public static UI ui;
     public static UiSmartDashboard uiSmartDashboard;
 
-  //Devices
-  public static Pigeon2_0 pigeon;
-  public static SwerveDrivetrainMk3 swerveDrive;
-//  public static SwerveDrivetrainMk4 swerveDrive;
-  public static Limelight limelightCollector;
-  public static Limelight limelightShooter;
-  public static Shooter shooter;
-
+    //Devices
+    public static Pigeon2_0 pigeon;
+    public static SwerveDrivetrainMk3 swerveDrive;
+    //  public static SwerveDrivetrainMk4 swerveDrive;
+    public static Limelight limelightCollector;
+    public static Limelight limelightShooter;
+    public static Shooter shooter;
 
     public static final boolean fullDashboard = true;
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  public Robot() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    robotContainer = new RobotContainer();
-    pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
-    limelightCollector = new Limelight("limelight-collect");
-    limelightShooter = new Limelight("limelight-shooter");
-    swerveDrive = new SwerveDrivetrainMk3();
-    swerveDrive.setDefaultCommand(new DriveSwerve());
-//  swerveDrive = new SwerveDrivetrainMk4();
+    /**
+    * This function is run when the robot is first started up and should be used for any
+    * initialization code.
+    */
+    public Robot() {
+        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+        // autonomous chooser on the dashboard.
+        robotContainer = new RobotContainer();
+        pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
+        limelightCollector = new Limelight("limelight-collect");
+        limelightShooter = new Limelight("limelight-shooter");
+        swerveDrive = new SwerveDrivetrainMk3();
+        swerveDrive.setDefaultCommand(new DriveSwerve());
+        //  swerveDrive = new SwerveDrivetrainMk4();
         shooter= new Shooter();
 
-    oi = new OI();
-    ui = new UI();
-    uiSmartDashboard = new UiSmartDashboard();
-    pigeon.addToShuffleboard("FRC 2025", "Heading");
-    autonomousCommand = new PathPlannerAuto("Straight Line");
-//    try {
-//      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
-//    } catch (Exception e) {
-//      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
-//      autonomousCommand =  Commands.none();
-//    }
+        oi = new OI();
+        ui = new UI();
+        uiSmartDashboard = new UiSmartDashboard();
+        pigeon.addToShuffleboard("FRC 2025", "Heading");
+        autonomousCommand = new PathPlannerAuto("Straight Line");
+        //    try {
+        //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
+        //    } catch (Exception e) {
+        //      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
+        //      autonomousCommand =  Commands.none();
+        //    }
     }
 
-  /**
-   * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
-   * that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-    uiSmartDashboard.updateUI();
+    /**
+    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
+    * that you want ran during disabled, autonomous, teleoperated and test.
+    *
+    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+    * SmartDashboard integrated updating.
+    */
+    @Override
+    public void robotPeriodic() {
+        // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+        // commands, running already-scheduled commands, removing finished or interrupted commands,
+        // and running subsystem periodic() methods.  This must be called from the robot's periodic
+        // block in order for anything in the Command-based framework to work.
+        CommandScheduler.getInstance().run();
+        uiSmartDashboard.updateUI();
 
         //Vision Localization
-//        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
+    //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
         limelightCollector.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
         limelightShooter.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
-
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -103,7 +100,6 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
-
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();

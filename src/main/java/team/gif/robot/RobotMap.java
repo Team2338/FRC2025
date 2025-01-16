@@ -6,7 +6,14 @@ public abstract class RobotMap {
     public static final int AUX_CONTROLLER_ID = 1;
     public static final int TEST_CONTROLLER_ID = 2;
 
-    //SwerveDrivetrain
+    // SwerveDrivetrain IDs
+    /*                As viewed from center of bot
+     *              Drive Motor        Turn Motor           CAN
+     *            Left(1) Right(2)  Left(3) Right(4)  Left(5) Right(6)
+     *   Front(1)   11     12          13      14       15      16
+     *   Rear(2)    21     22          23      24       25      26
+     *
+     */
     public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11; // Falcon 500 and Talon Fx
     public static final int REAR_LEFT_DRIVE_MOTOR_ID = 12;
     public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 21;
@@ -32,7 +39,6 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_LEFT_TURN_ID = 7;//7;
     public static final int PRACTICE_FRONT_RIGHT_DRIVE_ID = 20;//14;
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
-    public static final int PIGEON_PBOT_ID = 61;
 
     //Shooter
     public static final int SHOOTER_ID = 37;
