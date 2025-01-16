@@ -7,7 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "Away"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return"
           }
         }
       ]
