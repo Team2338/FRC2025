@@ -7,6 +7,15 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
+import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
+import team.gif.robot.subsystems.SwerveDrivetrainMk3;
+import team.gif.robot.subsystems.SwerveDrivetrainMk4;
+import team.gif.robot.subsystems.drivers.Limelight;
+import team.gif.robot.subsystems.drivers.PigeonNew;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -16,7 +25,20 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
-  private final RobotContainer robotContainer;
+  private static RobotContainer robotContainer;
+  public static OI oi;
+  public static UI ui;
+  public static UiSmartDashboard uiSmartDashboard;
+
+  //Devices
+  public static PigeonNew pigeon;
+  public static SwerveDrivetrainMk3 swerveDrive;
+//  public static SwerveDrivetrainMk4 swerveDrive;
+  public static Limelight limelightCollector;
+  public static Limelight limelightShooter;
+
+
+  public static final boolean fullDashboard = true;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -26,6 +48,25 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+    pigeon = new PigeonNew(RobotMap.PIGEON_ID);
+    pigeon.addToShuffleboard("FRC 2025", "Heading");
+    limelightCollector = new Limelight("limelight-collect");
+    limelightShooter = new Limelight("limelight-shooter");
+    swerveDrive = new SwerveDrivetrainMk3();
+    swerveDrive.setDefaultCommand(new DriveSwerve());
+//  swerveDrive = new SwerveDrivetrainMk4();
+
+    oi = new OI();
+    ui = new UI();
+    uiSmartDashboard = new UiSmartDashboard();
+
+    autonomousCommand = new PathPlannerAuto("Straight Line");
+//    try {
+//      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
+//    } catch (Exception e) {
+//      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
+//      autonomousCommand =  Commands.none();
+//    }
   }
 
   /**
@@ -42,6 +83,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

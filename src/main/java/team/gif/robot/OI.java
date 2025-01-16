@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.drivetrainPbot.Reset0;
+import team.gif.robot.commands.drivetrainPbot.TestSwerve;
 
 public class OI {
     /*
@@ -101,5 +103,8 @@ public class OI {
          */
 
         // driver controls
+        dBack.and(dDPadDown).onTrue(new Reset0());
+        dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
+        dB.whileTrue(new TestSwerve());
     }
 }
