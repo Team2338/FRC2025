@@ -27,7 +27,5 @@ public class UI {
         diagnosticsTab.addDouble("Swerve fR temp",Robot.swerveDrive::fRDriveTemp);
         diagnosticsTab.addDouble("Swerve rL temp",Robot.swerveDrive::rLDriveTemp);
         diagnosticsTab.addDouble("Swerve rR temp",Robot.swerveDrive::rRDriveTemp);
-
-
     }
 }

@@ -8,9 +8,7 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
-    /**
-     * Creates a new ExampleSubsystem.
-     */
+
     public Diagnostics() {
     }
 
@@ -23,7 +21,6 @@ public class Diagnostics extends SubsystemBase {
 
     public boolean getAnyMotorTempHot() {
         return getDriveMotorTempHot();
-
     }
 
 }

@@ -19,9 +19,6 @@ public class UiSmartDashboard {
     public UiSmartDashboard() {
         ShuffleboardTab tab = Shuffleboard.getTab("SmartDashboard");
         tab.addBoolean("Motor Temp", Robot.diagnostics::getAnyMotorTempHot);
-
-        // Gets a reference to the shuffleboard tab
-
     }
 
     /**
