@@ -2,19 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package team.gif.robot.subsystems;
+package team.gif.robot.subsystems.drivers;
 
 import au.grapplerobotics.CanBridge;
 import au.grapplerobotics.ConfigurationFailedException;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LaserCANSensor extends SubsystemBase {
 
     public LaserCan sensor;
     /** Creates a new ExampleSubsystem. */
-    public LaserCANSensor() {
-        sensor = new LaserCan(2);
+    public LaserCANSensor(int id) {
+        sensor = new LaserCan(id);
 
         try {
             sensor.setRangingMode(LaserCan.RangingMode.SHORT);
