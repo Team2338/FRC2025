@@ -5,9 +5,11 @@
 package team.gif.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.LimelightHelpers;
+import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
@@ -25,11 +27,12 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
-  private static RobotContainer robotContainer;
-  public static Diagnostics diagnostics;
-  public static OI oi;
-  public static UI ui;
-  public static UiSmartDashboard uiSmartDashboard;
+    private static RobotContainer robotContainer;
+    public static Diagnostics diagnostics;
+    public static OI oi;
+    public static UI ui;
+    public static UiSmartDashboard uiSmartDashboard;
+    private static delay chosenDelay;
 
     //Devices
     public static Pigeon2_0 pigeon;
@@ -40,7 +43,8 @@ public class Robot extends TimedRobot {
     public static Shooter shooter;
 
     public static final boolean fullDashboard = true;
-
+    private boolean runAutoScheduler;
+    private Timer elapsedTime;
     /**
     * This function is run when the robot is first started up and should be used for any
     * initialization code.
@@ -48,7 +52,6 @@ public class Robot extends TimedRobot {
     public Robot() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        robotContainer = new RobotContainer();
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightCollector = new Limelight("limelight-collect");
         limelightShooter = new Limelight("limelight-shooter");
@@ -56,13 +59,15 @@ public class Robot extends TimedRobot {
         swerveDrive.setDefaultCommand(new DriveSwerve());
         //  swerveDrive = new SwerveDrivetrainMk4();
         shooter= new Shooter();
+        robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
-
         oi = new OI();
         ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("FRC 2025", "Heading");
         autonomousCommand = new PathPlannerAuto("Straight Line");
+
+        elapsedTime = new Timer();
         //    try {
         //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
         //    } catch (Exception e) {
@@ -103,15 +108,27 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        chosenDelay = uiSmartDashboard.delayChooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
+        elapsedTime.reset();
+        elapsedTime.start();
+        runAutoScheduler = true;
     }
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        if (runAutoScheduler && (elapsedTime.get() > (chosenDelay.getValue()))) {
+            if (autonomousCommand != null) {
+                autonomousCommand.schedule();
+            }
+            runAutoScheduler = false;
+            elapsedTime.stop();
+        }
+    }
 
     @Override
     public void teleopInit() {
