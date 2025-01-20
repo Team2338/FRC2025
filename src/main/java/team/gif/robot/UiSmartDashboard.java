@@ -8,6 +8,8 @@ public class UiSmartDashboard {
 
     private NetworkTable networkTable;
     private NetworkTableEntry motorTempEntry;
+    private NetworkTableEntry tofSensorEntry;
+    private NetworkTableEntry laserCanSensorEntry;
 
     /**
      *  Widgets (e.g. gyro),
@@ -21,6 +23,8 @@ public class UiSmartDashboard {
     public UiSmartDashboard() {
         networkTable = NetworkTableInstance.getDefault().getTable("2338-dashboard");
         motorTempEntry = networkTable.getEntry("Motor Temp");
+        tofSensorEntry = networkTable.getEntry("TOF Sensor");
+        laserCanSensorEntry = networkTable.getEntry("LaserCAN Sensor");
     }
 
     /**
@@ -31,5 +35,7 @@ public class UiSmartDashboard {
      */
     public void updateUI() {
         motorTempEntry.setBoolean(Robot.diagnostics.getAnyMotorTempHot());
+        tofSensorEntry.setDouble(Robot.toFSensor.getDistance());
+        laserCanSensorEntry.setInteger(Robot.laserCANSensor.getDistance());
     }
 }
