@@ -49,6 +49,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isFireReady() {
+        System.out.println("top: " + sensorTop.getDistance() + " bottom: " + sensorBottom.getDistance());
         return (sensorLeftActive() && sensorRightActive());
     }
 
@@ -65,6 +66,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public void moveFromShuffleboard() {
-        shooter.set(TalonSRXControlMode.PercentOutput, shooterSpeed);
+        shooter.set(TalonSRXControlMode.PercentOutput, Constants.Shooter.SPEED_PERCENT);
     }
 }

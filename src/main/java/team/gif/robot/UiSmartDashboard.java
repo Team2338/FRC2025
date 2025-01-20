@@ -71,7 +71,7 @@ public class UiSmartDashboard {
      */
     public void updateUI() {
         motorTempEntry.setBoolean(Robot.diagnostics.getAnyMotorTempHot());
-        tofSensorEntry.setDouble(Robot.toFSensor.getDistance());
-        laserCanSensorEntry.setInteger(Robot.laserCANSensor.getDistance());
+//        tofSensorEntry.setDouble(Robot.toFSensor.getDistance());
+//        laserCanSensorEntry.setInteger(Robot.laserCANSensor.getDistance());
     }
 }

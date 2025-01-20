@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class AutoDriveAndShoot extends Command {
+public class AutoDriveForwardAndShoot extends Command {
 
     private boolean hasTarget;
 
-    public AutoDriveAndShoot() {
+    public AutoDriveForwardAndShoot() {
         super();
         addRequirements(Robot.shooter, Robot.swerveDrive);
 // uncomment
@@ -35,7 +35,7 @@ public class AutoDriveAndShoot extends Command {
         } else {
 //            System.out.println("*** Not Shooting ***");
             if (!hasTarget) {
-                Robot.swerveDrive.drive(-0.15, 0.0, 0.0);
+                Robot.swerveDrive.drive(0.15, 0.0, 0.0);
             }
         }
         System.out.println(Robot.shooter.sensorLeftActive()+" "+Robot.shooter.sensorRightActive() + " " + state);

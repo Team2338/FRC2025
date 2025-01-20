@@ -1,10 +1,12 @@
 package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.AutoDriveAndShoot;
+import team.gif.robot.commands.AutoDriveForwardAndShoot;
 import team.gif.robot.commands.ShooterTurn;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.TestSwerve;
@@ -103,10 +105,11 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
-        dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
+        //dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new ShooterTurn());
-        dX.whileTrue(new AutoDriveAndShoot());
+        dA.whileTrue(new AutoDriveAndShoot());
+        dY.whileTrue(new AutoDriveForwardAndShoot());
     }
 
     public void setRumble(boolean rumble) {
