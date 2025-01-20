@@ -66,6 +66,8 @@ public class Robot extends TimedRobot {
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("FRC 2025", "Heading");
         autonomousCommand = new PathPlannerAuto("Straight Line");
+
+        elapsedTime = new Timer();
         //    try {
         //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
         //    } catch (Exception e) {
@@ -109,8 +111,7 @@ public class Robot extends TimedRobot {
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) {
-           // autonomousCommand.schedule();
-            System.out.println("Autonamos enabled");
+            autonomousCommand.schedule();
         }
         elapsedTime.reset();
         elapsedTime.start();
