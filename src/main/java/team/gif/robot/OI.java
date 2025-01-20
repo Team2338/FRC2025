@@ -108,7 +108,13 @@ public class OI {
         dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new ShooterTurn());
-
-
     }
+
+    public void setRumble(boolean rumble) {
+        driver.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
+        driver.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
+        aux.getHID().setRumble(GenericHID.RumbleType.kLeftRumble, rumble ? 1.0 : 0.0);
+        aux.getHID().setRumble(GenericHID.RumbleType.kRightRumble, rumble ? 1.0 : 0.0);
+    }
+
 }
