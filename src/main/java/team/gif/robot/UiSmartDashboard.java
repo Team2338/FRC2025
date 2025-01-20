@@ -50,8 +50,7 @@ public class UiSmartDashboard {
         delayChooser.addOption("13", delay.DELAY_13);
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
-
-
+        
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
                 .withSize(1, 1)

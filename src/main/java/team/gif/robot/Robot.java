@@ -27,12 +27,12 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
 
-  private static RobotContainer robotContainer;
-  public static Diagnostics diagnostics;
-  public static OI oi;
-  public static UI ui;
-  public static UiSmartDashboard uiSmartDashboard;
-  private static delay chosenDelay;
+    private static RobotContainer robotContainer;
+    public static Diagnostics diagnostics;
+    public static OI oi;
+    public static UI ui;
+    public static UiSmartDashboard uiSmartDashboard;
+    private static delay chosenDelay;
 
     //Devices
     public static Pigeon2_0 pigeon;
