@@ -43,4 +43,10 @@ public abstract class RobotMap {
     //Shooter
     public static final int SHOOTER_ID = 37;
     public static final int INDEXER_ID = 22;
+
+    public static final int SENSOR_LEFT_ID = 2;
+    public static final int SENSOR_RIGHT_ID =65;
+
+
+
 }

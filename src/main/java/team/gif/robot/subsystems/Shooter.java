@@ -11,12 +11,17 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.robot.subsystems.drivers.LaserCANSensor;
+import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
     private ShuffleboardTab tab = Shuffleboard.getTab("FRC 2025");
+    private static LaserCANSensor sensorLeft;
+    private static ToFSensor sensorRight;
     private double shooterSpeed =
             tab.add("Shooter Speed", .5).withWidget(BuiltInWidgets.kNumberSlider)
                     .getEntry().getDouble(0);
@@ -28,6 +33,8 @@ public class Shooter extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_ID);
+        sensorLeft = new LaserCANSensor(RobotMap.SENSOR_LEFT_ID);
+        sensorRight = new ToFSensor(RobotMap.SENSOR_RIGHT_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -38,9 +45,23 @@ public class Shooter extends SubsystemBase {
     }
 
     public void moveMotor(double percentOutput) {
-
         shooter.set(TalonSRXControlMode.PercentOutput, percentOutput);
     }
+
+    public boolean isFireReady() {
+        return sensorLeftActive() && sensorRightActive();
+    }
+
+    public boolean sensorLeftActive() {
+        return sensorLeft.getDistance() < Constants.SENSOR_VALUE;
+    }
+
+    public boolean sensorRightActive() {
+        return sensorRight.getDistance() < Constants.SENSOR_VALUE;
+    }
+
+
+
 
     public void moveIndexerFromShuffleboard() {
         indexer.set(TalonSRXControlMode.PercentOutput, indexerSpeed);

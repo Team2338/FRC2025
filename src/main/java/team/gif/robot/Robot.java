@@ -7,12 +7,12 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import team.gif.lib.LimelightHelpers;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.*;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import team.gif.robot.subsystems.drivers.ToFSensor;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -37,8 +37,6 @@ public class Robot extends TimedRobot {
     public static Shooter shooter;
 
     public static final boolean fullDashboard = true;
-    public static ToFSensor toFSensor;
-    public static LaserCANSensor laserCANSensor;
 
     /**
     * This function is run when the robot is first started up and should be used for any
@@ -56,9 +54,6 @@ public class Robot extends TimedRobot {
         //  swerveDrive = new SwerveDrivetrainMk4();
         shooter= new Shooter();
         diagnostics = new Diagnostics();
-
-        toFSensor = new ToFSensor();
-        laserCANSensor = new LaserCANSensor();
 
         oi = new OI();
         ui = new UI();
@@ -89,7 +84,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
 
-        System.out.println("tof: " + toFSensor.getDistance() + " laser: " + laserCANSensor.getDistance());
 
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
