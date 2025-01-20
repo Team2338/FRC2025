@@ -20,8 +20,8 @@ public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
     private ShuffleboardTab tab = Shuffleboard.getTab("FRC 2025");
-    private static LaserCANSensor sensorLeft;
-    private static ToFSensor sensorRight;
+    private static LaserCANSensor sensorTop;
+    private static ToFSensor sensorBottom;
     private double shooterSpeed =
             tab.add("Shooter Speed", .5).withWidget(BuiltInWidgets.kNumberSlider)
                     .getEntry().getDouble(0);
@@ -33,8 +33,8 @@ public class Shooter extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_ID);
-        sensorLeft = new LaserCANSensor(RobotMap.SENSOR_LEFT_ID);
-        sensorRight = new ToFSensor(RobotMap.SENSOR_RIGHT_ID);
+        sensorTop = new LaserCANSensor(RobotMap.SENSOR_TOP_ID);
+        sensorBottom = new ToFSensor(RobotMap.SENSOR_BOTTOM_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -49,19 +49,16 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isFireReady() {
-        return sensorLeftActive() && sensorRightActive();
+        return (sensorLeftActive() && sensorRightActive());
     }
 
     public boolean sensorLeftActive() {
-        return sensorLeft.getDistance() < Constants.SENSOR_VALUE;
+        return sensorTop.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
     }
 
     public boolean sensorRightActive() {
-        return sensorRight.getDistance() < Constants.SENSOR_VALUE;
+        return sensorBottom.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
     }
-
-
-
 
     public void moveIndexerFromShuffleboard() {
         indexer.set(TalonSRXControlMode.PercentOutput, indexerSpeed);
@@ -70,5 +67,4 @@ public class Shooter extends SubsystemBase {
     public void moveFromShuffleboard() {
         shooter.set(TalonSRXControlMode.PercentOutput, shooterSpeed);
     }
-
 }

@@ -1,13 +1,12 @@
 package team.gif.robot.commands;
 
-import com.fasterxml.jackson.databind.introspect.ConcreteBeanPropertyBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class OnButtonPress extends Command {
+public class AutoDriveAndShoot extends Command {
 
-    public OnButtonPress() {
+    public AutoDriveAndShoot() {
         super();
         addRequirements(Robot.shooter); // uncomment
     }
@@ -19,8 +18,8 @@ public class OnButtonPress extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.isFireReady() == true) {
-            Robot.shooter.moveMotor(Constants.SHOOTER_SPEED_PERCENT);
+        if (Robot.shooter.isFireReady()) {
+            Robot.shooter.moveMotor(Constants.Shooter.SPEED_PERCENT);
         }
     }
 
@@ -32,5 +31,5 @@ public class OnButtonPress extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) { Robot.shooter.moveFromShuffleboard(); }
+    public void end(boolean interrupted) { Robot.shooter.moveMotor(0); }
 }
