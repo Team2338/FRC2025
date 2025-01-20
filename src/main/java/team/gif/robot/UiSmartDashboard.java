@@ -3,6 +3,7 @@ package team.gif.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,7 +48,8 @@ public class UiSmartDashboard {
 
         shuffleboardTab.add("Delay", delayChooser)
                 .withPosition(7, 0)
-                .withSize(1, 1);
+                .withSize(1, 1)
+                .withWidget(BuiltInWidgets.kTextView);
     }
 
     /**
