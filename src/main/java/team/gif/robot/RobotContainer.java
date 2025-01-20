@@ -4,7 +4,12 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.Shoot;
@@ -17,6 +22,9 @@ import team.gif.robot.commands.Shoot;
  */
 public class RobotContainer {
 
+    private final SendableChooser<Command> autoChooser;
+
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
 
@@ -25,7 +33,17 @@ public class RobotContainer {
 
         // Configure the trigger bindings
         configureBindings();
+
+        //builds auto chooser
+        autoChooser = AutoBuilder.buildAutoChooser("Mobility");
+        SmartDashboard.putData("Auto Chooser", autoChooser);
     }
+
+    public Command getAutonomousCommand() {
+        return autoChooser.getSelected();
+    }
+
+
 
     /**
      * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -38,4 +56,6 @@ public class RobotContainer {
      */
     private void configureBindings() {
     }
+
+
 }

@@ -3,7 +3,9 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 
 public class UiSmartDashboard {
 
@@ -19,6 +21,8 @@ public class UiSmartDashboard {
     public UiSmartDashboard() {
         ShuffleboardTab tab = Shuffleboard.getTab("SmartDashboard"); // Gets a reference to the shuffleboard tab
     }
+
+    //adds autos to select
 
     /**
      * Values which are updated periodically should be placed here
