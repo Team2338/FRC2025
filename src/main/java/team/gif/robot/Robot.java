@@ -31,7 +31,6 @@ public class Robot extends TimedRobot {
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
     public static OI oi;
-    public static UI ui;
     public static UiSmartDashboard uiSmartDashboard;
     private static delay chosenDelay;
 
@@ -68,6 +67,7 @@ public class Robot extends TimedRobot {
         autonomousCommand = new PathPlannerAuto("Straight Line");
 
         elapsedTime = new Timer();
+
         //    try {
         //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
         //    } catch (Exception e) {

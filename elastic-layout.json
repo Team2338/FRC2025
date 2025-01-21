@@ -10,8 +10,8 @@
           {
             "title": "Delay",
             "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
+            "y": 384.0,
+            "width": 128.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
             "properties": {
@@ -22,8 +22,8 @@
           },
           {
             "title": "Auto Chooser",
-            "x": 0.0,
-            "y": 128.0,
+            "x": 128.0,
+            "y": 384.0,
             "width": 256.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
@@ -34,36 +34,8 @@
             }
           },
           {
-            "title": "Indexer Speed",
-            "x": 0.0,
-            "y": 256.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Indexer Speed",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
-            "title": "Shooter Speed",
-            "x": 128.0,
-            "y": 256.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Shooter Speed",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
             "title": "Heading",
-            "x": 256.0,
+            "x": 1280.0,
             "y": 0.0,
             "width": 256.0,
             "height": 256.0,
@@ -72,6 +44,23 @@
               "topic": "/SmartDashboard/Heading",
               "period": 0.06,
               "counter_clockwise_positive": false
+            }
+          },
+          {
+            "title": "Motor Temp",
+            "x": 1152.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/2338-dashboard/Motor Temp",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
             }
           }
         ]
@@ -459,6 +448,48 @@
               "period": 0.06,
               "data_type": "double",
               "show_submit_button": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Development",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Indexer Speed",
+            "x": 640.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Development/Indexer Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 0.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          },
+          {
+            "title": "Shooter Speed",
+            "x": 640.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Development/Shooter Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 0.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
             }
           }
         ]

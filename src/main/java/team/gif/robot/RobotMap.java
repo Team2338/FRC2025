@@ -43,4 +43,10 @@ public abstract class RobotMap {
     //Shooter
     public static final int SHOOTER_ID = 37;
     public static final int INDEXER_ID = 22;
+
+    //UI
+    public static final class UI {
+        public static final String SHOOTER_PERC = "Shooter %";
+        public static final String INDEXER_PERC = "Indexer Speed";
+    }
 }

@@ -17,9 +17,6 @@ import team.gif.robot.RobotMap;
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
-    private double shooterSpeed;
-    private double indexerSpeed;
-
 
     /** Creates a new ExampleSubsystem. */
     public Shooter() {
@@ -32,23 +29,19 @@ public class Shooter extends SubsystemBase {
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
-        SmartDashboard.putNumber("Shooter Speed", 0);
-        SmartDashboard.putNumber("Indexer Speed", 0);
-        shooterSpeed = SmartDashboard.getNumber("Shooter Speed", 0);
-        indexerSpeed = SmartDashboard.getNumber("Indexer Speed", 0);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0);
+        SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
     }
 
     public void moveMotor(double percentOutput) {
-
         shooter.set(TalonSRXControlMode.PercentOutput, percentOutput);
     }
 
     public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, indexerSpeed);
+        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
     }
 
     public void moveFromShuffleboard() {
-        shooter.set(TalonSRXControlMode.PercentOutput, shooterSpeed);
+        moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
     }
-
 }
