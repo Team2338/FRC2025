@@ -63,9 +63,8 @@ public class Robot extends TimedRobot {
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
-        ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
-        pigeon.addToShuffleboard("FRC 2025", "Heading");
+        pigeon.addToShuffleboard("Heading");
         autonomousCommand = new PathPlannerAuto("Straight Line");
 
         elapsedTime = new Timer();

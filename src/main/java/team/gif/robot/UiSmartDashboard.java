@@ -30,7 +30,6 @@ public class UiSmartDashboard {
      *  and save file as "YYYY shuffleboard layout.json"
      */
     public UiSmartDashboard() {
-        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
         networkTable = NetworkTableInstance.getDefault().getTable("2338-dashboard");
         motorTempEntry = networkTable.getEntry("Motor Temp");
 
@@ -50,11 +49,10 @@ public class UiSmartDashboard {
         delayChooser.addOption("13", delay.DELAY_13);
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
-        
-        shuffleboardTab.add("Delay", delayChooser)
-                .withPosition(7, 0)
-                .withSize(1, 1)
-                .withWidget(BuiltInWidgets.kTextView);
+
+        SmartDashboard.putData("Delay", delayChooser);
+
+
     }
 
     //adds autos to select
@@ -66,6 +64,17 @@ public class UiSmartDashboard {
      *     elevatorPosEntry.setString(String.format("%11.2f", Elevator.getPosition());
      */
     public void updateUI() {
+        // Main Dashboard
         motorTempEntry.setBoolean(Robot.diagnostics.getAnyMotorTempHot());
+
+        updateDiagnostics();
+
+    }
+
+    public void updateDiagnostics() {
+        SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
     }
 }
