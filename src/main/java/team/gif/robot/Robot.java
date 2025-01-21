@@ -109,13 +109,19 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
+
+        // run scheduler immediately if no delay is selected
+        if (chosenDelay.getValue() == 0) {
+            if (autonomousCommand != null) {
+                autonomousCommand.schedule();
+            }
+            runAutoScheduler = false;
+        } else {
+            // invoke delay
+            elapsedTime.reset();
+            elapsedTime.start();
+            runAutoScheduler = true;
         }
-        elapsedTime.reset();
-        elapsedTime.start();
-        runAutoScheduler = true;
     }
 
     /** This function is called periodically during autonomous. */
