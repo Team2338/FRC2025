@@ -64,16 +64,8 @@ public class Robot extends TimedRobot {
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
-        autonomousCommand = new PathPlannerAuto("Straight Line");
 
         elapsedTime = new Timer();
-
-        //    try {
-        //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
-        //    } catch (Exception e) {
-        //      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
-        //      autonomousCommand =  Commands.none();
-        //    }
     }
 
     /**
@@ -108,6 +100,7 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
 
         // run scheduler immediately if no delay is selected
