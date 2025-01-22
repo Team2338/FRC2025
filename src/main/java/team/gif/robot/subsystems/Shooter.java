@@ -29,7 +29,7 @@ public class Shooter extends SubsystemBase {
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
-        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.4);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
     }
 
