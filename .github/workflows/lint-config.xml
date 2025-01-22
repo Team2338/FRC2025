@@ -9,5 +9,7 @@
         <property name="fileExtensions" value="java" />
         <property name="tabWidth" value="4" />
         <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+
     </module>
 </module>

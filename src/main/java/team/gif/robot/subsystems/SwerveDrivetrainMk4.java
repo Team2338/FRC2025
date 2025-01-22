@@ -23,7 +23,13 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.drivers.swerve.*;
+import team.gif.robot.subsystems.drivers.swerve.CANCoderEncoder;
+import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.Encoder;
+import team.gif.robot.subsystems.drivers.swerve.SparkMaxDriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
+import team.gif.robot.subsystems.drivers.swerve.TalonSRXTurnMotorEncoder;
+import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
 
 /**
  * @author Rohan Cherukuri
