@@ -1,0 +1,7 @@
+<module name="Checker">
+    <property name="basedir" value="src/main/java/team/gif" />
+    <property name="fileExtensions" value="java" />
+    <module name="TreeWalker">
+        <property name="tabWidth" value="4" />
+    </module>
+</module>
