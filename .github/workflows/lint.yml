@@ -33,3 +33,4 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JAVA: true
+          JAVA_FILE_NAME: lint-config.xml
