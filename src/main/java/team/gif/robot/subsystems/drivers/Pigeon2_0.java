@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pigeon2_0 extends SubsystemBase {
@@ -18,13 +19,10 @@ public class Pigeon2_0 extends SubsystemBase {
         _pigeon = new Pigeon2(PigeonID);
     }
 
-    public void addToShuffleboard(String tabName, String widgetTitle) {
-        // Puts a Gyro type widget on dashboard and assigns
-        // the function getHeading_Shuffleboard
-        ShuffleboardTab tab = Shuffleboard.getTab(tabName);
-        tab.add(widgetTitle, (x) -> {
-            x.setSmartDashboardType("Gyro");
-            x.addDoubleProperty("Value", this::getCompassHeading, null);
+    public void addToShuffleboard(String widgetTitle) {
+        SmartDashboard.putData(widgetTitle, builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", this::getCompassHeading, null);
         });
     }
 

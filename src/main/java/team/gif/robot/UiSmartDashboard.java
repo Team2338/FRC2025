@@ -1,39 +1,23 @@
 package team.gif.robot;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import team.gif.lib.delay;
 
 public class UiSmartDashboard {
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
-    private NetworkTable networkTable;
-    private NetworkTableEntry motorTempEntry;
 
     /**
-     *  Widgets (e.g. gyro),
+     *  Widgets (e.g. gyro, text, True/False flags),
      *  buttons (e.g. SmartDashboard.putData("Reset", new ResetHeading()); ),
-     *  and Chooser options (e.g. auto mode)
+     *  and Chooser options (e.g. auto mode, auto delay)
      *
-     *  Placed in 2338-dashboard network table
-     *  After SmartDashboard loads for the first time, move items from network table onto Dashboard tab
-     *  and save file as "YYYY shuffleboard layout.json"
+     *  Placed in SmartDashboard network table
+     *  After dashboard loads for the first time, manually move items from network table onto respective dashboard tab
+     *  and save file as "YYYY elastic-layout.json"
      */
     public UiSmartDashboard() {
-        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
-        networkTable = NetworkTableInstance.getDefault().getTable("2338-dashboard");
-        motorTempEntry = networkTable.getEntry("Motor Temp");
-
+        // add delay chooser to dashboard
         delayChooser.setDefaultOption("0", delay.DELAY_0);
         delayChooser.addOption("1", delay.DELAY_1);
         delayChooser.addOption("2", delay.DELAY_2);
@@ -50,22 +34,28 @@ public class UiSmartDashboard {
         delayChooser.addOption("13", delay.DELAY_13);
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
-        
-        shuffleboardTab.add("Delay", delayChooser)
-                .withPosition(7, 0)
-                .withSize(1, 1)
-                .withWidget(BuiltInWidgets.kTextView);
+        SmartDashboard.putData("Delay", delayChooser);
     }
 
     //adds autos to select
 
     /**
-     * Values which are updated periodically should be placed here
+     * Widgets which are updated periodically should be placed here
      *
      * Convenient way to format a number is to use putString w/ format:
      *     elevatorPosEntry.setString(String.format("%11.2f", Elevator.getPosition());
      */
     public void updateUI() {
-        motorTempEntry.setBoolean(Robot.diagnostics.getAnyMotorTempHot());
+        // Update Main Dashboard
+        SmartDashboard.putBoolean("Motor Temp", Robot.diagnostics.getAnyMotorTempHot());
+
+        // Update Developer Tab
+        SmartDashboard.putString("Selected Shooter %", String.format("%11.2f", SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0)));
+
+        // Update Diagnostics tab
+        SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
+        SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
     }
 }

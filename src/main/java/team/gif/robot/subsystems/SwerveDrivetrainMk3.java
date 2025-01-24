@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.lib.drivePace;
 import team.gif.lib.logging.TelemetryFileLogger;
@@ -143,9 +144,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
         drivePace = drivePace.COAST_FR;
 
-        if(Robot.fullDashboard) {
-            enableShuffleboardDebug("Swerve");
-        }
 
         //Autos stuff
         //TODO: put this in constants. need to ref api docs
@@ -245,6 +243,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
 //                           "  Y "+ String.format("%3.2f", Robot.swervetrain.getPose().getY()) +
 //                           "  R "+ String.format("%3.2f", Robot.swervetrain.getPose().getRotation().getDegrees()));
+
+        if (Robot.fullDashboard) {
+            updateShuffleboardDebug("Swerve");
+        }
+
     }
 
     /**
@@ -421,36 +424,50 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     public double rLDriveTemp() { return rLDriveMotor.getTemp(); }
     public double rRDriveTemp() { return rRDriveMotor.getTemp(); }
 
-    public void enableShuffleboardDebug(String shuffleboardTabName) {
-        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
+    public void updateShuffleboardDebug(String shuffleboardTabName) {
 
-        /*
-        shuffleboardTab.addDouble("FL Heading", fL::getTurningHeadingDegrees).withPosition(0,0).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("FR Heading", fR::getTurningHeadingDegrees).withPosition(2,0).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("RR Heading", rR::getTurningHeadingDegrees).withPosition(2,2).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("RL Heading", rL::getTurningHeadingDegrees).withPosition(0,2).withWidget(BuiltInWidgets.kGyro);
+//        SmartDashboard.putNumber(shuffleboardTabName + "/FL Heading", fL.getTurningHeadingDegrees());
+//        SmartDashboard.putNumber(shuffleboardTabName + "/FR Heading", fR.getTurningHeadingDegrees());
+//        SmartDashboard.putNumber(shuffleboardTabName + "/RL Heading", rL.getTurningHeadingDegrees());
+//        SmartDashboard.putNumber(shuffleboardTabName + "/RR Heading", rR.getTurningHeadingDegrees());
 
-        shuffleboardTab.addDouble("FR Raw Degrees", fR::encoderDegrees).withPosition(5,0);
-        shuffleboardTab.addDouble("FL Raw Degrees", fL::encoderDegrees).withPosition(4,0);
-        shuffleboardTab.addDouble("RR Raw Degrees", rR::encoderDegrees).withPosition(5,1);
-        shuffleboardTab.addDouble("RL Raw Degrees", rL::encoderDegrees).withPosition(4,1);
+        SmartDashboard.putData(shuffleboardTabName + "/FL Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", fL::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/FR Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", fR::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/RL Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", rL::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/RR Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", rR::getTurningHeadingDegrees, null);
+        });
 
-        shuffleboardTab.addDouble("FL Raw Encoder", fLEncoder::getTicks).withPosition(8,0);
-        shuffleboardTab.addDouble("FR Raw Encoder", fREncoder::getTicks).withPosition(9,0);
-        shuffleboardTab.addDouble("RL Raw Encoder", rLEncoder::getTicks).withPosition(8,1);
-        shuffleboardTab.addDouble("RR Raw Encoder", rREncoder::getTicks).withPosition(9,1);
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Degrees", fR.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Degrees", fL.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Degrees", rR.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Degrees", rL.encoderDegrees());
 
-        shuffleboardTab.addDouble("FR Raw Radians", fR::getTurningHeading).withPosition(7,0);
-        shuffleboardTab.addDouble("FL Raw Radians", fL::getTurningHeading).withPosition(6,0);
-        shuffleboardTab.addDouble("RR Raw Radians", rR::getTurningHeading).withPosition(7,1);
-        shuffleboardTab.addDouble("RL Raw Radians", rL::getTurningHeading).withPosition(6,1);
-        */
-        shuffleboardTab.addDouble("FL Drive Encoder", fLDriveMotor::getPosition).withPosition(4, 2).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("FR Drive Encoder", fRDriveMotor::getPosition).withPosition(5, 2).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("RL Drive Encoder", rLDriveMotor::getPosition).withPosition(4, 3).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("RR Drive Encoder", rRDriveMotor::getPosition).withPosition(5, 3).withWidget(BuiltInWidgets.kTextView);
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Encoder", fLEncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Encoder", fREncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Encoder", rLEncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Encoder", rREncoder.getTicks());
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Radians", fR.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Radians", fL.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Radians", rR.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Radians", rL.getTurningHeading());
+
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Drive Encoder", fLDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Drive Encoder", fRDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Drive Encoder", rLDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Drive Encoder", rRDriveMotor.getPosition());
 
         //TODO: Add target to shuffleboard
     }
