@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
     public static OI oi;
-    public static UI ui;
     public static UiSmartDashboard uiSmartDashboard;
     private static delay chosenDelay;
 
@@ -61,18 +60,10 @@ public class Robot extends TimedRobot {
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
-        ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
-        pigeon.addToShuffleboard("FRC 2025", "Heading");
-        autonomousCommand = new PathPlannerAuto("Straight Line");
+        pigeon.addToShuffleboard("Heading");
 
         elapsedTime = new Timer();
-        //    try {
-        //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
-        //    } catch (Exception e) {
-        //      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
-        //      autonomousCommand =  Commands.none();
-        //    }
     }
 
     /**
@@ -107,14 +98,21 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
+
+        // run scheduler immediately if no delay is selected
+        if (chosenDelay.getValue() == 0) {
+            if (autonomousCommand != null) {
+                autonomousCommand.schedule();
+            }
+            runAutoScheduler = false;
+        } else {
+            // invoke delay
+            elapsedTime.reset();
+            elapsedTime.start();
+            runAutoScheduler = true;
         }
-        elapsedTime.reset();
-        elapsedTime.start();
-        runAutoScheduler = true;
     }
 
     /** This function is called periodically during autonomous. */

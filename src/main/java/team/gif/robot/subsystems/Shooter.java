@@ -10,20 +10,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
-    private ShuffleboardTab tab = Shuffleboard.getTab("FRC 2025");
-    private double shooterSpeed =
-            tab.add("Shooter Speed", .5).withWidget(BuiltInWidgets.kNumberSlider)
-                    .getEntry().getDouble(0);
-    private double indexerSpeed =
-            tab.add("Indexer Speed", .22).withWidget(BuiltInWidgets.kNumberSlider)
-                    .getEntry().getDouble(0);
-
 
     /** Creates a new ExampleSubsystem. */
     public Shooter() {
@@ -35,19 +28,20 @@ public class Shooter extends SubsystemBase {
         indexer= new TalonSRX(RobotMap.INDEXER_ID);
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
+
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.4);
+        SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
     }
 
     public void moveMotor(double percentOutput) {
-
         shooter.set(TalonSRXControlMode.PercentOutput, percentOutput);
     }
 
     public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, indexerSpeed);
+        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
     }
 
     public void moveFromShuffleboard() {
-        shooter.set(TalonSRXControlMode.PercentOutput, shooterSpeed);
+        moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
     }
-
 }
