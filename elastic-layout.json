@@ -54,11 +54,11 @@
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
-              "topic": "/2338-dashboard/Motor Temp",
+              "topic": "/SmartDashboard/Motor Temp",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
+              "true_color": 4294247717,
+              "false_color": 4279537940,
               "true_icon": "None",
               "false_icon": "None"
             }
