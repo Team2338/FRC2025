@@ -16,7 +16,6 @@ import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
