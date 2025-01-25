@@ -476,14 +476,14 @@
             }
           },
           {
-            "title": "Shooter Speed",
+            "title": "Shooter %",
             "x": 640.0,
             "y": 128.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Number Slider",
             "properties": {
-              "topic": "/SmartDashboard/Development/Shooter Speed",
+              "topic": "/SmartDashboard/Shooter %",
               "period": 0.06,
               "data_type": "double",
               "min_value": 0.0,
