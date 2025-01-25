@@ -29,6 +29,7 @@ public class Diagnostics extends SubsystemBase {
     public boolean getAnyMotorTempHotFlash() {
         final int FLASH_PERIOD_CYCLES = 40; // number of 20 msec cycles (50 = 1 sec)
 
+        
         if (!getAnyMotorTempHot()) {
             // if the temps are all good, just return false
             return false;
