@@ -27,16 +27,14 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getAnyMotorTempHotFlash() {
-        final int FLASH_PERIOD_CYCLES = 40; // number of 20 msec cycles (50 = 1 sec)
+        final int FLASH_CYCLES = 30; //number of 20ms intervals in a period
 
-        
+        // if all motors cool return false
         if (!getAnyMotorTempHot()) {
-            // if the temps are all good, just return false
             return false;
-        } else {
-            // if the temps are hot, use a 50% duty cycle to flash between true/false over FLASH_PERIOD_CYCLES
-            ++flashCounter;
-            return flashCounter % FLASH_PERIOD_CYCLES < (FLASH_PERIOD_CYCLES/2);
         }
+        // if at least 1 motor hot, flash with 50% duty cycle
+        return ++flashCounter % FLASH_CYCLES < FLASH_CYCLES/2;
     }
 }
+
