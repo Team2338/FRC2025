@@ -9,7 +9,7 @@ import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
 
-    static int flashCounter;
+    private static int flashCounter;
 
     public Diagnostics() {
         flashCounter = 0;
