@@ -8,8 +8,7 @@ public class Shoot extends Command {
 
     public Shoot() {
         super();
-        //addRequirements(Robot.climber); // uncomment
-//        addRequirements(Robot.shooter); // uncomment
+        addRequirements(Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
@@ -21,7 +20,7 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.moveMotor(.5);
+        Robot.shooter.runShooterMotor();
         System.out.println("Shooting");
         counter++;
     }
@@ -35,6 +34,6 @@ public class Shoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveMotor(0);
+        Robot.shooter.stopShooterMotor();
     }
 }

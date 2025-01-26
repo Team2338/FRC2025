@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        shooter.moveIndexerFromShuffleboard();
+        shooter.runIndexerMotor();
 
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
