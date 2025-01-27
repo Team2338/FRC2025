@@ -42,6 +42,8 @@ public class Robot extends TimedRobot {
     public static final boolean fullDashboard = true;
     private boolean runAutoScheduler;
     private Timer elapsedTime;
+    private int counter =0;
+
     /**
     * This function is run when the robot is first started up and should be used for any
     * initialization code.
@@ -62,6 +64,9 @@ public class Robot extends TimedRobot {
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
 
+        // Add a second periodic function to remove non-essential updates from the main scheduler
+        addPeriodic(this::secondPeriodic, 0.5, 0.05);
+
         elapsedTime = new Timer();
     }
 
@@ -79,7 +84,6 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        uiSmartDashboard.updateUI();
 
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
@@ -145,6 +149,11 @@ public class Robot extends TimedRobot {
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
+    }
+
+    public void secondPeriodic() {
+        System.out.println(++counter);
+        uiSmartDashboard.updateUI();
     }
 
     @Override

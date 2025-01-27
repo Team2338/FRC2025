@@ -26,7 +26,7 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getAnyMotorTempHotFlash() {
-        final int FLASH_CYCLE = 30; //number of 20ms intervals in a period
+        final int FLASH_CYCLE = 2; //number of 500ms intervals in a period
 
         // if all motors cool return false
         if (!getAnyMotorTempHot()) {
