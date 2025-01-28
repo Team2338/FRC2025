@@ -286,4 +286,5 @@ public final class Constants {
     }
 
     public static final double SHOOTER_SPEED_PERCENT = .50;
+    public static final double SHOOTER_SPEED_GRAB_PERCENT= .15;
 }
