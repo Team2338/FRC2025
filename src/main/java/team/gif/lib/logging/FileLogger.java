@@ -2,7 +2,12 @@ package team.gif.lib.logging;
 
 import edu.wpi.first.wpilibj.Timer;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Flushable;
+import java.io.IOException;
+
 
 /**
  * @author Patrick Ubelhor

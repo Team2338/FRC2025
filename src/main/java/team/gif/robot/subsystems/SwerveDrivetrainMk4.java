@@ -6,13 +6,14 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.*;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.lib.drivePace;
@@ -20,7 +21,13 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.drivers.swerve.*;
+import team.gif.robot.subsystems.drivers.swerve.CANCoderEncoder;
+import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.Encoder;
+import team.gif.robot.subsystems.drivers.swerve.SparkMaxDriveMotor;
+import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
+import team.gif.robot.subsystems.drivers.swerve.TalonSRXTurnMotorEncoder;
+import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
 
 /**
  * @author Rohan Cherukuri

@@ -54,11 +54,11 @@
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
-              "topic": "/2338-dashboard/Motor Temp",
+              "topic": "/SmartDashboard/Motor Temp",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
+              "true_color": 4294247717,
+              "false_color": 4279537940,
               "true_icon": "None",
               "false_icon": "None"
             }
@@ -476,14 +476,14 @@
             }
           },
           {
-            "title": "Shooter Speed",
+            "title": "Shooter %",
             "x": 640.0,
             "y": 128.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Number Slider",
             "properties": {
-              "topic": "/SmartDashboard/Development/Shooter Speed",
+              "topic": "/SmartDashboard/Shooter %",
               "period": 0.06,
               "data_type": "double",
               "min_value": 0.0,
