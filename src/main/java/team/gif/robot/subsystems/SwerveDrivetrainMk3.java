@@ -61,14 +61,14 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     // Network Table publishers for the swerve
     // states so that we can use them in advantage scope
-    private StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
-            .getStructArrayTopic("TargetSwerveState", SwerveModuleState.struct).publish();
-    private StructArrayPublisher<SwerveModuleState> actualPublisher = NetworkTableInstance.getDefault()
-            .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
-    private StructPublisher<Pose2d> posePublisher = NetworkTableInstance.getDefault()
-            .getStructTopic("EstimatedPose", Pose2d.struct).publish();
-    private StructPublisher<ChassisSpeeds> chassisSpeedsStructPublisher = NetworkTableInstance.getDefault()
-            .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
+//    private StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
+//            .getStructArrayTopic("TargetSwerveState", SwerveModuleState.struct).publish();
+//    private StructArrayPublisher<SwerveModuleState> actualPublisher = NetworkTableInstance.getDefault()
+//            .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
+//    private StructPublisher<Pose2d> posePublisher = NetworkTableInstance.getDefault()
+//            .getStructTopic("EstimatedPose", Pose2d.struct).publish();
+//    private StructPublisher<ChassisSpeeds> chassisSpeedsStructPublisher = NetworkTableInstance.getDefault()
+//            .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
 
 
 
@@ -215,8 +215,8 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
         LimelightHelpers.PoseEstimate collectEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-collect");
         LimelightHelpers.PoseEstimate shooterEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-shooter");
-        boolean ignoreCollectEstimate = true;
-        boolean ignoreShooterEstimate = true;
+        boolean ignoreCollectEstimate = false; //true
+        boolean ignoreShooterEstimate = false; //true
 
         //TODO ignore both if yaw rate is over 720º/s
         if(collectEstimate != null && collectEstimate.tagCount > 0) {
@@ -238,7 +238,9 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                     shooterEstimate.timestampSeconds);
         }
 
-        posePublisher.set(poseEstimator.getEstimatedPosition());
+//        posePublisher.set(poseEstimator.getEstimatedPosition());
+
+
         //TODO SwerveAuto can remove after PID constants are finalized and autos are running well
 //        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
 //                           "  Y "+ String.format("%3.2f", Robot.swervetrain.getPose().getY()) +
@@ -283,9 +285,9 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
 
-        SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
-        targetPublisher.set(swerveModuleStates);
-        actualPublisher.set(actualStates);
+//        SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
+//        targetPublisher.set(swerveModuleStates);
+//        actualPublisher.set(actualStates);
         setModuleStates(swerveModuleStates);
     }
 
@@ -320,8 +322,8 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         fR.setDesiredState(swerveModuleStates[1]);
         rL.setDesiredState(swerveModuleStates[2]);
         rR.setDesiredState(swerveModuleStates[3]);
-        chassisSpeedsStructPublisher.set(chassisSpeeds);
-        targetPublisher.set(swerveModuleStates);
+//        chassisSpeedsStructPublisher.set(chassisSpeeds);
+//        targetPublisher.set(swerveModuleStates);
     }
 
     /**
@@ -431,22 +433,22 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        SmartDashboard.putNumber(shuffleboardTabName + "/RL Heading", rL.getTurningHeadingDegrees());
 //        SmartDashboard.putNumber(shuffleboardTabName + "/RR Heading", rR.getTurningHeadingDegrees());
 
-        SmartDashboard.putData(shuffleboardTabName + "/FL Heading", builder -> {
-            builder.setSmartDashboardType("Gyro");
-            builder.addDoubleProperty("Value", fL::getTurningHeadingDegrees, null);
-        });
-        SmartDashboard.putData(shuffleboardTabName + "/FR Heading", builder -> {
-            builder.setSmartDashboardType("Gyro");
-            builder.addDoubleProperty("Value", fR::getTurningHeadingDegrees, null);
-        });
-        SmartDashboard.putData(shuffleboardTabName + "/RL Heading", builder -> {
-            builder.setSmartDashboardType("Gyro");
-            builder.addDoubleProperty("Value", rL::getTurningHeadingDegrees, null);
-        });
-        SmartDashboard.putData(shuffleboardTabName + "/RR Heading", builder -> {
-            builder.setSmartDashboardType("Gyro");
-            builder.addDoubleProperty("Value", rR::getTurningHeadingDegrees, null);
-        });
+//        SmartDashboard.putData(shuffleboardTabName + "/FL Heading", builder -> {
+//            builder.setSmartDashboardType("Gyro");
+//            builder.addDoubleProperty("Value", fL::getTurningHeadingDegrees, null);
+//        });
+//        SmartDashboard.putData(shuffleboardTabName + "/FR Heading", builder -> {
+//            builder.setSmartDashboardType("Gyro");
+//            builder.addDoubleProperty("Value", fR::getTurningHeadingDegrees, null);
+//        });
+//        SmartDashboard.putData(shuffleboardTabName + "/RL Heading", builder -> {
+//            builder.setSmartDashboardType("Gyro");
+//            builder.addDoubleProperty("Value", rL::getTurningHeadingDegrees, null);
+//        });
+//        SmartDashboard.putData(shuffleboardTabName + "/RR Heading", builder -> {
+//            builder.setSmartDashboardType("Gyro");
+//            builder.addDoubleProperty("Value", rR::getTurningHeadingDegrees, null);
+//        });
 
 
         SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Degrees", fR.encoderDegrees());

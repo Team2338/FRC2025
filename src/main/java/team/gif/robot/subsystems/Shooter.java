@@ -22,9 +22,9 @@ public class Shooter extends SubsystemBase {
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
 
-        indexer= new TalonSRX(RobotMap.INDEXER_ID);
-        indexer.configFactoryDefault();
-        indexer.setNeutralMode(NeutralMode.Coast);
+//        indexer= new TalonSRX(RobotMap.INDEXER_ID);
+//        indexer.configFactoryDefault();
+//        indexer.setNeutralMode(NeutralMode.Coast);
 
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.4);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
@@ -33,10 +33,10 @@ public class Shooter extends SubsystemBase {
     public void moveMotor(double percentOutput) {
         shooter.set(TalonSRXControlMode.PercentOutput, percentOutput);
     }
-
-    public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
-    }
+//
+//    public void moveIndexerFromShuffleboard() {
+//        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
+//    }
 
     public void moveFromShuffleboard() {
         moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));

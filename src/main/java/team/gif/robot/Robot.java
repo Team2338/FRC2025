@@ -7,6 +7,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
@@ -39,7 +40,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelightShooter;
     public static Shooter shooter;
 
-    public static final boolean fullDashboard = true;
+    public static final boolean fullDashboard = false;
     private boolean runAutoScheduler;
     private Timer elapsedTime;
     private int counter =0;
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot {
         limelightShooter = new Limelight("limelight-shooter");
         swerveDrive = new SwerveDrivetrainMk3();
         swerveDrive.setDefaultCommand(new DriveSwerve());
-        //  swerveDrive = new SwerveDrivetrainMk4();
+
         shooter= new Shooter();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
@@ -68,6 +69,7 @@ public class Robot extends TimedRobot {
         addPeriodic(this::secondPeriodic, 0.5, 0.05);
 
         elapsedTime = new Timer();
+
     }
 
     /**
@@ -87,8 +89,7 @@ public class Robot extends TimedRobot {
 
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
-        limelightCollector.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
+
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -144,7 +145,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        shooter.moveIndexerFromShuffleboard();
+//        shooter.moveIndexerFromShuffleboard();
 
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
@@ -152,8 +153,10 @@ public class Robot extends TimedRobot {
     }
 
     public void secondPeriodic() {
-        System.out.println(++counter);
+//        System.out.println(++counter);
         uiSmartDashboard.updateUI();
+        limelightCollector.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
+        limelightShooter.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
     }
 
     @Override
