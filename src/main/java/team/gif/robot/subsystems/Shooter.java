@@ -71,6 +71,10 @@ public class Shooter extends SubsystemBase {
         runIndexerMotor(SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
     }
 
+    /**
+     * temporary method to run stage from value in dashboard
+     * @return value entered by user in dashboard
+     */
     public double getStagePercent() {
         return SmartDashboard.getNumber(RobotMap.UI.STAGE_PERC, 0);
     }

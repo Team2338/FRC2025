@@ -21,7 +21,6 @@ public class Shoot extends Command {
     @Override
     public void execute() {
         Robot.shooter.runShooterMotor();
-        System.out.println("Shooting");
         counter++;
     }
 

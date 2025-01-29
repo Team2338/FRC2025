@@ -24,23 +24,21 @@ public class StageCoral extends Command {
         boolean isIndexerSensorActive = Robot.shooter.getIndexerSensorState();
         boolean isExitSensorActive = Robot.shooter.getExitSensorState();
 
-        System.out.println(isIndexerSensorActive+" "+isExitSensorActive);
-
         //if both not active, don't move
         if (!isExitSensorActive && !isIndexerSensorActive) {
-            Robot.shooter.moveMotor(0);
+            Robot.shooter.stopShooterMotor();
             return;
         }
 
         //if only indexer sensor active, move
         if (!isExitSensorActive && isIndexerSensorActive) {
-            Robot.shooter.moveMotor(Robot.shooter.getStagePercent());
+            Robot.shooter.runShooterMotor(Robot.shooter.getStagePercent());
             return;
         }
 
         //if shooter sensor active, stop
         if (isExitSensorActive) {
-            Robot.shooter.moveMotor(0);
+            Robot.shooter.stopShooterMotor();
         }
     }
 
@@ -53,7 +51,7 @@ public class StageCoral extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveMotor(0);
+        Robot.shooter.stopShooterMotor();
         Robot.shooter.setShooterCoastMode();
     }
 }
