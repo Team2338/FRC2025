@@ -42,7 +42,7 @@ public abstract class RobotMap {
 
     //Shooter
     public static final int SHOOTER_MOTOR_ID = 22;
-    public static final int INDEXER_MOTOR_ID = 7;
+    public static final int INDEXER_MOTOR_ID = 37;
 
     public static final int INDEXER_SENSOR_ID = 0;
     public static final int EXIT_SENSOR_ID = 1;
@@ -51,5 +51,6 @@ public abstract class RobotMap {
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";
         public static final String INDEXER_PERC = "Indexer Speed";
+        public static final String STAGE_PERC = "Stage %";
     }
 }

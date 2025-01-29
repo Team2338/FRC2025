@@ -13,11 +13,14 @@ public class StageCoral extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.shooter.setShooterBrakeMode();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+
         boolean isIndexerSensorActive = Robot.shooter.getIndexerSensorState();
         boolean isExitSensorActive = Robot.shooter.getExitSensorState();
 
@@ -31,7 +34,7 @@ public class StageCoral extends Command {
 
         //if only indexer sensor active, move
         if (!isExitSensorActive && isIndexerSensorActive) {
-            Robot.shooter.moveMotor(Constants.SHOOTER.SHOOTER_SPEED_INDEXER_PERCENT);
+            Robot.shooter.moveMotor(Robot.shooter.getStagePercent());
             return;
         }
 
@@ -51,5 +54,6 @@ public class StageCoral extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.moveMotor(0);
+        Robot.shooter.setShooterCoastMode();
     }
 }

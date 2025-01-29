@@ -33,8 +33,9 @@ public class Shooter extends SubsystemBase {
         indexerSensor = new DigitalInput(RobotMap.INDEXER_SENSOR_ID);
         exitSensor = new DigitalInput(RobotMap.EXIT_SENSOR_ID);
 
-        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.4);
-        SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.5);
+        SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0.35);
+        SmartDashboard.putNumber(RobotMap.UI.STAGE_PERC,0.25);
     }
 
     public void moveMotor(double percentOutput) {
@@ -42,11 +43,15 @@ public class Shooter extends SubsystemBase {
     }
 
     public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, 0.35);
+        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
     }
 
     public void moveFromShuffleboard() {
         moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
+    }
+
+    public double getStagePercent() {
+        return SmartDashboard.getNumber(RobotMap.UI.STAGE_PERC, 0);
     }
 
     public boolean getIndexerSensorState() {
@@ -55,5 +60,13 @@ public class Shooter extends SubsystemBase {
 
     public boolean getExitSensorState() {
         return exitSensor.get();
+    }
+
+    public void setShooterBrakeMode() {
+        shooter.setNeutralMode(NeutralMode.Brake);
+    }
+
+    public void setShooterCoastMode() {
+        shooter.setNeutralMode(NeutralMode.Coast);
     }
 }
