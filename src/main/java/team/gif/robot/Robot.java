@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
-import team.gif.robot.commands.GrabCoral;
+import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
 
-        shooter.setDefaultCommand(new GrabCoral());
+        shooter.setDefaultCommand(new StageCoral());
         elapsedTime = new Timer();
     }
 

@@ -15,23 +15,23 @@ import team.gif.robot.RobotMap;
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
-    private DigitalInput firstSensor;
-    private DigitalInput secondSensor;
+    private DigitalInput indexerSensor;
+    private DigitalInput exitSensor;
 
 
     /** Creates a new ExampleSubsystem. */
     public Shooter() {
-        shooter = new TalonSRX(RobotMap.SHOOTER_ID);
+        shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
 
-        indexer= new TalonSRX(RobotMap.INDEXER_ID);
+        indexer= new TalonSRX(RobotMap.INDEXER_MOTOR_ID);
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
-        firstSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_FIRST_ID);
-        secondSensor = new DigitalInput(RobotMap.SHOOTER_SENSOR_SECOND_ID);
+        indexerSensor = new DigitalInput(RobotMap.INDEXER_SENSOR_ID);
+        exitSensor = new DigitalInput(RobotMap.EXIT_SENSOR_ID);
 
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.4);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0);
@@ -49,11 +49,11 @@ public class Shooter extends SubsystemBase {
         moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
     }
 
-    public boolean getFirstSensorState() {
-        return firstSensor.get();
+    public boolean getIndexerSensorState() {
+        return indexerSensor.get();
     }
 
-    public boolean getSecondSensorState() {
-        return secondSensor.get();
+    public boolean getExitSensorState() {
+        return exitSensor.get();
     }
 }

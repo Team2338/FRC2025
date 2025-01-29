@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class GrabCoral extends Command {
+public class StageCoral extends Command {
 
-    public GrabCoral() {
+    public StageCoral() {
         super();
         addRequirements(Robot.shooter);
     }
@@ -18,20 +18,25 @@ public class GrabCoral extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        boolean isFirstSensorActive = Robot.shooter.getFirstSensorState();
-        boolean isSecondSensorActive = Robot.shooter.getSecondSensorState();
+        boolean isIndexerSensorActive = Robot.shooter.getIndexerSensorState();
+        boolean isExitSensorActive = Robot.shooter.getExitSensorState();
 
-        System.out.println(isFirstSensorActive+" "+isSecondSensorActive);
+        System.out.println(isIndexerSensorActive+" "+isExitSensorActive);
 
-        if (!isSecondSensorActive && !isFirstSensorActive) {
+        //if both not active, don't move
+        if (!isExitSensorActive && !isIndexerSensorActive) {
             Robot.shooter.moveMotor(0);
+            return;
         }
 
-        if (!isSecondSensorActive && isFirstSensorActive) {
-            Robot.shooter.moveMotor(Constants.SHOOTER_SPEED_GRAB_PERCENT);
+        //if only indexer sensor active, move
+        if (!isExitSensorActive && isIndexerSensorActive) {
+            Robot.shooter.moveMotor(Constants.SHOOTER.SHOOTER_SPEED_INDEXER_PERCENT);
+            return;
         }
 
-        if (isSecondSensorActive) {
+        //if shooter sensor active, stop
+        if (isExitSensorActive) {
             Robot.shooter.moveMotor(0);
         }
     }

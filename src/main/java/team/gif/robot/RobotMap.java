@@ -41,11 +41,11 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
 
     //Shooter
-    public static final int SHOOTER_ID = 22;
-    public static final int INDEXER_ID = 7;
+    public static final int SHOOTER_MOTOR_ID = 22;
+    public static final int INDEXER_MOTOR_ID = 7;
 
-    public static final int SHOOTER_SENSOR_FIRST_ID = 0;
-    public static final int SHOOTER_SENSOR_SECOND_ID = 1;
+    public static final int INDEXER_SENSOR_ID = 0;
+    public static final int EXIT_SENSOR_ID = 1;
 
     //UI
     public static final class UI {
