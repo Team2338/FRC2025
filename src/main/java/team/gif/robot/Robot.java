@@ -9,16 +9,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import team.gif.lib.LimelightHelpers;
 import team.gif.lib.delay;
+import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
-import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -26,16 +24,15 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
-    private Command autonomousCommand;
 
+    // Framework objects
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
     public static OI oi;
-    public static UI ui;
     public static UiSmartDashboard uiSmartDashboard;
-    private static delay chosenDelay;
+    private Command autonomousCommand;
 
-    //Devices
+    // Devices
     public static Pigeon2_0 pigeon;
     public static SwerveDrivetrainMk3 swerveDrive;
     //  public static SwerveDrivetrainMk4 swerveDrive;
@@ -43,38 +40,33 @@ public class Robot extends TimedRobot {
     public static Limelight limelightShooter;
     public static Shooter shooter;
 
+    // custom fields
+    private boolean autoSchedulerOnHold;
+    private static delay chosenDelay;
     public static final boolean fullDashboard = true;
-    private boolean runAutoScheduler;
     private Timer elapsedTime;
+
     /**
     * This function is run when the robot is first started up and should be used for any
     * initialization code.
     */
     public Robot() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
+        // Instantiate all the framework and device objects
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightCollector = new Limelight("limelight-collect");
         limelightShooter = new Limelight("limelight-shooter");
         swerveDrive = new SwerveDrivetrainMk3();
-        swerveDrive.setDefaultCommand(new DriveSwerve());
         //  swerveDrive = new SwerveDrivetrainMk4();
-        shooter= new Shooter();
+        swerveDrive.setDefaultCommand(new DriveSwerve());
+        shooter = new Shooter();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
-        ui = new UI();
         uiSmartDashboard = new UiSmartDashboard();
-        pigeon.addToShuffleboard("FRC 2025", "Heading");
-        autonomousCommand = new PathPlannerAuto("Straight Line");
+        pigeon.addToShuffleboard("Heading");
 
+        shooter.setDefaultCommand(new StageCoral());
         elapsedTime = new Timer();
-        //    try {
-        //      autonomousCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Example Path"));
-        //    } catch (Exception e) {
-        //      DriverStation.reportError("PathPlannerError " + e.getMessage(), e.getStackTrace());
-        //      autonomousCommand =  Commands.none();
-        //    }
     }
 
     /**
@@ -109,24 +101,32 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.schedule();
+
+        // run scheduler immediately if no delay is selected
+        if (chosenDelay.getValue() == 0) {
+            if (autonomousCommand != null) {
+                autonomousCommand.schedule();
+            }
+            autoSchedulerOnHold = false;
+        } else {
+            // invoke delay
+            elapsedTime.reset();
+            elapsedTime.start();
+            autoSchedulerOnHold = true;
         }
-        elapsedTime.reset();
-        elapsedTime.start();
-        runAutoScheduler = true;
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        if (runAutoScheduler && (elapsedTime.get() > (chosenDelay.getValue()))) {
+        // if delay was invoked, need to start autonomous after delay completes
+        if (autoSchedulerOnHold && (elapsedTime.get() > (chosenDelay.getValue()))) {
             if (autonomousCommand != null) {
                 autonomousCommand.schedule();
             }
-            runAutoScheduler = false;
+            autoSchedulerOnHold = false;
             elapsedTime.stop();
         }
     }
@@ -145,8 +145,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        shooter.moveIndexerFromShuffleboard();
+        // run the indexer all the time
+        shooter.runIndexerMotor();
 
+        // rumble the joysticks at various points during the match to notify the drive team
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));

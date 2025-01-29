@@ -6,8 +6,7 @@ package team.gif.robot.subsystems.drivers;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pigeon2_0 extends SubsystemBase {
@@ -18,24 +17,22 @@ public class Pigeon2_0 extends SubsystemBase {
         _pigeon = new Pigeon2(PigeonID);
     }
 
-    public void addToShuffleboard(String tabName, String widgetTitle) {
-        // Puts a Gyro type widget on dashboard and assigns
-        // the function getHeading_Shuffleboard
-        ShuffleboardTab tab = Shuffleboard.getTab(tabName);
-        tab.add(widgetTitle, (x) -> {
-            x.setSmartDashboardType("Gyro");
-            x.addDoubleProperty("Value", this::getCompassHeading, null);
+    public void addToShuffleboard(String widgetTitle) {
+        SmartDashboard.putData(widgetTitle, builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", this::getCompassHeading, null);
         });
     }
 
     /**
-     * The heading value from the pigeon increases counterclockwise (0 North, 90 West, 180 South, 270 East)
+     * Returns heading from pigeon
+     * from 0 to 359.99 turning clockwise (behaves like a compass)
+     * <p>
+     * The default heading value from the pigeon increases
+     * counterclockwise (0 North, 90 West, 180 South, 270 East)
      * Some features need degrees to look like a compass,
      * increasing clockwise (0 North, 90 East, 180 South, 270 West)
      * with rollover (max value 359.99, min 0)
-     * <p>
-     * Returns heading from pigeon
-     * from 0 to 359.99 turning clockwise
      */
     public double getCompassHeading() {
         double heading = getHeading();
@@ -52,9 +49,10 @@ public class Pigeon2_0 extends SubsystemBase {
 
     /**
      * Returns heading from pigeon
-     * turning counterclockwise, values increase
-     * turning clockwise, values decrease
-     * no rollover, can go negative
+     * (turning clockwise values decrease,
+     * turning counterclockwise values increase),
+     * opposite of a compass, no rollover, can go negative
+     * <p>
      * valid range is 23040 to -23040
      */
     public double getHeading() {
@@ -63,7 +61,7 @@ public class Pigeon2_0 extends SubsystemBase {
 
     /**
      * Returns heading from pigeon
-     * from 0 to 359.99 turning counterclockwise
+     * from 0 to 359.99 turning counterclockwise (opposite of a compass)
      */
     public double get360Heading() {
         double heading = getHeading(); // Returns heading from 23040 to -23040
@@ -95,18 +93,21 @@ public class Pigeon2_0 extends SubsystemBase {
         return ypr;
     }
 
+    /**
+     * Reset the pigeon heading position to 0
+     */
     public void resetPigeonPosition() {
 //        System.out.println("resetting pigeon empty"); // for debugging
         resetPigeonPosition(0);
     }
 
     /**
-     * Reset the pigeon position to something other than 0
-     * @param angle the initial angle in degrees
+     * Reset the pigeon heading position to something other than 0
+     * @param angle the angle in degrees as seen by a compass
      */
     public void resetPigeonPosition(double angle) {
-//        System.out.println("resetting pigeon " + angle); // for debugging
-        setYaw(angle);
+//        System.out.println("resetting pigeon " + ((angle == 0.0) ? 0.0 : 360.0 - angle)); // for debugging
+        setYaw( (angle == 0.0) ? 0.0 : 360.0 - angle); // ToDo this may have been a previous bug
     }
 
     public double getPitch() {

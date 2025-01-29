@@ -5,8 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pigeon {
 
@@ -24,14 +23,12 @@ public class Pigeon {
         _pigeon = new PigeonIMU(talon);
     }
 
-    public void addToShuffleboard(String tabName, String widgetTitle) {
-        // Puts a Gyro type widget on dashboard and assigns
-        // the function getHeading_Shuffleboard
-        ShuffleboardTab tab = Shuffleboard.getTab(tabName); //gets a reference to the shuffleboard tab
-        tab.add(widgetTitle, (x) -> {
-            x.setSmartDashboardType("Gyro");
-            x.addDoubleProperty("Value", () -> getCompassHeading(), null);
+    public void addToShuffleboard(String widgetTitle) {
+        SmartDashboard.putData(widgetTitle, builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", this::getCompassHeading, null);
         });
+
     }
 
     /**
