@@ -42,7 +42,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
+        indexer.set(TalonSRXControlMode.PercentOutput, 0.35);
     }
 
     public void moveFromShuffleboard() {

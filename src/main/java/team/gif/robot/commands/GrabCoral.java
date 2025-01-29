@@ -18,18 +18,20 @@ public class GrabCoral extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        boolean isFirstSensorActive = Robot.shooter.getSecondSensorState();
-        boolean isSecondSensorActive = Robot.shooter.getFirstSensorState();
+        boolean isFirstSensorActive = Robot.shooter.getFirstSensorState();
+        boolean isSecondSensorActive = Robot.shooter.getSecondSensorState();
+
+        System.out.println(isFirstSensorActive+" "+isSecondSensorActive);
 
         if (!isSecondSensorActive && !isFirstSensorActive) {
             Robot.shooter.moveMotor(0);
         }
 
-        if (isSecondSensorActive && !isFirstSensorActive) {
+        if (!isSecondSensorActive && isFirstSensorActive) {
             Robot.shooter.moveMotor(Constants.SHOOTER_SPEED_GRAB_PERCENT);
         }
 
-        if (isFirstSensorActive) {
+        if (isSecondSensorActive) {
             Robot.shooter.moveMotor(0);
         }
     }
@@ -42,5 +44,7 @@ public class GrabCoral extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) { Robot.shooter.moveMotor(0); }
+    public void end(boolean interrupted) {
+        Robot.shooter.moveMotor(0);
+    }
 }

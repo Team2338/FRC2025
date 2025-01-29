@@ -55,15 +55,15 @@ public class Robot extends TimedRobot {
         limelightShooter = new Limelight("limelight-shooter");
         swerveDrive = new SwerveDrivetrainMk3();
         swerveDrive.setDefaultCommand(new DriveSwerve());
-        shooter.setDefaultCommand(new GrabCoral());
-        //  swerveDrive = new SwerveDrivetrainMk4();
         shooter= new Shooter();
+        //  swerveDrive = new SwerveDrivetrainMk4();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
 
+        shooter.setDefaultCommand(new GrabCoral());
         elapsedTime = new Timer();
     }
 

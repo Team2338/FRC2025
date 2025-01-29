@@ -42,7 +42,7 @@ public abstract class RobotMap {
 
     //Shooter
     public static final int SHOOTER_ID = 22;
-    public static final int INDEXER_ID = 37;
+    public static final int INDEXER_ID = 7;
 
     public static final int SHOOTER_SENSOR_FIRST_ID = 0;
     public static final int SHOOTER_SENSOR_SECOND_ID = 1;
