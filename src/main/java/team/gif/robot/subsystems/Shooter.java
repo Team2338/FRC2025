@@ -19,7 +19,6 @@ public class Shooter extends SubsystemBase {
     private DigitalInput exitSensor;
 
 
-    /** Creates a new ExampleSubsystem. */
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
         shooter.configFactoryDefault();
@@ -38,16 +37,38 @@ public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber(RobotMap.UI.STAGE_PERC, 0.20);
     }
 
-    public void moveMotor(double percentOutput) {
-        shooter.set(TalonSRXControlMode.PercentOutput, percentOutput);
+    /**
+     * runs the shooter motor at a given power percentage
+     * @param percent the percentage of power to apply to the motor
+     **/
+    public void runShooterMotor(double percent) {
+        shooter.set(TalonSRXControlMode.PercentOutput, percent);
     }
 
-    public void moveIndexerFromShuffleboard() {
-        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
+    /**
+     * runs the shooter motor at a power percentage determined by value on dashboard
+     **/
+    public void runShooterMotor() {
+        runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
     }
 
-    public void moveFromShuffleboard() {
-        moveMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
+    public void stopShooterMotor() {
+        runShooterMotor(0);
+    }
+
+    /**
+     * runs the indexer motor at a given power percentage
+     * @param percent the percentage of power to apply to the motor
+     **/
+    public void runIndexerMotor(double percent) {
+        indexer.set(TalonSRXControlMode.PercentOutput, percent);
+    }
+
+    /**
+     * runs the indexer motor at a power percentage determined by value on dashboard
+     **/
+    public void runIndexerMotor() {
+        runIndexerMotor(SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
     }
 
     public double getStagePercent() {

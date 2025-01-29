@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         // run the indexer all the time
-        shooter.moveIndexerFromShuffleboard();
+        shooter.runIndexerMotor();
 
         // rumble the joysticks at various points during the match to notify the drive team
         double timeLeft = DriverStation.getMatchTime();
