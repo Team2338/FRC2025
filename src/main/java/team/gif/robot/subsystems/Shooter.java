@@ -33,9 +33,9 @@ public class Shooter extends SubsystemBase {
         indexerSensor = new DigitalInput(RobotMap.INDEXER_SENSOR_ID);
         exitSensor = new DigitalInput(RobotMap.EXIT_SENSOR_ID);
 
-        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 0.5);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 1.0);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0.35);
-        SmartDashboard.putNumber(RobotMap.UI.STAGE_PERC,0.25);
+        SmartDashboard.putNumber(RobotMap.UI.STAGE_PERC, 0.20);
     }
 
     public void moveMotor(double percentOutput) {
