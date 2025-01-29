@@ -459,23 +459,6 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Indexer Speed",
-            "x": 640.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 128.0,
-            "type": "Number Slider",
-            "properties": {
-              "topic": "/SmartDashboard/Development/Indexer Speed",
-              "period": 0.06,
-              "data_type": "double",
-              "min_value": 0.0,
-              "max_value": 1.0,
-              "divisions": 5,
-              "update_continuously": false
-            }
-          },
-          {
             "title": "Shooter %",
             "x": 640.0,
             "y": 128.0,
@@ -490,6 +473,45 @@
               "max_value": 1.0,
               "divisions": 5,
               "update_continuously": false
+            }
+          },
+          {
+            "title": "Indexer Speed",
+            "x": 640.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Indexer Speed",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": -1.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SmartDashboard",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "Shoot %",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/Shuffleboard/SmartDashboard/Shoot %",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
             }
           }
         ]
