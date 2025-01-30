@@ -87,8 +87,8 @@ public class Robot extends TimedRobot {
 
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
-        limelightCollector.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(pigeon.getHeading(), 0, 0, 0, 0, 0);
+        limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
+        limelightShooter.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
