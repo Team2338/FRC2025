@@ -129,8 +129,8 @@ public final class Constants {
     }
 
     public static final class DrivetrainAuto {
-        public static final double kP_FORWARD = 3.0;
-        public static final double kP_ROTATION = 3.0;
+        public static final double kP_FORWARD = 2;
+        public static final double kP_ROTATION = 2.5;
         public static final double MAX_MODULE_SPEED_MPS = 4;
         public static final double DRIVEBASE_RADIUS_METERS = 0.4131;
     }
@@ -228,7 +228,7 @@ public final class Constants {
         public static final double GEAR_RATIO = 6.86; // TODO: need to ask someone
         public static final double ENCODER_CPR = 42; //This is for DRIVE
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
-        public static final double WHEEL_CIRCUMFERENCE_METER = Units.inchesToMeters(12.875);
+        public static final double WHEEL_CIRCUMFERENCE_METER = Units.inchesToMeters(12.25);
         public static final double DRIVE_ENCODER_ROT_2_METER = WHEEL_CIRCUMFERENCE_METER/ (GEAR_RATIO); //0.0004
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
         //4096.0 for talons

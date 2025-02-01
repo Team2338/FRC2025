@@ -40,6 +40,12 @@ public interface DriveMotor {
     void set(double percentOutput);
 
     /**
+     * Sets the voltage of the motor. This should only be used for the SysId routine
+     * @param voltage - voltage to set motor to
+     */
+    void setVoltage(double voltage);
+
+    /**
      * Resets the encoder position to 0
      */
     void resetEncoder();

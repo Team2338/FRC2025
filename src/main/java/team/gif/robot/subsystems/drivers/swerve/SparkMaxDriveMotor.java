@@ -19,7 +19,7 @@ public class SparkMaxDriveMotor implements DriveMotor {
         config.idleMode(SparkBaseConfig.IdleMode.kBrake);
         config.inverted(inverted);
 //        config.encoder.positionConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER);
-        config.encoder.velocityConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_RPM_2_METER_PER_SEC);
+//        config.encoder.velocityConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_RPM_2_METER_PER_SEC);
 
         motor.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
@@ -29,7 +29,7 @@ public class SparkMaxDriveMotor implements DriveMotor {
     }
 
     public double getVelocity() {
-        return motor.getEncoder().getVelocity();
+        return motor.getEncoder().getVelocity() * Constants.ModuleConstantsMK3.DRIVE_ENCODER_RPM_2_METER_PER_SEC;
     }
 
     public double getPosition() {
@@ -42,6 +42,10 @@ public class SparkMaxDriveMotor implements DriveMotor {
 
     public void set(double percentOutput) {
         motor.set(percentOutput);
+    }
+
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
     }
 
     public void resetEncoder() {

@@ -15,9 +15,12 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.units.VoltageUnit;
+import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.lib.drivePace;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
@@ -30,6 +33,8 @@ import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
 import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
 import team.gif.lib.LimelightHelpers;
+
+import static edu.wpi.first.units.Units.Volts;
 
 /**
  * @author Rohan Cherukuri
@@ -226,16 +231,16 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
             ignoreShooterEstimate = false;
         }
         if(!ignoreCollectEstimate) {
-            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
-            poseEstimator.addVisionMeasurement(
-                    collectEstimate.pose,
-                    collectEstimate.timestampSeconds);
+//            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+//            poseEstimator.addVisionMeasurement(
+//                    collectEstimate.pose,
+//                    collectEstimate.timestampSeconds);
         }
         if(!ignoreShooterEstimate) {
-            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-            poseEstimator.addVisionMeasurement(
-                    shooterEstimate.pose,
-                    shooterEstimate.timestampSeconds);
+//            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+//            poseEstimator.addVisionMeasurement(
+//                    shooterEstimate.pose,
+//                    shooterEstimate.timestampSeconds);
         }
 
         posePublisher.set(poseEstimator.getEstimatedPosition());
@@ -247,7 +252,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         if (Robot.fullDashboard) {
             updateShuffleboardDebug("Swerve");
         }
-
     }
 
     /**
@@ -260,10 +264,14 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     public ChassisSpeeds getRobotRelativeSpeed() {
         // Example module states
-        var frontLeftState = new SwerveModuleState(fL.getDriveVelocity(), Rotation2d.fromDegrees(fL.encoderDegrees()));
-        var frontRightState = new SwerveModuleState(fR.getDriveVelocity(), Rotation2d.fromDegrees(fR.encoderDegrees()));
-        var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.encoderDegrees()));
-        var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.encoderDegrees()));
+        var frontLeftState = new SwerveModuleState(fL.getDriveVelocity(), Rotation2d.fromDegrees(fL.getTurningHeadingDegrees()));
+        var frontRightState = new SwerveModuleState(fR.getDriveVelocity(), Rotation2d.fromDegrees(fR.getTurningHeadingDegrees()));
+        var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.getTurningHeadingDegrees()));
+        var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.getTurningHeadingDegrees()));
+
+        ChassisSpeeds speed = Constants.DrivetrainMK3.DRIVE_KINEMATICS.toChassisSpeeds(frontLeftState, frontRightState, rearLeft, rearRight);
+        System.out.println(Math.sqrt(Math.pow(speed.vyMetersPerSecond, 2) + Math.pow(speed.vxMetersPerSecond, 2)));
+        chassisSpeedsStructPublisher.set(speed);
 
 // Convert to chassis speeds
         return Constants.Drivetrain.DRIVE_KINEMATICS.toChassisSpeeds(
@@ -470,5 +478,22 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         SmartDashboard.putNumber(shuffleboardTabName + "/RR Drive Encoder", rRDriveMotor.getPosition());
 
         //TODO: Add target to shuffleboard
+    }
+
+    public SysIdRoutine getSysIdRoutine() {
+        MutVoltage voltMut = Volts.mutable(0);
+
+        return new SysIdRoutine(new SysIdRoutine.Config(),
+                new SysIdRoutine.Mechanism(
+                        voltage -> {
+                            fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                            fRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                        },
+                        log -> {
+
+                        },
+                        this);
     }
 }
