@@ -14,6 +14,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.units.measure.MutAngle;
+import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
@@ -37,6 +39,8 @@ import team.gif.lib.LimelightHelpers;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 /**
@@ -483,56 +487,94 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         //TODO: Add target to shuffleboard
     }
 
-    public SysIdRoutine getSysIdRoutine() {
+    public SysIdRoutine getSysIdRoutine(String motors) {
         MutVoltage voltMut = Volts.mutable(0);
-        MutDistance posMut = Meters.mutable(0);
-        MutLinearVelocity vMut= MetersPerSecond.mutable(0);
 
-        return new SysIdRoutine(new SysIdRoutine.Config(),
-                new SysIdRoutine.Mechanism(
-                        voltage -> {
-                            fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
-                            fRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
-                            rLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
-                            rRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
-                        },
-                        log -> {
-                            log.motor("fLDrive")
-                                    .voltage(voltMut.mut_replace(fLDriveMotor.getVoltage(), Volts))
-                                    .linearPosition(posMut.mut_replace(fLDriveMotor.getPosition(), Meters))
-                                    .linearVelocity(vMut.mut_replace(fLDriveMotor.getVelocity(), MetersPerSecond));
-                            log.motor("fRDrive")
-                                    .voltage(voltMut.mut_replace(fRDriveMotor.getVoltage(), Volts))
-                                    .linearPosition(posMut.mut_replace(fRDriveMotor.getPosition(), Meters))
-                                    .linearVelocity(vMut.mut_replace(fRDriveMotor.getVelocity(), MetersPerSecond));
-                            log.motor("rLDrive")
-                                    .voltage(voltMut.mut_replace(rLDriveMotor.getVoltage(), Volts))
-                                    .linearPosition(posMut.mut_replace(rLDriveMotor.getPosition(), Meters))
-                                    .linearVelocity(vMut.mut_replace(rLDriveMotor.getVelocity(), MetersPerSecond));
-                            log.motor("rRDrive")
-                                    .voltage(voltMut.mut_replace(rRDriveMotor.getVoltage(), Volts))
-                                    .linearPosition(posMut.mut_replace(rRDriveMotor.getPosition(), Meters))
-                                    .linearVelocity(vMut.mut_replace(rRDriveMotor.getVelocity(), MetersPerSecond));
+        if (motors.equals("drive")) {
+            MutDistance posMut = Meters.mutable(0);
+            MutLinearVelocity vMut= MetersPerSecond.mutable(0);
 
-                        },
-                        this));
+            return new SysIdRoutine(new SysIdRoutine.Config(),
+                    new SysIdRoutine.Mechanism(
+                            voltage -> {
+                                fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                fRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                rLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                rRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                            },
+                            log -> {
+                                log.motor("fLDrive")
+                                        .voltage(voltMut.mut_replace(fLDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(fLDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(fLDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("fRDrive")
+                                        .voltage(voltMut.mut_replace(fRDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(fRDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(fRDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("rLDrive")
+                                        .voltage(voltMut.mut_replace(rLDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(rLDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(rLDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("rRDrive")
+                                        .voltage(voltMut.mut_replace(rRDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(rRDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(rRDriveMotor.getVelocity(), MetersPerSecond));
+
+                            },
+                            this));
+        } else if (motors.equals("turn")) {
+            MutAngle thetaMut = Radians.mutable(0);
+            MutAngularVelocity thetaVMut = RadiansPerSecond.mutable(0);
+
+            return new SysIdRoutine(new SysIdRoutine.Config(),
+                    new SysIdRoutine.Mechanism(
+                    voltage -> {
+                            fLTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            fRTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rLTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rRTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                        }, log -> {
+                            log.motor("fLTurn")
+                                    .voltage(voltMut.mut_replace(fLTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(fLEncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(fLEncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("fRTurn")
+                                    .voltage(voltMut.mut_replace(fRTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(fREncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(fREncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("rLTurn")
+                                    .voltage(voltMut.mut_replace(rLTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(rLEncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(rLEncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("rRTurn")
+                                    .voltage(voltMut.mut_replace(rRTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(rREncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(rREncoder.getVelocity(), RadiansPerSecond));
+                    }, this));
+
+        } else {
+            DriverStation.reportError("Invalid motor type at SwerveDrivetrainMk3.getSysIdRoutine", false);
+            return null;
+        }
     }
 
     /**
      * Returns a command that will execute a quasistatic test in the given direction.
      *
+     * @param motor The motor to run the test on either "drive" or "turn"
      * @param direction The direction (forward or reverse) to run the test in
      */
-    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-        return getSysIdRoutine().quasistatic(direction);
+    public Command sysIdQuasistatic(String motor, SysIdRoutine.Direction direction) {
+        return getSysIdRoutine(motor).quasistatic(direction);
     }
 
     /**
      * Returns a command that will execute a dynamic test in the given direction.
      *
+     * @param motor The motor to run the test on either "drive" or "turn"
      * @param direction The direction (forward or reverse) to run the test in
      */
-    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-        return getSysIdRoutine().dynamic(direction);
+    public Command sysIdDynamic(String motor, SysIdRoutine.Direction direction) {
+        return getSysIdRoutine(motor).dynamic(direction);
     }
 }

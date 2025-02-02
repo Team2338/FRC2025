@@ -35,8 +35,16 @@ public class SparkMAXTurnMotor implements TurnMotor{
 
     }
 
+    public double getVoltage() {
+        return motor.getBusVoltage() * motor.getAppliedOutput();
+    }
+
     public void set(double percentOutput) {
         motor.set(percentOutput);
 
+    }
+
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
     }
 }

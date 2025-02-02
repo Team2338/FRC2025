@@ -19,7 +19,6 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
 
     //Motor configuration
     public void configure(boolean inverted) {
-        //---Motor configuration
         motor.configFactoryDefault();
         motor.setNeutralMode(NeutralMode.Brake);
         motor.setInverted(inverted);
@@ -27,7 +26,6 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
 
     //Encoder configuration
     public void configure() {
-        //---Encoder configuration
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         motor.configFeedbackNotContinuous(true, 0);
         motor.configSelectedFeedbackCoefficient(1);
@@ -37,8 +35,17 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
         return motor.getMotorOutputPercent();
     }
 
+    public double getVoltage() {
+        return motor.getMotorOutputVoltage();
+    }
+
     public void set(double percentOutput) {
         motor.set(ControlMode.PercentOutput, percentOutput);
+    }
+
+    public void setVoltage(double voltage) {
+        // Talon can't set voltage so we convert it to a percent output based on the input voltage
+        motor.set(ControlMode.PercentOutput, voltage / motor.getBusVoltage());
     }
 
     public double getTicks() {
