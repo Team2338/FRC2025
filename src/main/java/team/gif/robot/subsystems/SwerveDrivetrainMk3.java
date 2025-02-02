@@ -16,9 +16,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.units.VoltageUnit;
+import edu.wpi.first.units.measure.MutAcceleration;
+import edu.wpi.first.units.measure.MutDistance;
+import edu.wpi.first.units.measure.MutLinearVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.lib.drivePace;
@@ -34,6 +38,8 @@ import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
 import team.gif.lib.LimelightHelpers;
 
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 /**
@@ -482,6 +488,8 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     public SysIdRoutine getSysIdRoutine() {
         MutVoltage voltMut = Volts.mutable(0);
+        MutDistance posMut = Meters.mutable(0);
+        MutLinearVelocity vMut= MetersPerSecond.mutable(0);
 
         return new SysIdRoutine(new SysIdRoutine.Config(),
                 new SysIdRoutine.Mechanism(
@@ -492,8 +500,42 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                             rRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
                         },
                         log -> {
+                            log.motor("fLDrive")
+                                    .voltage(voltMut.mut_replace(fLDriveMotor.getVoltage(), Volts))
+                                    .linearPosition(posMut.mut_replace(fLDriveMotor.getPosition(), Meters))
+                                    .linearVelocity(vMut.mut_replace(fLDriveMotor.getVelocity(), MetersPerSecond));
+                            log.motor("fRDrive")
+                                    .voltage(voltMut.mut_replace(fRDriveMotor.getVoltage(), Volts))
+                                    .linearPosition(posMut.mut_replace(fRDriveMotor.getPosition(), Meters))
+                                    .linearVelocity(vMut.mut_replace(fRDriveMotor.getVelocity(), MetersPerSecond));
+                            log.motor("rLDrive")
+                                    .voltage(voltMut.mut_replace(rLDriveMotor.getVoltage(), Volts))
+                                    .linearPosition(posMut.mut_replace(rLDriveMotor.getPosition(), Meters))
+                                    .linearVelocity(vMut.mut_replace(rLDriveMotor.getVelocity(), MetersPerSecond));
+                            log.motor("rRDrive")
+                                    .voltage(voltMut.mut_replace(rRDriveMotor.getVoltage(), Volts))
+                                    .linearPosition(posMut.mut_replace(rRDriveMotor.getPosition(), Meters))
+                                    .linearVelocity(vMut.mut_replace(rRDriveMotor.getVelocity(), MetersPerSecond));
 
                         },
-                        this);
+                        this));
+    }
+
+    /**
+     * Returns a command that will execute a quasistatic test in the given direction.
+     *
+     * @param direction The direction (forward or reverse) to run the test in
+     */
+    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+        return getSysIdRoutine().quasistatic(direction);
+    }
+
+    /**
+     * Returns a command that will execute a dynamic test in the given direction.
+     *
+     * @param direction The direction (forward or reverse) to run the test in
+     */
+    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
+        return getSysIdRoutine().dynamic(direction);
     }
 }

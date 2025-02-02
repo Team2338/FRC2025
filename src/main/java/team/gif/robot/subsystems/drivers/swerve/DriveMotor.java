@@ -46,6 +46,12 @@ public interface DriveMotor {
     void setVoltage(double voltage);
 
     /**
+     * Returns the output voltage of the motor as a double. This value is primary used for SysId
+     * @return - output voltage of the motor
+     */
+    double getVoltage();
+
+    /**
      * Resets the encoder position to 0
      */
     void resetEncoder();

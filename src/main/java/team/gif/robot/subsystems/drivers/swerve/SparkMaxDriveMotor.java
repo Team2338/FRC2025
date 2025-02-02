@@ -48,6 +48,11 @@ public class SparkMaxDriveMotor implements DriveMotor {
         motor.setVoltage(voltage);
     }
 
+    public double getVoltage() {
+        //Source: https://www.chiefdelphi.com/t/get-voltage-from-spark-max/344136/5
+        return motor.getBusVoltage() * motor.getAppliedOutput();
+    }
+
     public void resetEncoder() {
         motor.getEncoder().setPosition(0);
     }
