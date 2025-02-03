@@ -335,6 +335,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 swerveModuleStates, drivePace.getValue()
         );
 
+        for (SwerveModuleState state : swerveModuleStates) {
+            state.speedMetersPerSecond = Math.min(state.speedMetersPerSecond, drivePace.getValue());
+        }
+
         fL.setDesiredState(swerveModuleStates[0]);
         fR.setDesiredState(swerveModuleStates[1]);
         rL.setDesiredState(swerveModuleStates[2]);

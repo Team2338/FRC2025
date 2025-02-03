@@ -6,7 +6,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import team.gif.robot.Constants;
-import team.gif.robot.subsystems.SwerveDrivetrainMk3;
+import team.gif.robot.Robot;
 
 public class SwerveModule {
     /* ------ Devices ------*/
@@ -164,6 +164,8 @@ public class SwerveModule {
     /**
      * Set the desired state of the swerve module
      * @param state The desired state of the swerve module
+     * @implNote This function does not account for the current drivePace or
+     * Max module velocity. These should be implemented before this function is called
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
