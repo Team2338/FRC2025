@@ -111,6 +111,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.FRONT_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.fLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftP
         );
@@ -122,6 +123,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.FRONT_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.fRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightP
         );
@@ -133,6 +135,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.REAR_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftP
         );
@@ -144,6 +147,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.REAR_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
@@ -440,11 +444,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     public double rRDriveTemp() { return rRDriveMotor.getTemp(); }
 
     public void updateShuffleboardDebug(String shuffleboardTabName) {
-
-//        SmartDashboard.putNumber(shuffleboardTabName + "/FL Heading", fL.getTurningHeadingDegrees());
-//        SmartDashboard.putNumber(shuffleboardTabName + "/FR Heading", fR.getTurningHeadingDegrees());
-//        SmartDashboard.putNumber(shuffleboardTabName + "/RL Heading", rL.getTurningHeadingDegrees());
-//        SmartDashboard.putNumber(shuffleboardTabName + "/RR Heading", rR.getTurningHeadingDegrees());
 
         SmartDashboard.putData(shuffleboardTabName + "/FL Heading", builder -> {
             builder.setSmartDashboardType("Gyro");

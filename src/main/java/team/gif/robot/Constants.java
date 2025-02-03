@@ -4,6 +4,7 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -125,6 +126,10 @@ public final class Constants {
             public static final double rearLeftFF = 0.01;//0.01;
             public static final double rearRightP = 0.55;//0.35; // 0.6
             public static final double rearRightFF = 0.01;//0.01;
+            public static final SimpleMotorFeedforward fLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward fRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward rLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward rRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
         }
     }
 
@@ -267,6 +272,10 @@ public final class Constants {
             public static final double rearLeftFF = 0.01;
             public static final double rearRightP = 0.35; // 0.6
             public static final double rearRightFF = 0.01;
+            public static final SimpleMotorFeedforward fLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward fRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward rLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward rRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
         }
     }
 

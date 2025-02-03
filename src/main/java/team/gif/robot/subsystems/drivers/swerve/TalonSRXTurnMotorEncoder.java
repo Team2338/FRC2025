@@ -29,6 +29,8 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         motor.configFeedbackNotContinuous(true, 0);
         motor.configSelectedFeedbackCoefficient(1);
+        motor.configVoltageCompSaturation(12);
+        motor.enableVoltageCompensation(true);
     }
 
     public double getOutput() {

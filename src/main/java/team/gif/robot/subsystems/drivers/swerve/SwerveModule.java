@@ -1,5 +1,6 @@
 package team.gif.robot.subsystems.drivers.swerve;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -14,8 +15,9 @@ public class SwerveModule {
     private final Encoder encoder;
 
     /* ----- PID Constants -----*/
-    private final double FF;
     private final double P;
+    private final SimpleMotorFeedforward driveFF;
+    private final double turnFF;
 
     private double turnOffset;
 
@@ -26,7 +28,8 @@ public class SwerveModule {
             boolean isTurnInverted,
             boolean isDriveInverted,
             double turningOffset,
-            double FF,
+            SimpleMotorFeedforward driveFF,
+            double turnFF,
             double P
     ) {
 
@@ -39,9 +42,10 @@ public class SwerveModule {
         this.encoder.configure();
 
         this.turnOffset = turningOffset;
-        this.FF = FF;
         this.P = P;
 
+        this.driveFF = driveFF;
+        this.turnFF = turnFF;
     }
 
     /**
@@ -92,7 +96,7 @@ public class SwerveModule {
      */
     public void resetWheel() {
         final double error = getTurningHeading();
-        final double ff = FF * Math.abs(error) / error;
+        final double ff = turnFF * Math.abs(error) / error;
         final double turnOutput = ff + (P * error);
 
         turnMotor.set(turnOutput);
@@ -163,14 +167,14 @@ public class SwerveModule {
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
-        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainMk3.getDrivePace().getValue();
+        double driveOutput = driveFF.calculate(stateOptimized.speedMetersPerSecond);
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
 
         //if error is negative, FF should also be negative
-        final double ff = FF * Math.abs(error) / error;
+        final double ff = turnFF * Math.abs(error) / error;
         //accum += error;
         final double turnOutput = ff + (P * error);
-        driveMotor.set(driveOutput);
+        driveMotor.setVoltage(driveOutput);
         turnMotor.set(turnOutput);
     }
 
