@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.StageCoral;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
@@ -57,7 +58,7 @@ public class Robot extends TimedRobot {
         limelightShooter = new Limelight("limelight-shooter");
         swerveDrive = new SwerveDrivetrainMk3();
         //  swerveDrive = new SwerveDrivetrainMk4();
-        swerveDrive.setDefaultCommand(new DriveSwerve());
+        swerveDrive.setDefaultCommand(new DrivePracticeSwerve());
         shooter = new Shooter();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();

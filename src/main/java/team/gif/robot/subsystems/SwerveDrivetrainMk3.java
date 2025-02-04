@@ -41,6 +41,7 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volt;
 import static edu.wpi.first.units.Units.Volts;
 
 /**
@@ -301,7 +302,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                         drivePace.getIsFieldRelative() ?
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
-
         SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
         targetPublisher.set(swerveModuleStates);
         actualPublisher.set(actualStates);
@@ -497,7 +497,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
             MutDistance posMut = Meters.mutable(0);
             MutLinearVelocity vMut= MetersPerSecond.mutable(0);
 
-            return new SysIdRoutine(new SysIdRoutine.Config(),
+            return new SysIdRoutine(new SysIdRoutine.Config(null, voltMut.mut_replace(12, Volts), null),
                     new SysIdRoutine.Mechanism(
                             voltage -> {
                                 fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
