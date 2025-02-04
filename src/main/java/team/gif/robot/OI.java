@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.Shoot;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.TestSwerve;
@@ -21,7 +22,7 @@ public class OI {
 
     public final CommandXboxController driver = new CommandXboxController(RobotMap.DRIVER_CONTROLLER_ID);
     public final CommandXboxController aux = new CommandXboxController(RobotMap.AUX_CONTROLLER_ID);
-//-    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
+    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
 
     public final Trigger dA = driver.a();
     public final Trigger dB = driver.b();
@@ -59,10 +60,10 @@ public class OI {
     public final Trigger aDPadLeft = aux.povLeft();
     public final Trigger aDPadDownLeft = aux.povDownLeft();
 
-//    public final Trigger tA = test.a();
-//    public final Trigger tB = test.b();
-//    public final Trigger tX = test.x();
-//    public final Trigger tY = test.y();
+    public final Trigger tA = test.a();
+    public final Trigger tB = test.b();
+    public final Trigger tX = test.x();
+    public final Trigger tY = test.y();
 //    public final Trigger tLBump = test.leftBumper();
 //    public final Trigger tRBump = test.rightBumper();
 //    public final Trigger tBack = test.back();
@@ -106,6 +107,11 @@ public class OI {
         dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new Shoot());
+
+        tA.whileTrue(Robot.swerveDrive.sysIdDynamic("drive", SysIdRoutine.Direction.kForward));
+        tB.whileTrue(Robot.swerveDrive.sysIdDynamic("drive", SysIdRoutine.Direction.kReverse));
+        tX.whileTrue(Robot.swerveDrive.sysIdQuasistatic("drive", SysIdRoutine.Direction.kForward));
+        tY.whileTrue(Robot.swerveDrive.sysIdQuasistatic("drive", SysIdRoutine.Direction.kReverse));
     }
 
     public void setRumble(boolean rumble) {
