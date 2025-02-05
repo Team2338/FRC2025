@@ -23,6 +23,7 @@ public class SparkMAXTurnMotor implements TurnMotor{
         SparkMaxConfig config = new SparkMaxConfig();
         config.idleMode(SparkMaxConfig.IdleMode.kBrake);
         config.inverted(inverted);
+        config.voltageCompensation(12);
         config.encoder.positionConversionFactor(Constants.ModuleConstants.TURNING_ENCODER_ROT_TO_RAD);
         config.encoder.velocityConversionFactor(Constants.ModuleConstants.TURNING_ENCODER_RPM_2_RAD_PER_SECOND);
         config.smartCurrentLimit(70, 50);
@@ -35,8 +36,16 @@ public class SparkMAXTurnMotor implements TurnMotor{
 
     }
 
+    public double getVoltage() {
+        return motor.getBusVoltage() * motor.getAppliedOutput();
+    }
+
     public void set(double percentOutput) {
         motor.set(percentOutput);
 
+    }
+
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
     }
 }
