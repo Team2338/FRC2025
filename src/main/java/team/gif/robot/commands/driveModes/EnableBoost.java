@@ -32,6 +32,6 @@ public class EnableBoost extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
+        Robot.swerveDrive.setDrivePace(drivePace);
     }
 }
