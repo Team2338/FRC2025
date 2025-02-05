@@ -252,7 +252,7 @@ public final class Constants {
 
         public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 10;
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 4 * Math.PI;
+        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 5 * Math.PI;
 
         public static final double TURNING_MOTOR_GEAR_RATIO = 12.8; //
 

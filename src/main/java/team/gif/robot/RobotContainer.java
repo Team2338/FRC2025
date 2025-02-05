@@ -72,6 +72,7 @@ public class RobotContainer {
         autoNames.add("Mobility");
         autoNames.add("Straight Line");
         autoNames.add("Curve");
+        autoNames.add("First Auto");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();

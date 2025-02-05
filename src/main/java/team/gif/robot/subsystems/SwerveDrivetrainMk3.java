@@ -4,6 +4,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.config.PIDConstants;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -243,16 +244,16 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
             ignoreShooterEstimate = false;
         }
         if(!ignoreCollectEstimate) {
-//            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
-//            poseEstimator.addVisionMeasurement(
-//                    collectEstimate.pose,
-//                    collectEstimate.timestampSeconds);
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+            poseEstimator.addVisionMeasurement(
+                    collectEstimate.pose,
+                    collectEstimate.timestampSeconds);
         }
         if(!ignoreShooterEstimate) {
-//            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-//            poseEstimator.addVisionMeasurement(
-//                    shooterEstimate.pose,
-//                    shooterEstimate.timestampSeconds);
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+            poseEstimator.addVisionMeasurement(
+                    shooterEstimate.pose,
+                    shooterEstimate.timestampSeconds);
         }
 
         posePublisher.set(poseEstimator.getEstimatedPosition());
