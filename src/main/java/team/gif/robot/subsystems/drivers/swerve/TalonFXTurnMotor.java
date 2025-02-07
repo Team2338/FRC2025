@@ -1,0 +1,43 @@
+package team.gif.robot.subsystems.drivers.swerve;
+
+import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import team.gif.robot.Constants;
+
+public class TalonFXTurnMotor implements TurnMotor {
+    private TalonFX motor;
+
+    public TalonFXTurnMotor(int motorID) {
+        motor = new TalonFX(motorID);
+    }
+
+    public void configure(boolean inverted) {
+        TalonFXConfigurator talonFXConfig = motor.getConfigurator();
+        FeedbackConfigs config = new TalonFXConfiguration().Feedback.withSensorToMechanismRatio(Constants.ModuleConstants.TURNING_MOTOR_GEAR_RATIO);
+
+        MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+        motorConfigs.Inverted = inverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
+        motorConfigs.NeutralMode = NeutralModeValue.Brake;
+
+        talonFXConfig.apply(motorConfigs);
+        talonFXConfig.apply(config);
+    }
+
+
+
+    public double getOutput() {
+        return motor.get();
+    }
+
+    public void set(double percentOutput) {
+        motor.set(percentOutput);
+    }
+
+}
