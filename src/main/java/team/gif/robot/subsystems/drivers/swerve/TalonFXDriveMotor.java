@@ -54,6 +54,14 @@ public class TalonFXDriveMotor implements DriveMotor{
         motor.set(percentOutput);
     }
 
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
+    }
+
+    public double getVoltage() {
+        return motor.getMotorVoltage().getValueAsDouble();
+    }
+
     public void resetEncoder() {
         motor.setPosition(0);
     }

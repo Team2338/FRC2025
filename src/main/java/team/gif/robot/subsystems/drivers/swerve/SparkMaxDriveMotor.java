@@ -18,8 +18,9 @@ public class SparkMaxDriveMotor implements DriveMotor {
         SparkMaxConfig config = new SparkMaxConfig();
         config.idleMode(SparkBaseConfig.IdleMode.kBrake);
         config.inverted(inverted);
-//        config.encoder.positionConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER);
-        config.encoder.velocityConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER);
+        config.voltageCompensation(12);
+        config.encoder.positionConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER);
+        config.encoder.velocityConversionFactor(Constants.ModuleConstantsMK3.DRIVE_ENCODER_RPM_2_METER_PER_SEC);
 
         motor.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
@@ -33,7 +34,7 @@ public class SparkMaxDriveMotor implements DriveMotor {
     }
 
     public double getPosition() {
-        return motor.getEncoder().getPosition() * Constants.ModuleConstantsMK3.DRIVE_ENCODER_ROT_2_METER;
+        return motor.getEncoder().getPosition();
     }
 
     public double getOutput() {
@@ -42,6 +43,15 @@ public class SparkMaxDriveMotor implements DriveMotor {
 
     public void set(double percentOutput) {
         motor.set(percentOutput);
+    }
+
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
+    }
+
+    public double getVoltage() {
+        //Source: https://www.chiefdelphi.com/t/get-voltage-from-spark-max/344136/5
+        return motor.getBusVoltage() * motor.getAppliedOutput();
     }
 
     public void resetEncoder() {

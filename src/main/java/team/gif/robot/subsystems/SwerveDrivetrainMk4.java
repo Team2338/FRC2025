@@ -92,6 +92,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.FRONT_LEFT_OFFSET,
+                Constants.ModuleConstants.DrivetrainPID.fLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftP
         );
@@ -103,6 +104,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.FRONT_RIGHT_OFFSET,
+                Constants.ModuleConstants.DrivetrainPID.fRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightP
         );
@@ -114,6 +116,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.REAR_LEFT_OFFSET,
+                Constants.ModuleConstants.DrivetrainPID.rLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftP
         );
@@ -125,6 +128,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.REAR_RIGHT_OFFSET,
+                Constants.ModuleConstants.DrivetrainPID.rRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
