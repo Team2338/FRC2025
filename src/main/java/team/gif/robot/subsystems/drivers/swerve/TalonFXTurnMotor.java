@@ -40,4 +40,11 @@ public class TalonFXTurnMotor implements TurnMotor {
         motor.set(percentOutput);
     }
 
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
+    }
+
+    public double getVoltage() {
+        return motor.getMotorVoltage().getValueAsDouble();
+    }
 }
