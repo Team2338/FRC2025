@@ -107,7 +107,7 @@ public class OI {
         dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new Shoot());
-        dLBump.whileTrue(new EnableBoost());
+        dLStickBtn.whileTrue(new EnableBoost());
     }
 
     public void setRumble(boolean rumble) {
