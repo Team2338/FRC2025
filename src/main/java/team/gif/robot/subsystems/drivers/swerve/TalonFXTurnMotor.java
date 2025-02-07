@@ -7,8 +7,6 @@ import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import team.gif.robot.Constants;
 
 public class TalonFXTurnMotor implements TurnMotor {
