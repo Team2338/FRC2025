@@ -74,14 +74,14 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     // Network Table publishers for the swerve
     // states so that we can use them in advantage scope
-//    private StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
-//            .getStructArrayTopic("TargetSwerveState", SwerveModuleState.struct).publish();
-//    private StructArrayPublisher<SwerveModuleState> actualPublisher = NetworkTableInstance.getDefault()
-//            .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
-//    private StructPublisher<Pose2d> posePublisher = NetworkTableInstance.getDefault()
-//            .getStructTopic("EstimatedPose", Pose2d.struct).publish();
-//    private StructPublisher<ChassisSpeeds> chassisSpeedsStructPublisher = NetworkTableInstance.getDefault()
-//            .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
+    private StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
+            .getStructArrayTopic("TargetSwerveState", SwerveModuleState.struct).publish();
+    private StructArrayPublisher<SwerveModuleState> actualPublisher = NetworkTableInstance.getDefault()
+            .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
+    private StructPublisher<Pose2d> posePublisher = NetworkTableInstance.getDefault()
+            .getStructTopic("EstimatedPose", Pose2d.struct).publish();
+    private StructPublisher<ChassisSpeeds> chassisSpeedsStructPublisher = NetworkTableInstance.getDefault()
+            .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
 
 
 
@@ -194,30 +194,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         );
     }
 
-    public SwerveDrivetrainMk3(TelemetryFileLogger logger) {
-        this();
-
-//        logger.addMetric("FL_Rotation", fL::getTurningHeading);
-//        logger.addMetric("FR_Rotation", fR::getTurningHeading);
-//        logger.addMetric("RL_Rotation", rL::getTurningHeading);
-//        logger.addMetric("RR_Rotation", rR::getTurningHeading);
-//
-//        logger.addMetric("FL_Drive_Command", () -> fL.getDriveMotor().getDutyCycle().getValueAsDouble());
-//        logger.addMetric("FR_Drive_Command", () -> fR.getDriveMotor().getDutyCycle().getValueAsDouble());
-//        logger.addMetric("RL_Drive_Command", () -> rL.getDriveMotor().getDutyCycle().getValueAsDouble());
-//        logger.addMetric("RR_Drive_Command", () -> rR.getDriveMotor().getDutyCycle().getValueAsDouble());
-//
-//        logger.addMetric("FL_Turn_Command", () -> fL.getTurnMotor().getAppliedOutput());
-//        logger.addMetric("FR_Turn_Command", () -> fR.getTurnMotor().getAppliedOutput());
-//        logger.addMetric("RL_Turn_Command", () -> rL.getTurnMotor().getAppliedOutput());
-//        logger.addMetric("RR_Turn_Command", () -> rR.getTurnMotor().getAppliedOutput());
-//
-//        logger.addMetric("FL_Turn_Velocity", () -> fL.getTurnMotor().getEncoder().getVelocity());
-//        logger.addMetric("FR_Turn_Velocity", () -> fR.getTurnMotor().getEncoder().getVelocity());
-//        logger.addMetric("RL_Turn_Velocity", () -> rL.getTurnMotor().getEncoder().getVelocity());
-//        logger.addMetric("RR_Turn_Velocity", () -> rR.getTurnMotor().getEncoder().getVelocity());
-    }
-
     /**
      * Periodic function
      * - constantly update the odometry
@@ -258,11 +234,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        posePublisher.set(poseEstimator.getEstimatedPosition());
 
 
-        //TODO SwerveAuto can remove after PID constants are finalized and autos are running well
-//        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
-//                           "  Y "+ String.format("%3.2f", Robot.swervetrain.getPose().getY()) +
-//                           "  R "+ String.format("%3.2f", Robot.swervetrain.getPose().getRotation().getDegrees()));
-
         if (Robot.fullDashboard) {
             updateShuffleboardDebug("Swerve");
         }
@@ -283,11 +254,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.getTurningHeadingDegrees()));
         var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.getTurningHeadingDegrees()));
 
-        ChassisSpeeds speed = Constants.DrivetrainMK3.DRIVE_KINEMATICS.toChassisSpeeds(frontLeftState, frontRightState, rearLeft, rearRight);
-        System.out.println(Math.sqrt(Math.pow(speed.vyMetersPerSecond, 2) + Math.pow(speed.vxMetersPerSecond, 2)));
-        chassisSpeedsStructPublisher.set(speed);
-
-// Convert to chassis speeds
+        // Convert to chassis speeds
         return Constants.Drivetrain.DRIVE_KINEMATICS.toChassisSpeeds(
                 frontLeftState, frontRightState, rearLeft, rearRight);
     }
@@ -304,10 +271,11 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                         drivePace.getIsFieldRelative() ?
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
-
-//        SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
-//        targetPublisher.set(swerveModuleStates);
-//        actualPublisher.set(actualStates);
+        if (Robot.fullDashboard) {
+            SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
+            targetPublisher.set(swerveModuleStates);
+            actualPublisher.set(actualStates);
+        }
         setModuleStates(swerveModuleStates);
     }
 
@@ -330,7 +298,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     /**
      * Set the desired states for each of the 4 swerve modules using a ChassisSpeeds class
      * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
-     * @implNote Use only in {@link SwerveDrivetrainMk3} or {@link team.gif.lib.RobotTrajectory}
+     * @implNote Use only in {@link SwerveDrivetrainMk3}
      */
     public void setModuleChassisSpeeds(ChassisSpeeds chassisSpeeds) {
         SwerveModuleState[] swerveModuleStates = Constants.Drivetrain.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
