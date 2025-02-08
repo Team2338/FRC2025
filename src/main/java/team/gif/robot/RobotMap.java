@@ -54,4 +54,5 @@ public abstract class RobotMap {
         public static final String STAGE_PERC = "Stage %";
     }
     public static final int SENSOR_TOP_ID = 2;
+    public static final int SENSOR_BOTTOM_ID = 65;
 }

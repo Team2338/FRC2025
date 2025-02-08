@@ -27,7 +27,7 @@ public class AutoDriveAndShoot extends Command {
 
         if (Robot.shooter.isFireReady() && !hasTarget) {
 
-            Robot.shooter.moveMotor(Constants.Shooter.SPEED_PERCENT);
+            Robot.shooter.runShooterMotor(Constants.Shooter.SPEED_PERCENT);
             //System.out.println("Shooting");
             state = "Shooting";
             Robot.swerveDrive.drive(0.0, 0.0, 0.0);
@@ -50,6 +50,6 @@ public class AutoDriveAndShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.shooter.moveMotor(0);
+        Robot.shooter.runShooterMotor(0);
     }
 }
