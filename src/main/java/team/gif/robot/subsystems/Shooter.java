@@ -13,21 +13,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 import team.gif.robot.subsystems.drivers.LaserCANSensor;
-import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
-    private static LaserCANSensor sensorTop;
-    private static ToFSensor sensorBottom;
+    private static LaserCANSensor sensorLeft;
+    private static LaserCANSensor sensorRight;
 
 
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
-        sensorTop = new LaserCANSensor(RobotMap.SENSOR_TOP_ID);
-        sensorBottom = new ToFSensor(RobotMap.SENSOR_BOTTOM_ID);
+        sensorLeft = new LaserCANSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+        sensorRight = new LaserCANSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -36,8 +35,8 @@ public class Shooter extends SubsystemBase {
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
-        indexerSensor = new DigitalInput(RobotMap.INDEXER_SENSOR_ID);
-        exitSensor = new DigitalInput(RobotMap.EXIT_SENSOR_ID);
+        indexerSensor = new DigitalInput(RobotMap.INDEXER_GP_SENSOR_PORT);
+        exitSensor = new DigitalInput(RobotMap.EXIT_GP_SENSOR_PORT);
 
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 1.0);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0.35);
@@ -60,16 +59,16 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isFireReady() {
-        System.out.println("top: " + sensorTop.getDistance() + " bottom: " + sensorBottom.getDistance());
+        System.out.println("top: " + sensorLeft.getDistance() + " bottom: " + sensorRight.getDistance());
         return (sensorLeftActive() && sensorRightActive());
     }
 
     public boolean sensorLeftActive() {
-        return sensorTop.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
+        return sensorLeft.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
     }
 
     public boolean sensorRightActive() {
-        return sensorBottom.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
+        return sensorRight.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
     }
 
     public void stopShooterMotor() {

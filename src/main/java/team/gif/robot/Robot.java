@@ -85,7 +85,6 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         uiSmartDashboard.updateUI();
 
-
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
         limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
