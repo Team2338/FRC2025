@@ -6,13 +6,19 @@ package team.gif.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.util.sendable.Sendable;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.Shoot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,16 +40,70 @@ public class RobotContainer {
         // Configure the trigger bindings
         configureBindings();
 
-        //builds auto chooser
-        autoChooser = AutoBuilder.buildAutoChooser("Mobility");
-        SmartDashboard.putData("Auto Chooser", autoChooser);
+        // builds auto chooser
+        // AutoBuilder.buildAutoChooser pulls file list (*.auto) from {project}/src/main/deploy/pathplanner/autos/deploy,
+        // creates a chooser list, and builds the paths, all in this single command
+        // Takes the default auto path as a parameter
+//        autoChooser = AutoBuilder.buildAutoChooser("");
+//        autoChooser = build2338AutoChooser("",(stream) -> stream);
+        autoChooser = build2338AutoChooser((stream) -> stream);
+        SmartDashboard.putData("Auto", autoChooser);
+    }
+
+    // Copied code from WPILIB AutoBuilder.java and added sort feature
+    // Also moves None to the top and renames it "** None **"
+    public static SendableChooser<Command> build2338AutoChooser(
+        Function<Stream<PathPlannerAuto>, Stream<PathPlannerAuto>> optionsModifier) {
+
+        if (!AutoBuilder.isConfigured()) {
+            throw new RuntimeException(
+                "AutoBuilder was not configured before attempting to build an auto chooser");
+        }
+
+        SendableChooser<Command> chooser = new SendableChooser<>();
+
+        // get list from .../deploy directory
+//        autoNames = AutoBuilder.getAllAutoNames();
+//        autoNames.sort(null); // this is the line added to sort the list (retrieved from the .../deploy directory)
+
+        // create list manually to control sort order
+        List<String> autoNames = new ArrayList<>();
+        autoNames.add("u-turn");
+        autoNames.add("Mobility");
+        autoNames.add("Straight Line");
+        autoNames.add("Curve");
+        autoNames.add("First Auto");
+
+//        PathPlannerAuto defaultOption = null;
+        List<PathPlannerAuto> options = new ArrayList<>();
+
+        for (String autoName : autoNames) {
+            PathPlannerAuto auto = new PathPlannerAuto(autoName);
+
+//            if (!defaultAutoName.isEmpty() && defaultAutoName.equals(autoName)) {
+//                defaultOption = auto;
+//            } else {
+                options.add(auto);
+//            }
+        }
+
+//        if (defaultOption == null) {
+            chooser.setDefaultOption("** None **", Commands.none());
+//        } else {
+//            chooser.setDefaultOption(defaultOption.getName(), defaultOption);
+//            chooser.addOption("** None **", Commands.none());
+//        }
+
+        optionsModifier
+            .apply(options.stream())
+            .forEach(auto -> chooser.addOption(auto.getName(), auto));
+
+        return chooser;
     }
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
     }
-
-
 
     /**
      * Use this method to define your trigger->command mappings. Triggers can be created via the

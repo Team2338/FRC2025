@@ -7,7 +7,6 @@ import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.units.Units;
 import team.gif.robot.Constants;
 
 public class TalonFXDriveMotor implements DriveMotor{
@@ -53,6 +52,14 @@ public class TalonFXDriveMotor implements DriveMotor{
 
     public void set(double percentOutput) {
         motor.set(percentOutput);
+    }
+
+    public void setVoltage(double voltage) {
+        motor.setVoltage(voltage);
+    }
+
+    public double getVoltage() {
+        return motor.getMotorVoltage().getValueAsDouble();
     }
 
     public void resetEncoder() {

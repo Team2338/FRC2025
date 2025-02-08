@@ -8,15 +8,23 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.*;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.units.measure.MutAngle;
+import edu.wpi.first.units.measure.MutAngularVelocity;
+import edu.wpi.first.units.measure.MutDistance;
+import edu.wpi.first.units.measure.MutLinearVelocity;
+import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.lib.drivePace;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
@@ -29,6 +37,12 @@ import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
 import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
 import team.gif.lib.LimelightHelpers;
+
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
 
 /**
  * @author Rohan Cherukuri
@@ -98,6 +112,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.FRONT_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.fLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftP
         );
@@ -109,6 +124,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.FRONT_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.fRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightP
         );
@@ -120,6 +136,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 true,
                 Constants.DrivetrainMK3.REAR_LEFT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rLDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftP
         );
@@ -131,6 +148,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                 true,
                 false,
                 Constants.DrivetrainMK3.REAR_RIGHT_OFFSET,
+                Constants.ModuleConstantsMK3.DrivetrainPID.rRDriveFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightFF,
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearRightP
         );
@@ -143,9 +161,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
         drivePace = drivePace.COAST_FR;
 
-        if(Robot.fullDashboard) {
-            enableShuffleboardDebug("Swerve");
-        }
 
         //Autos stuff
         //TODO: put this in constants. need to ref api docs
@@ -245,6 +260,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 //        System.out.println(  "X "+ String.format("%3.2f", Robot.swervetrain.getPose().getX()) +
 //                           "  Y "+ String.format("%3.2f", Robot.swervetrain.getPose().getY()) +
 //                           "  R "+ String.format("%3.2f", Robot.swervetrain.getPose().getRotation().getDegrees()));
+
+        if (Robot.fullDashboard) {
+            updateShuffleboardDebug("Swerve");
+        }
     }
 
     /**
@@ -257,10 +276,14 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     public ChassisSpeeds getRobotRelativeSpeed() {
         // Example module states
-        var frontLeftState = new SwerveModuleState(fL.getDriveVelocity(), Rotation2d.fromDegrees(fL.encoderDegrees()));
-        var frontRightState = new SwerveModuleState(fR.getDriveVelocity(), Rotation2d.fromDegrees(fR.encoderDegrees()));
-        var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.encoderDegrees()));
-        var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.encoderDegrees()));
+        var frontLeftState = new SwerveModuleState(fL.getDriveVelocity(), Rotation2d.fromDegrees(fL.getTurningHeadingDegrees()));
+        var frontRightState = new SwerveModuleState(fR.getDriveVelocity(), Rotation2d.fromDegrees(fR.getTurningHeadingDegrees()));
+        var rearLeft = new SwerveModuleState(rL.getDriveVelocity(), Rotation2d.fromDegrees(rL.getTurningHeadingDegrees()));
+        var rearRight = new SwerveModuleState(rR.getDriveVelocity(), Rotation2d.fromDegrees(rR.getTurningHeadingDegrees()));
+
+        ChassisSpeeds speed = Constants.DrivetrainMK3.DRIVE_KINEMATICS.toChassisSpeeds(frontLeftState, frontRightState, rearLeft, rearRight);
+        System.out.println(Math.sqrt(Math.pow(speed.vyMetersPerSecond, 2) + Math.pow(speed.vxMetersPerSecond, 2)));
+        chassisSpeedsStructPublisher.set(speed);
 
 // Convert to chassis speeds
         return Constants.Drivetrain.DRIVE_KINEMATICS.toChassisSpeeds(
@@ -279,7 +302,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
                         drivePace.getIsFieldRelative() ?
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
-
         SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
         targetPublisher.set(swerveModuleStates);
         actualPublisher.set(actualStates);
@@ -312,6 +334,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleStates, drivePace.getValue()
         );
+
+        for (SwerveModuleState state : swerveModuleStates) {
+            state.speedMetersPerSecond = Math.min(state.speedMetersPerSecond, drivePace.getValue());
+        }
 
         fL.setDesiredState(swerveModuleStates[0]);
         fR.setDesiredState(swerveModuleStates[1]);
@@ -421,37 +447,137 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
     public double rLDriveTemp() { return rLDriveMotor.getTemp(); }
     public double rRDriveTemp() { return rRDriveMotor.getTemp(); }
 
-    public void enableShuffleboardDebug(String shuffleboardTabName) {
-        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(shuffleboardTabName);
+    public void updateShuffleboardDebug(String shuffleboardTabName) {
 
-        /*
-        shuffleboardTab.addDouble("FL Heading", fL::getTurningHeadingDegrees).withPosition(0,0).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("FR Heading", fR::getTurningHeadingDegrees).withPosition(2,0).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("RR Heading", rR::getTurningHeadingDegrees).withPosition(2,2).withWidget(BuiltInWidgets.kGyro);
-        shuffleboardTab.addDouble("RL Heading", rL::getTurningHeadingDegrees).withPosition(0,2).withWidget(BuiltInWidgets.kGyro);
+        SmartDashboard.putData(shuffleboardTabName + "/FL Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", fL::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/FR Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", fR::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/RL Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", rL::getTurningHeadingDegrees, null);
+        });
+        SmartDashboard.putData(shuffleboardTabName + "/RR Heading", builder -> {
+            builder.setSmartDashboardType("Gyro");
+            builder.addDoubleProperty("Value", rR::getTurningHeadingDegrees, null);
+        });
 
-        shuffleboardTab.addDouble("FR Raw Degrees", fR::encoderDegrees).withPosition(5,0);
-        shuffleboardTab.addDouble("FL Raw Degrees", fL::encoderDegrees).withPosition(4,0);
-        shuffleboardTab.addDouble("RR Raw Degrees", rR::encoderDegrees).withPosition(5,1);
-        shuffleboardTab.addDouble("RL Raw Degrees", rL::encoderDegrees).withPosition(4,1);
 
-        shuffleboardTab.addDouble("FL Raw Encoder", fLEncoder::getTicks).withPosition(8,0);
-        shuffleboardTab.addDouble("FR Raw Encoder", fREncoder::getTicks).withPosition(9,0);
-        shuffleboardTab.addDouble("RL Raw Encoder", rLEncoder::getTicks).withPosition(8,1);
-        shuffleboardTab.addDouble("RR Raw Encoder", rREncoder::getTicks).withPosition(9,1);
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Degrees", fR.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Degrees", fL.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Degrees", rR.encoderDegrees());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Degrees", rL.encoderDegrees());
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Encoder", fLEncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Encoder", fREncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Encoder", rLEncoder.getTicks());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Encoder", rREncoder.getTicks());
 
-        shuffleboardTab.addDouble("FR Raw Radians", fR::getTurningHeading).withPosition(7,0);
-        shuffleboardTab.addDouble("FL Raw Radians", fL::getTurningHeading).withPosition(6,0);
-        shuffleboardTab.addDouble("RR Raw Radians", rR::getTurningHeading).withPosition(7,1);
-        shuffleboardTab.addDouble("RL Raw Radians", rL::getTurningHeading).withPosition(6,1);
-        */
-        shuffleboardTab.addDouble("FL Drive Encoder", fLDriveMotor::getPosition).withPosition(4, 2).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("FR Drive Encoder", fRDriveMotor::getPosition).withPosition(5, 2).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("RL Drive Encoder", rLDriveMotor::getPosition).withPosition(4, 3).withWidget(BuiltInWidgets.kTextView);
-        shuffleboardTab.addDouble("RR Drive Encoder", rRDriveMotor::getPosition).withPosition(5, 3).withWidget(BuiltInWidgets.kTextView);
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Raw Radians", fR.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Raw Radians", fL.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Raw Radians", rR.getTurningHeading());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Raw Radians", rL.getTurningHeading());
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Drive Encoder", fLDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Drive Encoder", fRDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Drive Encoder", rLDriveMotor.getPosition());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Drive Encoder", rRDriveMotor.getPosition());
 
         //TODO: Add target to shuffleboard
+    }
+
+    public SysIdRoutine getSysIdRoutine(String motors) {
+        MutVoltage voltMut = Volts.mutable(0);
+
+        if (motors.equals("drive")) {
+            MutDistance posMut = Meters.mutable(0);
+            MutLinearVelocity vMut= MetersPerSecond.mutable(0);
+
+            return new SysIdRoutine(new SysIdRoutine.Config(null, voltMut.mut_replace(12, Volts), null),
+                    new SysIdRoutine.Mechanism(
+                            voltage -> {
+                                fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                fRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                rLDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                                rRDriveMotor.setVoltage(voltage.baseUnitMagnitude());
+                            },
+                            log -> {
+                                log.motor("fLDrive")
+                                        .voltage(voltMut.mut_replace(fLDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(fLDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(fLDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("fRDrive")
+                                        .voltage(voltMut.mut_replace(fRDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(fRDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(fRDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("rLDrive")
+                                        .voltage(voltMut.mut_replace(rLDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(rLDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(rLDriveMotor.getVelocity(), MetersPerSecond));
+                                log.motor("rRDrive")
+                                        .voltage(voltMut.mut_replace(rRDriveMotor.getVoltage(), Volts))
+                                        .linearPosition(posMut.mut_replace(rRDriveMotor.getPosition(), Meters))
+                                        .linearVelocity(vMut.mut_replace(rRDriveMotor.getVelocity(), MetersPerSecond));
+
+                            },
+                            this));
+        } else if (motors.equals("turn")) {
+            MutAngle thetaMut = Radians.mutable(0);
+            MutAngularVelocity thetaVMut = RadiansPerSecond.mutable(0);
+
+            return new SysIdRoutine(new SysIdRoutine.Config(),
+                    new SysIdRoutine.Mechanism(
+                    voltage -> {
+                            fLTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            fRTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rLTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                            rRTurnMotor.setVoltage(voltage.baseUnitMagnitude());
+                        }, log -> {
+                            log.motor("fLTurn")
+                                    .voltage(voltMut.mut_replace(fLTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(fLEncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(fLEncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("fRTurn")
+                                    .voltage(voltMut.mut_replace(fRTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(fREncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(fREncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("rLTurn")
+                                    .voltage(voltMut.mut_replace(rLTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(rLEncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(rLEncoder.getVelocity(), RadiansPerSecond));
+                            log.motor("rRTurn")
+                                    .voltage(voltMut.mut_replace(rRTurnMotor.getVoltage(), Volts))
+                                    .angularPosition(thetaMut.mut_replace(rREncoder.getRadians(), Radians))
+                                    .angularVelocity(thetaVMut.mut_replace(rREncoder.getVelocity(), RadiansPerSecond));
+                    }, this));
+
+        } else {
+            DriverStation.reportError("Invalid motor type at SwerveDrivetrainMk3.getSysIdRoutine", false);
+            return null;
+        }
+    }
+
+    /**
+     * Returns a command that will execute a quasistatic test in the given direction.
+     *
+     * @param motor The motor to run the test on either "drive" or "turn"
+     * @param direction The direction (forward or reverse) to run the test in
+     */
+    public Command sysIdQuasistatic(String motor, SysIdRoutine.Direction direction) {
+        return getSysIdRoutine(motor).quasistatic(direction);
+    }
+
+    /**
+     * Returns a command that will execute a dynamic test in the given direction.
+     *
+     * @param motor The motor to run the test on either "drive" or "turn"
+     * @param direction The direction (forward or reverse) to run the test in
+     */
+    public Command sysIdDynamic(String motor, SysIdRoutine.Direction direction) {
+        return getSysIdRoutine(motor).dynamic(direction);
     }
 }

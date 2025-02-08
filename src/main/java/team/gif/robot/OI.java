@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.Shoot;
+import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.AutoDriveAndShoot;
 import team.gif.robot.commands.AutoDriveForwardAndShoot;
-import team.gif.robot.commands.ShooterTurn;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.TestSwerve;
 
@@ -23,7 +25,7 @@ public class OI {
 
     public final CommandXboxController driver = new CommandXboxController(RobotMap.DRIVER_CONTROLLER_ID);
     public final CommandXboxController aux = new CommandXboxController(RobotMap.AUX_CONTROLLER_ID);
-//-    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
+    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
 
     public final Trigger dA = driver.a();
     public final Trigger dB = driver.b();
@@ -107,7 +109,9 @@ public class OI {
         dBack.and(dDPadDown).onTrue(new Reset0());
         //dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
-        dRTrigger.whileTrue(new ShooterTurn());
+        dRTrigger.whileTrue(new Shoot());
+        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dLStickBtn.whileTrue(new EnableBoost());
         dA.whileTrue(new AutoDriveAndShoot());
         dY.whileTrue(new AutoDriveForwardAndShoot());
     }

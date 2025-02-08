@@ -4,8 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.math.util.Units;
-import team.gif.robot.Constants;
 
 public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
     private TalonSRX motor;
@@ -21,7 +19,6 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
 
     //Motor configuration
     public void configure(boolean inverted) {
-        //---Motor configuration
         motor.configFactoryDefault();
         motor.setNeutralMode(NeutralMode.Brake);
         motor.setInverted(inverted);
@@ -29,18 +26,28 @@ public class TalonSRXTurnMotorEncoder implements TurnMotor, Encoder {
 
     //Encoder configuration
     public void configure() {
-        //---Encoder configuration
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
         motor.configFeedbackNotContinuous(true, 0);
         motor.configSelectedFeedbackCoefficient(1);
+        motor.configVoltageCompSaturation(12);
+        motor.enableVoltageCompensation(true);
     }
 
     public double getOutput() {
         return motor.getMotorOutputPercent();
     }
 
+    public double getVoltage() {
+        return motor.getMotorOutputVoltage();
+    }
+
     public void set(double percentOutput) {
         motor.set(ControlMode.PercentOutput, percentOutput);
+    }
+
+    public void setVoltage(double voltage) {
+        // Talon can't set voltage so we convert it to a percent output based on the input voltage
+        motor.set(ControlMode.PercentOutput, voltage / motor.getBusVoltage());
     }
 
     public double getTicks() {
