@@ -50,6 +50,10 @@ public class Shooter extends SubsystemBase {
     public void runShooterMotor(double percent) {
         shooter.set(TalonSRXControlMode.PercentOutput, percent);
     }
+//
+//    public void moveIndexerFromShuffleboard() {
+//        indexer.set(TalonSRXControlMode.PercentOutput, SmartDashboard.getNumber(RobotMap.UI.INDEXER_PERC, 0));
+//    }
 
     /**
      * runs the shooter motor at a power percentage determined by value on dashboard
