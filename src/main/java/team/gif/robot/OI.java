@@ -105,12 +105,11 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
-        //dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
-        dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new Shoot());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
-        dA.whileTrue(new AutoDriveAndShoot());
+        dX.whileTrue(new AutoDriveAndShoot(false));
+        dB.whileTrue(new AutoDriveAndShoot(true));
     }
 
     public void setRumble(boolean rumble) {

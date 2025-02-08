@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 import team.gif.robot.subsystems.drivers.LaserCANSensor;
+import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
@@ -20,13 +21,14 @@ public class Shooter extends SubsystemBase {
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
     private static LaserCANSensor sensorLeft;
-    private static LaserCANSensor sensorRight;
+    private static ToFSensor sensorRight;
 
 
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
         sensorLeft = new LaserCANSensor(RobotMap.REEF_LEFT_SENSOR_ID);
-        sensorRight = new LaserCANSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
+//TODO:        sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+        sensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -68,11 +70,13 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean sensorLeftActive() {
-        return sensorLeft.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
+        double sensorDistance = sensorLeft.getDistance();
+        return sensorDistance < Constants.Shooter.TARGET_DISTANCE_MM && sensorDistance > 0;
     }
 
     public boolean sensorRightActive() {
-        return sensorRight.getDistance() < Constants.Shooter.TARGET_DISTANCE_MM;
+        double sensorDistance = sensorRight.getDistance();
+        return sensorDistance < Constants.Shooter.TARGET_DISTANCE_MM && sensorDistance > 0;
     }
 
     public void stopShooterMotor() {
