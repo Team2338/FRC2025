@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
-import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
+import team.gif.robot.commands.StageCoral;
+import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
@@ -24,15 +25,15 @@ import team.gif.robot.subsystems.drivers.Pigeon2_0;
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
-    private Command autonomousCommand;
 
+    // Framework objects
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
     public static OI oi;
     public static UiSmartDashboard uiSmartDashboard;
-    private static delay chosenDelay;
+    private Command autonomousCommand;
 
-    //Devices
+    // Devices
     public static Pigeon2_0 pigeon;
     public static SwerveDrivetrainMk3 swerveDrive;
     //  public static SwerveDrivetrainMk4 swerveDrive;
@@ -40,31 +41,32 @@ public class Robot extends TimedRobot {
     public static Limelight limelightShooter;
     public static Shooter shooter;
 
-    public static final boolean fullDashboard = false;
-    private boolean runAutoScheduler;
+    // custom fields
+    private boolean autoSchedulerOnHold;
+    private static delay chosenDelay;
+    public static final boolean fullDashboard = true;
     private Timer elapsedTime;
-    private int counter =0;
 
     /**
     * This function is run when the robot is first started up and should be used for any
     * initialization code.
     */
     public Robot() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-        // autonomous chooser on the dashboard.
+        // Instantiate all the framework and device objects
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightCollector = new Limelight("limelight-collect");
         limelightShooter = new Limelight("limelight-shooter");
         swerveDrive = new SwerveDrivetrainMk3();
-        swerveDrive.setDefaultCommand(new DriveSwerve());
-
-        shooter= new Shooter();
+        //  swerveDrive = new SwerveDrivetrainMk4();
+        swerveDrive.setDefaultCommand(new DrivePracticeSwerve());
+        shooter = new Shooter();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
 
+        shooter.setDefaultCommand(new StageCoral());
         // Add a second periodic function to remove non-essential updates from the main scheduler
         addPeriodic(this::secondPeriodic, 0.5, 0.05);
 
@@ -89,7 +91,8 @@ public class Robot extends TimedRobot {
 
         //Vision Localization
     //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
-
+        limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
+        limelightShooter.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -110,23 +113,24 @@ public class Robot extends TimedRobot {
             if (autonomousCommand != null) {
                 autonomousCommand.schedule();
             }
-            runAutoScheduler = false;
+            autoSchedulerOnHold = false;
         } else {
             // invoke delay
             elapsedTime.reset();
             elapsedTime.start();
-            runAutoScheduler = true;
+            autoSchedulerOnHold = true;
         }
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        if (runAutoScheduler && (elapsedTime.get() > (chosenDelay.getValue()))) {
+        // if delay was invoked, need to start autonomous after delay completes
+        if (autoSchedulerOnHold && (elapsedTime.get() > (chosenDelay.getValue()))) {
             if (autonomousCommand != null) {
                 autonomousCommand.schedule();
             }
-            runAutoScheduler = false;
+            autoSchedulerOnHold = false;
             elapsedTime.stop();
         }
     }
@@ -145,8 +149,10 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-//        shooter.moveIndexerFromShuffleboard();
+        // run the indexer all the time
+        shooter.runIndexerMotor();
 
+        // rumble the joysticks at various points during the match to notify the drive team
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));

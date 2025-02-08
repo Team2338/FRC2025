@@ -9,9 +9,10 @@ import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
 
-    private int counter = 0;
+    private static int flashCounter;
 
     public Diagnostics() {
+        flashCounter = 0;
     }
 
     public boolean getDriveMotorTempHot() {
@@ -33,7 +34,7 @@ public class Diagnostics extends SubsystemBase {
             return false;
         }
         // if at least 1 motor hot, flash with 50% duty cycle
-        return ++counter % FLASH_CYCLE < FLASH_CYCLE/2;
+        return ++flashCounter % FLASH_CYCLES < FLASH_CYCLES/2;
     }
 }
 
