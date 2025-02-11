@@ -13,6 +13,7 @@ import team.gif.lib.delay;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -25,6 +26,7 @@ import team.gif.robot.subsystems.drivers.Pigeon2_0;
  */
 public class Robot extends TimedRobot {
 
+    public static Elevator elevator;
     // Framework objects
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;

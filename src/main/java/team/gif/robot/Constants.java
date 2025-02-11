@@ -289,4 +289,21 @@ public final class Constants {
         public static final double SHOOTER_SPEED_PERCENT = 0.50;
         public static final double SHOOTER_SPEED_INDEXER_PERCENT = 0.25;
     }
+
+    public static final class Elevator{
+        public static final double ELEVATOR_KP = 0;
+        public static final double ELEVATOR_KI = 0;
+        public static final double ELEVATOR_KD = 0;
+        public static final double ELEVATOR_KS = 0;
+        public static final double ELEVATOR_KP_HOLD = 0;
+        public static final double ELEVATOR_KI_HOLD = 0;
+        public static final double ELEVATOR_KD_HOLD = 0;
+        public static final double EL_TICKS_PER_INCH = 1;
+        public static final double ZERO_OFFSET_TICKS = 1;
+        public static final double MAX_POS = 1;
+        public static final double MIN_POS = 1;
+        public static final int MAX_VELOCITY = 1;
+        public static final double PID_TOLERANCE = 1;
+        public static final double MAX_ACCELERATION = 1;
+    }
 }
