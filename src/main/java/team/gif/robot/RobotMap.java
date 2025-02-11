@@ -47,6 +47,9 @@ public abstract class RobotMap {
     public static final int INDEXER_SENSOR_ID = 0;
     public static final int EXIT_SENSOR_ID = 1;
 
+    //Climber
+    public static final int CLIMBER_ID = 0;
+
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";

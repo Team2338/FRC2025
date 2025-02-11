@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
+    public static Climber climber;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -60,6 +62,7 @@ public class Robot extends TimedRobot {
         //  swerveDrive = new SwerveDrivetrainMk4();
         swerveDrive.setDefaultCommand(new DrivePracticeSwerve());
         shooter = new Shooter();
+        climber = new Climber();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();

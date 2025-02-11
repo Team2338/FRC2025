@@ -296,4 +296,8 @@ public final class Constants {
         public static final double SHOOTER_SPEED_PERCENT = 0.50;
         public static final double SHOOTER_SPEED_INDEXER_PERCENT = 0.25;
     }
+
+    public static final class Climber {
+        public static final double CLIMBER_SPEED_PERCENT = 0.25;
+    }
 }
