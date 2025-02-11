@@ -42,6 +42,7 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Rotation;
 import static edu.wpi.first.units.Units.Volts;
 
 /**
@@ -316,6 +317,24 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         rR.setDesiredState(swerveModuleStates[3]);
 //        chassisSpeedsStructPublisher.set(chassisSpeeds);
 //        targetPublisher.set(swerveModuleStates);
+    }
+
+    public void modulesTo90() {
+        SwerveModuleState state90 = new SwerveModuleState(0, Rotation2d.fromDegrees(90));
+        fL.setDesiredState(state90, true);
+        fR.setDesiredState(state90, false);
+        rL.setDesiredState(state90, true);
+        rR.setDesiredState(state90, false);
+
+    }
+
+    public void modulesTo0() {
+        System.out.println("modules to 0");
+        fL.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        fR.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        rL.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        rR.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+
     }
 
     /**

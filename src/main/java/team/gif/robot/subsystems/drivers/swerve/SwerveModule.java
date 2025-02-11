@@ -179,6 +179,26 @@ public class SwerveModule {
         turnMotor.set(turnOutput);
     }
 
+    public void setDesiredState(SwerveModuleState state,  boolean moveCW) {
+        state = optimizeState(state);
+        double driveOutput = driveFF.calculate(state.speedMetersPerSecond);
+
+        double error = getTurningHeading() - state.angle.getRadians();
+
+        if (moveCW) {
+            error = Math.abs(error);
+        } else {
+            error = Math.abs(error) * -1;
+        }
+
+        //if error is negative, FF should also be negative
+        final double ff = turnFF * Math.abs(error) / error;
+        //accum += error;
+        final double turnOutput = ff + (P * error);
+        driveMotor.setVoltage(driveOutput);
+        turnMotor.set(turnOutput);
+    }
+
     /**
      * Stop the swerve modules
      */
