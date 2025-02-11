@@ -20,14 +20,14 @@ public class Shooter extends SubsystemBase {
     private static TalonSRX indexer;
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
-    private static LaserCANSensor sensorLeft;
+    private static ToFSensor sensorLeft;
     private static ToFSensor sensorRight;
 
 
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
-        sensorLeft = new LaserCANSensor(RobotMap.REEF_LEFT_SENSOR_ID);
-//TODO:        sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+//        sensorLeft = new LaserCANSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+        sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
         sensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isFireReady() {
-        System.out.println("top: " + sensorLeft.getDistance() + " bottom: " + sensorRight.getDistance());
+        System.out.println("left: " + sensorLeft.getDistance() + " right: " + sensorRight.getDistance());
         return (sensorLeftActive() && sensorRightActive());
     }
 

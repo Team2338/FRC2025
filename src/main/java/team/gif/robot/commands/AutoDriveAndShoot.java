@@ -35,14 +35,14 @@ public class AutoDriveAndShoot extends Command {
                 //If we are facing the alliance wall, invert
                 inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
                 double speed = Constants.Shooter.ALIGN_SPEED_MPS * (inverted ? -1 : 1);
-                Robot.swerveDrive.drive(speed, 0.0, 0.0);
+                Robot.swerveDrive.drive(0, speed, 0.0);
             }
         }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return Robot.shooter.isFireReady();
     }
 
     // Called when the command ends or is interrupted.
