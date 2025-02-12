@@ -292,8 +292,10 @@ public final class Constants {
         public static final int NUM_LEDS_TOTAL = 6;
     }
 
-    public static final class SHOOTER {
-        public static final double SHOOTER_SPEED_PERCENT = 0.50;
-        public static final double SHOOTER_SPEED_INDEXER_PERCENT = 0.25;
+    public static final class Shooter {
+        public static final double SPEED_PERCENT = 0.50;
+        public static final double SPEED_INDEXER_PERCENT = 0.25;
+        public static final double TARGET_DISTANCE_MM = 500;
+        public static final double ALIGN_SPEED_MPS = 0.15; //Meters per Second
     }
 }

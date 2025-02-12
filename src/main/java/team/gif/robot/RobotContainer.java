@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.AutoDriveAndShoot;
 import team.gif.robot.commands.Shoot;
+import team.gif.robot.commands.drivetrainPbot.MoveModulesIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,9 @@ public class RobotContainer {
 
         // register commands used in PathPlanner
         NamedCommands.registerCommand("Shoot", new Shoot());
+        NamedCommands.registerCommand("MoveModulesIn", new MoveModulesIn());
+        NamedCommands.registerCommand("AutoDriveAndShoot", new AutoDriveAndShoot(true).withTimeout(5));
+
 
         // Configure the trigger bindings
         configureBindings();

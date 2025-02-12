@@ -157,8 +157,13 @@ public class Robot extends TimedRobot {
     public void secondPeriodic() {
 //        System.out.println(++counter);
         uiSmartDashboard.updateUI();
-        limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), 0, 0, 0, 0);
+        double heading = pigeon.get360Heading();
+        var alliance = DriverStation.getAlliance();
+        if( alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red ){
+            heading = heading - 180;
+        }
+        limelightCollector.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
+        limelightShooter.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
     }
 
     @Override

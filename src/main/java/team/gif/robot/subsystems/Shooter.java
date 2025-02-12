@@ -10,17 +10,24 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.robot.subsystems.drivers.LaserCANSensor;
+import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
     private static TalonSRX shooter;
     private static TalonSRX indexer;
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
+    private static ToFSensor sensorLeft;
+    private static ToFSensor sensorRight;
 
 
     public Shooter() {
         shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
+        sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+        sensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -29,8 +36,8 @@ public class Shooter extends SubsystemBase {
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
-        indexerSensor = new DigitalInput(RobotMap.INDEXER_SENSOR_ID);
-        exitSensor = new DigitalInput(RobotMap.EXIT_SENSOR_ID);
+        indexerSensor = new DigitalInput(RobotMap.INDEXER_GP_SENSOR_PORT);
+        exitSensor = new DigitalInput(RobotMap.EXIT_GP_SENSOR_PORT);
 
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, 1.0);
         SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, 0.35);
@@ -54,6 +61,21 @@ public class Shooter extends SubsystemBase {
      **/
     public void runShooterMotor() {
         runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
+    }
+
+    public boolean isFireReady() {
+//        System.out.println("left: " + sensorLeft.getDistance() + " right: " + sensorRight.getDistance());
+        return (sensorLeftActive() && sensorRightActive());
+    }
+
+    public boolean sensorLeftActive() {
+        double sensorDistance = sensorLeft.getDistance();
+        return sensorDistance < Constants.Shooter.TARGET_DISTANCE_MM && sensorDistance > 0;
+    }
+
+    public boolean sensorRightActive() {
+        double sensorDistance = sensorRight.getDistance();
+        return sensorDistance < Constants.Shooter.TARGET_DISTANCE_MM && sensorDistance > 0;
     }
 
     public void stopShooterMotor() {
@@ -98,4 +120,5 @@ public class Shooter extends SubsystemBase {
     public void setShooterCoastMode() {
         shooter.setNeutralMode(NeutralMode.Coast);
     }
+
 }
