@@ -7,7 +7,7 @@ public enum drivePace {
     COAST_RR(Constants.Drivetrain.COAST_SPEED_METERS_PER_SECOND, false),
     SLOW_FR(Constants.Drivetrain.SLOW_SPEED_METERS_PER_SECOND, true),
     SLOW_RR(Constants.Drivetrain.SLOW_SPEED_METERS_PER_SECOND, false),
-    BOOST_FR(Constants.Drivetrain.BOOST_SPEED_METERS_PER_SECOND, true),
+    BOOST_FR(Constants.DrivetrainMK3.BOOST_SPEED_METERS_PER_SECOND, true),
     BOOST_RR(Constants.Drivetrain.BOOST_SPEED_METERS_PER_SECOND, false);
 
     private double value;
