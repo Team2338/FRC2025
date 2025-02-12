@@ -298,7 +298,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     /**
      * Set the desired states for each of the 4 swerve modules using a ChassisSpeeds class
-     * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
+     * @param chassisSpeeds Robot Relative ChassisSpeeds to apply to wheel speeds
      * @implNote Use only in {@link SwerveDrivetrainMk3}
      */
     public void setModuleChassisSpeeds(ChassisSpeeds chassisSpeeds) {
