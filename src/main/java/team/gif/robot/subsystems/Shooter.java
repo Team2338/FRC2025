@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
-import team.gif.robot.subsystems.drivers.LaserCANSensor;
 import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
