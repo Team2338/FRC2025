@@ -43,11 +43,14 @@ public class AutoDriveAndShoot extends Command {
     @Override
     public boolean isFinished() {
         return Robot.shooter.isFireReady();
+        //TODO: This needs to be based off of the gamepiece sensors, not the ToF sensors
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        System.out.println("finished auto drive shoot");
+
         Robot.shooter.runShooterMotor(0);
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }

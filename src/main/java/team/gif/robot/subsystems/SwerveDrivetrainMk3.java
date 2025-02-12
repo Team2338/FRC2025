@@ -209,8 +209,8 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
         LimelightHelpers.PoseEstimate collectEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-collect");
         LimelightHelpers.PoseEstimate shooterEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-shooter");
-        boolean ignoreCollectEstimate = false; //true
-        boolean ignoreShooterEstimate = false; //true
+        boolean ignoreCollectEstimate = true;
+        boolean ignoreShooterEstimate = true;
 
         //TODO ignore both if yaw rate is over 720º/s
         if(collectEstimate != null && collectEstimate.tagCount > 0) {
