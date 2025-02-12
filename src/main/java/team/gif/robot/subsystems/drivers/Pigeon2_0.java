@@ -113,4 +113,12 @@ public class Pigeon2_0 extends SubsystemBase {
     public double getPitch() {
         return _pigeon.getPitch().getValueAsDouble();
     }
+
+    public double getRoll() {
+        return _pigeon.getRoll().getValueAsDouble();
+    }
+
+    public double getYawRate() {
+        return _pigeon.getAngularVelocityXDevice().getValueAsDouble();
+    }
 }

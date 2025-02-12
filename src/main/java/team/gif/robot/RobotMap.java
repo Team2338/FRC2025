@@ -41,12 +41,18 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
 
     //Shooter
-    public static final int SHOOTER_ID = 22;
-    public static final int INDEXER_ID = 37;
+    public static final int SHOOTER_MOTOR_ID = 22;
+    public static final int INDEXER_MOTOR_ID = 37;
+
+    public static final int INDEXER_GP_SENSOR_PORT = 0;
+    public static final int EXIT_GP_SENSOR_PORT = 1;
+    public static final int REEF_LEFT_SENSOR_ID = 65;
+    public static final int REEF_RIGHT_SENSOR_ID = 2;
 
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";
         public static final String INDEXER_PERC = "Indexer Speed";
+        public static final String STAGE_PERC = "Stage %";
     }
 }
