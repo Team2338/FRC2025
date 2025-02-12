@@ -18,14 +18,12 @@ public class TalonFXTurnMotor implements TurnMotor {
 
     public void configure(boolean inverted) {
         TalonFXConfigurator talonFXConfig = motor.getConfigurator();
-        FeedbackConfigs config = new TalonFXConfiguration().Feedback.withSensorToMechanismRatio(Constants.ModuleConstants.TURNING_MOTOR_GEAR_RATIO);
 
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
         motorConfigs.Inverted = inverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
         motorConfigs.NeutralMode = NeutralModeValue.Brake;
 
         talonFXConfig.apply(motorConfigs);
-        talonFXConfig.apply(config);
     }
 
 
