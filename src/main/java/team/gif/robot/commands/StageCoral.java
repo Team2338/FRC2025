@@ -53,4 +53,6 @@ public class StageCoral extends Command {
         Robot.shooter.stopShooterMotor();
         Robot.shooter.setShooterCoastMode();
     }
+
+
 }

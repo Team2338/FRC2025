@@ -298,6 +298,9 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double CLIMBER_SPEED_PERCENT = 0.25;
+        public static final double SPEED_PERCENT = 0.25;
+        public static final double FORWARD_SOFT_LIMIT = 0;
+        public static final double REVERSE_SOFT_LIMIT = 0;
+
     }
 }

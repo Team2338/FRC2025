@@ -19,7 +19,7 @@ public class ClimberDown extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.runClimber(-Constants.Climber.CLIMBER_SPEED_PERCENT);
+        Robot.climber.runClimber(-Constants.Climber.SPEED_PERCENT);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
