@@ -3,7 +3,6 @@ package team.gif.robot.commands.driveModes;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
-import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 
 public class EnableBoost extends Command {
     private drivePace drivePace;

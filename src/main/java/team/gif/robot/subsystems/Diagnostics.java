@@ -4,7 +4,6 @@
 
 package team.gif.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
