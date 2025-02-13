@@ -15,7 +15,7 @@ public class EnableBoost extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivePace = SwerveDrivetrainMk3.getDrivePace();
+        drivePace = Robot.swerveDrive.getDrivePace();
         Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
     }
 

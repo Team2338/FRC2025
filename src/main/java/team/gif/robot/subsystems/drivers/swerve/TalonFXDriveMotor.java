@@ -22,7 +22,7 @@ public class TalonFXDriveMotor implements DriveMotor{
      */
     public void configure(boolean inverted) {
         TalonFXConfigurator talonFXConfig = motor.getConfigurator();
-        FeedbackConfigs config = new TalonFXConfiguration().Feedback.withSensorToMechanismRatio(Constants.ModuleConstants.GEAR_RATIO);
+        FeedbackConfigs config = new TalonFXConfiguration().Feedback.withSensorToMechanismRatio(Constants.ModuleConstants.GEAR_RATIO); //TODO:
 
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
         motorConfigs.Inverted = inverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;

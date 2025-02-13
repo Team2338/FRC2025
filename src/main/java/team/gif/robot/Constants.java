@@ -4,6 +4,8 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -24,26 +26,13 @@ public final class Constants {
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
-        public static final boolean kFrontLeftTurningEncoderReversed = false; //false
-        public static final boolean kRearLeftTurningEncoderReversed = true;
-        public static final boolean kFrontRightTurningEncoderReversed = true;
-        public static final boolean kRearRightTurningEncoderReversed = true;
+        public static final double FRONT_LEFT_OFFSET = 79.641015625;
+        public static final double REAR_LEFT_OFFSET = -136.31835937;
+        public static final double FRONT_RIGHT_OFFSET = -20.578515625;
+        public static final double REAR_RIGHT_OFFSET = 155.590625;
 
-        public static final boolean kFrontLeftDriveMotorReversed = true;
-        public static final boolean kRearLeftDriveMotorReversed = true;
-        public static final boolean kFrontRightDriveMotorReversed = false;
-        public static final boolean kRearRightDriveMotorReversed = false;
 
-        public static final boolean kFrontLeftTurningMotorReversed = true;
-        public static final boolean kRearLeftTurningMotorReversed = false;
-        public static final boolean kFrontRightTurningMotorReversed = false;
-        public static final boolean kRearRightTurningMotorReversed = false;
-
-        public static final double FRONT_LEFT_OFFSET = 79.641015625; //79.189; //82.089; // these are off by .1 values
-        public static final double REAR_LEFT_OFFSET = -136.31835937; // -137.473046875; //221.66015;//-138.25195;
-        public static final double FRONT_RIGHT_OFFSET = -20.578515625; //160.40039 + 180;// + 25.31;
-        public static final double REAR_RIGHT_OFFSET = 155.590625; // 155.490625; // updated with new encoder 3/7/24
-
+        //TODO: From mech team
         // Distance between centers of front and back wheels on robot
         public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
 
@@ -65,33 +54,25 @@ public final class Constants {
         public static final boolean kGyroReversed = false;
 
         // TODO: get feedback from driver
-        public static final double COAST_DRIVE_RPM = 2200; //3000;//2500; // 2750; //4800 demo speed //2750
-        public static final double BOOST_DRIVE_RPM = 1100; // 1675 is max speed; was 1750;
-        public static final double SLOW_DRIVE_RPM = 3500;
+        public static final double COAST_DRIVE_PERC = 0.6;
+        public static final double BOOST_DRIVE_PERC = 1;
+        public static final double SLOW_DRIVE_PERC = 0.3;
 
-        public static final double COAST_SPEED_METERS_PER_SECOND = COAST_DRIVE_RPM *
-                (Math.PI * team.gif.robot.Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * team.gif.robot.Constants.ModuleConstants.GEAR_RATIO);
+        public static final double COAST_SPEED_METERS_PER_SECOND = COAST_DRIVE_PERC * ModuleConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
+        public static final double BOOST_SPEED_METERS_PER_SECOND = BOOST_DRIVE_PERC * ModuleConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
+        public static final double SLOW_SPEED_METERS_PER_SECOND = SLOW_DRIVE_PERC * ModuleConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
 
-        public static final double BOOST_SPEED_METERS_PER_SECOND = BOOST_DRIVE_RPM *
-                (Math.PI * team.gif.robot.Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * team.gif.robot.Constants.ModuleConstants.GEAR_RATIO);
-
-        public static final double SLOW_SPEED_METERS_PER_SECOND = SLOW_DRIVE_RPM *
-                (Math.PI * team.gif.robot.Constants.ModuleConstants.WHEEL_DIAMETER_METERS) /
-                (60.0 * team.gif.robot.Constants.ModuleConstants.GEAR_RATIO);
         public static double kMaxAccelerationMetersPerSecondSquared = 2;
     }
 
-    public static final class ModuleConstants { // ToDo tune - remove when done
-        public static final double MAX_MODULE_ANGULAR_SPEED_RADIANS_PER_SECOND = 6 * (2 * Math.PI); //6
-        public static final double MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 6 * (2 * Math.PI); //7
-        public static final double GEAR_RATIO = 153.0 / 25.0; //27.0 / 4.0; on 2023 bot. // need to ask luke
-        public static final double ENCODER_CPR = 2048.0;
-        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78);
+    public static final class ModuleConstants {
+        public static final double COEFFICIENT_OF_FRICTION = 1;
+        public static final double GEAR_RATIO = 153.0 / 25.0; //TODO:
+        public static final double ENCODER_CPR = 2048.0; //TODO:
+        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78); //TODO:
         public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
-        //4096.0 for talons
+
         public static final double kDriveEncoderDistancePerPulse =
                 // Assumes the encoders are directly mounted on the wheel shafts
                 (WHEEL_DIAMETER_METERS * Math.PI) / (double) ENCODER_CPR;
@@ -100,12 +81,12 @@ public final class Constants {
                 // Assumes the encoders are on a 1:1 reduction with the module shaft.
                 (2 * Math.PI) / (double) ENCODER_CPR;
 
-        public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 5;
+        public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 5; //TODO:
 
-        public static final double PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI;
-        public static final double TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND = PHYSICAL_MAX_SPEED_METERS_PER_SECOND / 4;
+        public static final double PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI; //TODO
+        public static final double TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND = PHYSICAL_MAX_SPEED_METERS_PER_SECOND / 4; //TODO
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND / 4;
+        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND / 4; //TODO
 
         public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 3;
 
@@ -136,32 +117,10 @@ public final class Constants {
     public static final class DrivetrainAuto {
         public static final double kP_FORWARD = 2;
         public static final double kP_ROTATION = 2.5;
-        public static final double MAX_MODULE_SPEED_MPS = 4;
-        public static final double DRIVEBASE_RADIUS_METERS = 0.4131;
-    }
 
-    public static final class AutoConstants {
-        public static final double MAX_SPEED_METERS_PER_SECOND = 3;
-        public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3;
-        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
-        public static final double MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
-
-        public static final double PX_CONTROLLER = 5.0;
-        public static final double PY_CONTROLLER = 5.0;
-        public static final double P_THETA_CONTROLLER = 3.7;
-
-        // Constraint for the motion profiled robot angle controller
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-                new TrapezoidProfile.Constraints(
-                        MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
-
-        public static final double DRIVE_SUPER_FAST = 1.0;
-        public static final double DRIVE_FAST = 0.7;
-        public static final double DRIVE_MEDIUM = 0.6;
-        public static final double DRIVE_SLOW = 0.27; // 0.3;
-        public static final double DRIVE_SUPER_SLOW = 0.2;
-        public static final double HOLD_AT_ANGLE = 0.15;
-        public static final double DRIVE_TIME_DEFAULT = 1.5; // seconds until the bot gets to the charging station
+        public static final PPHolonomicDriveController AUTO_DRIVE_CONTROLLER = new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                        new PIDConstants(DrivetrainAuto.kP_FORWARD, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(Constants.DrivetrainAuto.kP_ROTATION, 0.0, 0.0)); // Rotation PID constants
     }
 
     // copied this from 2023

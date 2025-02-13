@@ -16,10 +16,10 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getDriveMotorTempHot() {
-        return (Robot.swerveDrive.fLDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.fRDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.rLDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.rRDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP);
+        return (Robot.swerveDrive.fL.isDriveMotorCool() ||
+                Robot.swerveDrive.fR.isDriveMotorCool() ||
+                Robot.swerveDrive.rL.isDriveMotorCool() ||
+                Robot.swerveDrive.rR.isDriveMotorCool());
     }
 
     public boolean getAnyMotorTempHot() {
