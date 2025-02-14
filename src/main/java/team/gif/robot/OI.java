@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -61,10 +62,10 @@ public class OI {
     public final Trigger aDPadLeft = aux.povLeft();
     public final Trigger aDPadDownLeft = aux.povDownLeft();
 
-//    public final Trigger tA = test.a();
-//    public final Trigger tB = test.b();
-//    public final Trigger tX = test.x();
-//    public final Trigger tY = test.y();
+    public final Trigger tA = test.a();
+    public final Trigger tB = test.b();
+    public final Trigger tX = test.x();
+    public final Trigger tY = test.y();
 //    public final Trigger tLBump = test.leftBumper();
 //    public final Trigger tRBump = test.rightBumper();
 //    public final Trigger tBack = test.back();
@@ -110,6 +111,12 @@ public class OI {
         dRTrigger.whileTrue(new Shoot());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
+
+        tA.whileTrue(Robot.swerveDrive.sysIdDynamic("climber", SysIdRoutine.Direction.kForward));
+        tA.whileTrue(Robot.swerveDrive.sysIdDynamic("climber", SysIdRoutine.Direction.kReverse));
+        tX.whileTrue(Robot.swerveDrive.sysIdQuasistatic("climber", SysIdRoutine.Direction.kForward));
+        tX.whileTrue(Robot.swerveDrive.sysIdQuasistatic("climber", SysIdRoutine.Direction.kReverse));
+
     }
 
     public void setRumble(boolean rumble) {
