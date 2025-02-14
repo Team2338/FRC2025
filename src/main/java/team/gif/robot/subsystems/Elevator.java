@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -256,20 +257,25 @@ public class Elevator extends SubsystemBase {
         MotionMagicConfigs elevatorMotionConfig = talonFXConfigs.MotionMagic;
         elevatorMotionConfig.withMotionMagicAcceleration(Constants.Elevator.MAX_ACCELERATION);
         elevatorMotionConfig.withMotionMagicCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
+        elevatorMotor.getConfigurator().apply(elevatorMotionConfig);
 
         MotorOutputConfigs elevatorOutputConfigs = new MotorOutputConfigs();
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
+        elevatorMotor.getConfigurator().apply(elevatorOutputConfigs);
 
         HardwareLimitSwitchConfigs elevatorHardwareSwitchConfigs = new HardwareLimitSwitchConfigs();
         elevatorHardwareSwitchConfigs.withForwardLimitSource(RemoteTalonFX);
         elevatorHardwareSwitchConfigs.withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX);
         elevatorHardwareSwitchConfigs.withForwardLimitType(ForwardLimitTypeValue.NormallyClosed);
         elevatorHardwareSwitchConfigs.withReverseLimitType(ReverseLimitTypeValue.NormallyClosed);
+        elevatorMotor.getConfigurator().apply(elevatorHardwareSwitchConfigs);
 
         LimitSwitchConfig elevatorSwitchConfigs = new LimitSwitchConfig();
         elevatorSwitchConfigs.reverseLimitSwitchEnabled(true);
         elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
+        //elevatorMotor.getConfigurator().apply(elevatorSwitchConfigs);
+
 
 
 

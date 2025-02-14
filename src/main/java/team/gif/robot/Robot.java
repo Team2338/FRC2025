@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
+import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
@@ -26,7 +27,7 @@ import team.gif.robot.subsystems.drivers.Pigeon2_0;
  */
 public class Robot extends TimedRobot {
 
-    public static Elevator elevator;
+
     // Framework objects
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
+    public static Elevator elevator;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -61,6 +63,10 @@ public class Robot extends TimedRobot {
         //  swerveDrive = new SwerveDrivetrainMk4();
         swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
+        elevator = new Elevator();
+        //default command for manual control
+        elevator.setDefaultCommand(new ElevatorManualControl());
+
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         oi = new OI();
