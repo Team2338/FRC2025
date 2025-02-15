@@ -48,7 +48,7 @@ public abstract class RobotMap {
     public static final int EXIT_SENSOR_ID = 1;
 
     //Climber
-    public static final int CLIMBER_ID = 0;
+    public static final int CLIMBER_ID = 43;
 
     //UI
     public static final class UI {
