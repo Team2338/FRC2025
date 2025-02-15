@@ -103,15 +103,6 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
-     * Set the velocity of the elevator as a percent output
-     * @param percent percent of max speed to run the elevator motor
-     */
-    public void setPercentOutput(double percent) {
-        final DutyCycleOut elevatorPercentOutput = new DutyCycleOut(0);
-        elevatorMotor.setControl(elevatorPercentOutput.withOutput(percent));
-    }
-
-    /**
      * Sets the elevator to a given position with Motion Magic
      * @param position the position to set the elevator to
      */

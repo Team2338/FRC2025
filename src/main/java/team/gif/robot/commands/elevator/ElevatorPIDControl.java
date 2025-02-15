@@ -2,7 +2,6 @@ package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
-import team.gif.robot.subsystems.Elevator;
 
 public class ElevatorPIDControl extends Command {
 
