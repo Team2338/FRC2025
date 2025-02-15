@@ -1,37 +1,21 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
-import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
-import com.ctre.phoenix6.signals.ForwardLimitTypeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
-import com.ctre.phoenix6.signals.ReverseLimitTypeValue;
-import com.revrobotics.spark.config.LimitSwitchConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
-
-import static com.ctre.phoenix6.signals.ForwardLimitSourceValue.RemoteTalonFX;
 
 
 public class Elevator extends SubsystemBase {
@@ -40,7 +24,7 @@ public class Elevator extends SubsystemBase {
     public boolean elevatorManualFlag = false;
     private double elevatorTargetPos;
 
-    String TalonFX = new String();
+    String TalonFX = "";
     BaseTalon BaseTalon = new BaseTalon(33,TalonFX);
 
     public Elevator() {
@@ -55,8 +39,7 @@ public class Elevator extends SubsystemBase {
      */
 
     public void move(double percent) {
-        final VoltageOut elevatorVoltage = new VoltageOut(0);
-        elevatorMotor.setControl(elevatorVoltage.withOutput(percent));
+        elevatorMotor.set(percent);
     }
 
     /**
@@ -75,7 +58,7 @@ public class Elevator extends SubsystemBase {
      * @return the position of the elevator in encoder ticks
      */
     public double getPosition() {
-        PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
+        PositionDutyCycle elevatorPos = new PositionDutyCycle(elevatorTargetPos);
         return elevatorPos.Position;
     }
 
@@ -84,8 +67,7 @@ public class Elevator extends SubsystemBase {
      * @return the position of the elevator in inches
      */
     public double getPositionInches() {
-        PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
-        return (elevatorPos.Position + Constants.Elevator.ZERO_OFFSET_TICKS) / Constants.Elevator.EL_TICKS_PER_INCH;
+        return (getPosition() + Constants.Elevator.ZERO_OFFSET_TICKS) / Constants.Elevator.TICKS_PER_INCH;
     }
 
     /**
@@ -94,7 +76,7 @@ public class Elevator extends SubsystemBase {
      * @return the position in encoder ticks
      */
     public double inchesToPos(int inches) {
-        return inches * Constants.Elevator.EL_TICKS_PER_INCH - Constants.Elevator.ZERO_OFFSET_TICKS;
+        return inches * Constants.Elevator.TICKS_PER_INCH - Constants.Elevator.ZERO_OFFSET_TICKS;
     }
 
     /**
@@ -103,8 +85,9 @@ public class Elevator extends SubsystemBase {
      * @return Inches in units of ticks
      */
     public double inchesToTicks(int inches) {
-        return inches * Constants.Elevator.EL_TICKS_PER_INCH;
+        return inches * Constants.Elevator.TICKS_PER_INCH;
     }
+
 
     /**
      * Get the target elevator position
@@ -137,7 +120,7 @@ public class Elevator extends SubsystemBase {
      */
     public void setMotionMagic(double position) {
         final MotionMagicVoltage elevatorMotionMagic = new MotionMagicVoltage(0);
-        elevatorMotor.setControl(elevatorMotionMagic.withPosition(position));
+        elevatorMotor.setPosition(elevatorMotionMagic.Position);
     }
 
     /**
@@ -146,16 +129,13 @@ public class Elevator extends SubsystemBase {
      */
     public void setCruiseVelocity(int rotationsPersecond) {
         // new unit (rot/sec)
-        elevatorMotor.getRotorVelocity();
+        final VelocityDutyCycle elevatorVelocity = new VelocityDutyCycle(0);
+        elevatorMotor.setControl(elevatorVelocity);
     }
 
-    /**
-     * Sets the target elevator position
-     * @param pos the target elevator position
-     */
-    public void setElevatorTargetPos(double pos) {
-        elevatorTargetPos = pos;
-    }
+    //public void setElevatorTargetPos(double pos) {
+        //elevatorTargetPos = pos;
+    //}
 
     /**
      * Sets the forward limit switch to be normally open or normally closed
@@ -264,16 +244,17 @@ public class Elevator extends SubsystemBase {
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorMotor.getConfigurator().apply(elevatorOutputConfigs);
 
-        HardwareLimitSwitchConfigs elevatorHardwareSwitchConfigs = new HardwareLimitSwitchConfigs();
-        elevatorHardwareSwitchConfigs.withForwardLimitSource(RemoteTalonFX);
-        elevatorHardwareSwitchConfigs.withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX);
-        elevatorHardwareSwitchConfigs.withForwardLimitType(ForwardLimitTypeValue.NormallyClosed);
-        elevatorHardwareSwitchConfigs.withReverseLimitType(ReverseLimitTypeValue.NormallyClosed);
-        elevatorMotor.getConfigurator().apply(elevatorHardwareSwitchConfigs);
+        //Limit switch configs, might not be needed.
+        //HardwareLimitSwitchConfigs elevatorHardwareSwitchConfigs = new HardwareLimitSwitchConfigs();
+        //elevatorHardwareSwitchConfigs.withForwardLimitSource(RemoteTalonFX);
+        //elevatorHardwareSwitchConfigs.withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX);
+        //elevatorHardwareSwitchConfigs.withForwardLimitType(ForwardLimitTypeValue.NormallyClosed);
+        //elevatorHardwareSwitchConfigs.withReverseLimitType(ReverseLimitTypeValue.NormallyClosed);
+        //elevatorMotor.getConfigurator().apply(elevatorHardwareSwitchConfigs);
 
-        LimitSwitchConfig elevatorSwitchConfigs = new LimitSwitchConfig();
-        elevatorSwitchConfigs.reverseLimitSwitchEnabled(true);
-        elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
+        //LimitSwitchConfig elevatorSwitchConfigs = new LimitSwitchConfig();
+        //elevatorSwitchConfigs.reverseLimitSwitchEnabled(true);
+        //elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
         //elevatorMotor.getConfigurator().apply(elevatorSwitchConfigs);
 
 

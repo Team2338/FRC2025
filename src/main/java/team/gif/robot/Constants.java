@@ -298,7 +298,7 @@ public final class Constants {
         public static final double ELEVATOR_KP_HOLD = 0;
         public static final double ELEVATOR_KI_HOLD = 0;
         public static final double ELEVATOR_KD_HOLD = 0;
-        public static final double EL_TICKS_PER_INCH = 1;
+        public static final double TICKS_PER_INCH = 1;
         public static final double ZERO_OFFSET_TICKS = 1;
         public static final double MAX_POS = 1;
         public static final double MIN_POS = 1;
