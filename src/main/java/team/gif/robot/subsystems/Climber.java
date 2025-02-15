@@ -10,30 +10,20 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.units.measure.MutAngle;
-import edu.wpi.first.units.measure.MutAngularVelocity;
-import edu.wpi.first.units.measure.MutVoltage;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
-
-import static edu.wpi.first.units.Units.Radians;
-import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static edu.wpi.first.units.Units.Volts;
 
 public class Climber extends SubsystemBase {
     private TalonFX climber;
     private TalonFXConfigurator talonFXConfig;
     private SoftwareLimitSwitchConfigs softLimitConfig;
-    private SysIdRoutine sysIdRoutine;
 
     public Climber() {
         climber = new TalonFX(RobotMap.CLIMBER_ID);
 
-        TalonFXConfigurator talonFXConfig = climber.getConfigurator();
-        SoftwareLimitSwitchConfigs softLimitConfig = new TalonFXConfiguration().SoftwareLimitSwitch;
+        talonFXConfig = climber.getConfigurator();
+        softLimitConfig = new TalonFXConfiguration().SoftwareLimitSwitch;
 
         softLimitConfig.withForwardSoftLimitThreshold(Constants.Climber.FORWARD_SOFT_LIMIT);
         softLimitConfig.withReverseSoftLimitThreshold(Constants.Climber.REVERSE_SOFT_LIMIT);
@@ -41,7 +31,7 @@ public class Climber extends SubsystemBase {
         softLimitConfig.withForwardSoftLimitEnable(true);
         softLimitConfig.withReverseSoftLimitEnable(true);
 
-        MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
+        MotorOutputConfigs motorConfigs = new TalonFXConfiguration().MotorOutput;
         motorConfigs.NeutralMode = NeutralModeValue.Brake;
 
         talonFXConfig.apply(motorConfigs);
@@ -52,13 +42,9 @@ public class Climber extends SubsystemBase {
         climber.set(percentOutput);
     }
 
-    public void runClimberVoltage(double voltage){
-        climber.setVoltage(voltage);
-    }
-
-    public void disableSoftLimit() {
-        softLimitConfig.withForwardSoftLimitEnable(false);
-        softLimitConfig.withReverseSoftLimitEnable(false);
+    public void enableSoftLimit(boolean enable) {
+        softLimitConfig.withForwardSoftLimitEnable(enable);
+        softLimitConfig.withReverseSoftLimitEnable(enable);
         talonFXConfig.apply(softLimitConfig);
     }
 

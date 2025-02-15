@@ -19,7 +19,6 @@ public class ClimberUp extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        System.out.println("ClimberUp");
         Robot.climber.runClimber(Constants.Climber.SPEED_PERCENT);
     }
 
