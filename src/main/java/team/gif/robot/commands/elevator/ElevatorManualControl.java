@@ -1,6 +1,7 @@
 package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class ElevatorManualControl extends Command {
@@ -19,13 +20,13 @@ public class ElevatorManualControl extends Command {
     public void execute() {
         double percent = -Robot.oi.aux.getRightY();
 
-        if (percent > -0.15 && percent < 0.15) {
+        if (percent > Constants.Elevator.MIN_PERCENT_MANUAL && percent < Constants.Elevator.MAX_PERCENT_MANUAL){
             percent = 0.15; // apply minimum FeedForward to keep the elevator from falling (0.10 is max before elevator begins to move)
         }
 
         Robot.elevator.move(percent);
 
-        // Allows user to run past 0 setpoint if pressing the right stick
+        // Allows user to run past 0 set point if pressing the right stick
         if (Robot.oi.aux.getHID().getRightStickButton()) {
             Robot.elevator.enableLowerSoftLimit(false);
         } else {

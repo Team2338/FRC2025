@@ -8,9 +8,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
-import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -58,8 +56,7 @@ public class Elevator extends SubsystemBase {
      * @return the position of the elevator in encoder ticks
      */
     public double getPosition() {
-        PositionDutyCycle elevatorPos = new PositionDutyCycle(elevatorTargetPos);
-        return elevatorPos.Position;
+        return elevatorMotor.getPosition().getValueAsDouble();
     }
 
     /**
@@ -81,7 +78,7 @@ public class Elevator extends SubsystemBase {
 
     /**
      *
-     * @param inches
+     * @param inches imperial unit of measurement
      * @return Inches in units of ticks
      */
     public double inchesToTicks(int inches) {
@@ -133,9 +130,9 @@ public class Elevator extends SubsystemBase {
         elevatorMotor.setControl(elevatorVelocity);
     }
 
-    //public void setElevatorTargetPos(double pos) {
-        //elevatorTargetPos = pos;
-    //}
+    public void setElevatorTargetPos(double pos) {
+        elevatorTargetPos = pos;
+    }
 
     /**
      * Sets the forward limit switch to be normally open or normally closed
@@ -159,8 +156,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getOutputVoltage() {
-        VoltageOut elevatorVolt = new VoltageOut(0);
-        return elevatorVolt.Output;
+        return elevatorMotor.getMotorVoltage().getValueAsDouble();
     }
 
     /**
@@ -168,26 +164,23 @@ public class Elevator extends SubsystemBase {
      * @return the percent output of the elevator motor
      */
     public double getOutputPercent() {
-        DutyCycleOut elevatorPercent = new DutyCycleOut(0);
-        return elevatorPercent.Output;
+        return elevatorMotor.get();
     }
 
     /**
-     *
      * Gets the velocity of the elevator in ticks per 100ms
+     *
      * @return the velocity of the elevator in ticks per 100ms
      */
     public double getVelTPS() {
-        VelocityDutyCycle elVelocity = new VelocityDutyCycle(0);
-        return elVelocity.Velocity * 10.0;
+        return elevatorMotor.getVelocity().getValueAsDouble();
     }
 
     /**
      * Gets the current of the elevator motor
      */
     public double getCurrent() {
-        TorqueCurrentFOC elCurrent = new TorqueCurrentFOC(0);
-        return elCurrent.Output;
+        return elevatorMotor.getSupplyCurrent().getValueAsDouble();
     }
 
     /**
@@ -201,8 +194,7 @@ public class Elevator extends SubsystemBase {
      * Zeroes the elevator encoder
      */
     public void zeroEncoder() {
-        PositionDutyCycle elPosition = new PositionDutyCycle(0);
-        elPosition.withPosition(0);
+        elevatorMotor.setPosition(0);
     }
 
     /**

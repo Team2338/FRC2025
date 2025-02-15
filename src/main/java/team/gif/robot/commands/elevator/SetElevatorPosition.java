@@ -29,7 +29,7 @@ public class SetElevatorPosition extends Command {
            // Robot.elevator.configF(Constants.Elevator.F);
             Robot.elevator.setMotionMagic(desiredPosition);
         } else {
-            //Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
+            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
            // Robot.elevator.configF(Constants.Elevator.REV_F);
             Robot.elevator.setMotionMagic(desiredPosition);
         }

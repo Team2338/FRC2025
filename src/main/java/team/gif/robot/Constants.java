@@ -305,5 +305,8 @@ public final class Constants {
         public static final int MAX_VELOCITY = 1;
         public static final double PID_TOLERANCE = 1;
         public static final double MAX_ACCELERATION = 1;
+        public static final int REV_MAX_VELOCITY = 0;
+        public static final double MIN_PERCENT_MANUAL = -.15;
+        public static final double MAX_PERCENT_MANUAL = .15;
     }
 }
