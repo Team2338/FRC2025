@@ -70,32 +70,4 @@ public class Climber extends SubsystemBase {
         return climber.getPosition().getValueAsDouble();
     }
 
-    private SysIdRoutine getSysIdRoutine() {
-        MutVoltage voltMut = Volts.mutable(0);
-        MutAngle angleMut = Radians.mutable(0);
-        MutAngularVelocity vMut= RadiansPerSecond.mutable(0);
-
-        return new SysIdRoutine(
-                new SysIdRoutine.Config(),
-
-                new SysIdRoutine.Mechanism(
-                        voltage -> {
-                            climber.setVoltage(voltage.baseUnitMagnitude());
-                        },
-                        log -> {
-                            log.motor("Climber")
-                                    .voltage(voltMut.mut_replace(climber.getMotorVoltage().getValueAsDouble(), Volts))
-                                    .angularPosition(angleMut.mut_replace(climber.getPosition().getValueAsDouble(),Radians))
-                                    .angularVelocity(vMut.mut_replace(climber.getVelocity().getValueAsDouble(), RadiansPerSecond ));
-                        },
-                        this));
-    }
-
-    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-        return getSysIdRoutine().quasistatic(direction);
-    }
-
-    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-        return getSysIdRoutine().dynamic(direction);
-    }
 }

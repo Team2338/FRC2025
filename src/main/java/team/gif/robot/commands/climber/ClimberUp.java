@@ -1,13 +1,13 @@
-package team.gif.robot.commands;
+package team.gif.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 
-public class ClimberDown extends Command {
+public class ClimberUp extends Command {
 
-    public ClimberDown() {
+    public ClimberUp() {
         super();
         addRequirements(Robot.climber);
     }
@@ -19,7 +19,8 @@ public class ClimberDown extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.runClimber(-Constants.Climber.SPEED_PERCENT);
+        System.out.println("ClimberUp");
+        Robot.climber.runClimber(Constants.Climber.SPEED_PERCENT);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
