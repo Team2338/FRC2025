@@ -4,6 +4,10 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.Waypoint;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -15,6 +19,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.lib.drivePace;
 import team.gif.lib.logging.TelemetryFileLogger;
@@ -28,6 +33,8 @@ import team.gif.robot.subsystems.drivers.swerve.SparkMaxDriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
 import team.gif.robot.subsystems.drivers.swerve.TalonSRXTurnMotorEncoder;
 import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
+
+import java.util.List;
 
 /**
  * @author Rohan Cherukuri
@@ -380,6 +387,78 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     public double getPoseY() {
         return getPose().getY();
+    }
+
+    private Pose2d pose;
+
+    public Command driveToPose(boolean isRedAlliance, String reefPosition) {
+
+
+        //logic here if and switch
+        if (isRedAlliance) {
+            switch (reefPosition){
+                case "A":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "B":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "C":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "D":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "E":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "F":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "G":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+            }
+
+        } else {
+            switch (reefPosition) {
+                case "A":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "B":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "C":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "D":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "E":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "F":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+                case "G":
+                    pose = new Pose2d(0, 0, new Rotation2d().fromDegrees(0));
+                    break;
+            }
+        }
+        List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(pose);
+
+        PathConstraints constraints = new PathConstraints(Constants.ModuleConstants.PHYSICAL_MAX_SPEED_METERS_PER_SECOND, Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND, Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND, Constants.ModuleConstants.MAX_MODULE_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+
+        PathPlannerPath path = new PathPlannerPath(
+                waypoints,
+                constraints,
+                null,
+                new GoalEndState(0.0, Rotation2d.fromDegrees(0))
+
+        );
+
+        path.preventFlipping = true;
+        return AutoBuilder.followPath(path);
     }
 
     public void updateShuffleboardDebug(String shuffleboardTabName) {
