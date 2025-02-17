@@ -195,6 +195,15 @@ public class SwerveModule {
         turnMotor.set(turnOutput);
     }
 
+    public void turnHoldZero() {
+
+        double error = getTurningHeading();
+        final double ff = turnFF * Math.abs(error) / error;
+        final double turnOutput = ff + (P * error);
+        turnMotor.set(turnOutput);
+
+    }
+
     /**
      * Stop the swerve modules
      */

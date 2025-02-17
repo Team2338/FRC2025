@@ -25,10 +25,10 @@ public final class Constants {
     public static final class Drivetrain { // ToDo tune - remove when done
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
-        public static final double FRONT_LEFT_OFFSET = 79.641015625;
-        public static final double REAR_LEFT_OFFSET = -136.31835937;
-        public static final double FRONT_RIGHT_OFFSET = -20.578515625;
-        public static final double REAR_RIGHT_OFFSET = 155.590625;
+        public static final double FRONT_LEFT_OFFSET = 79.435125;
+        public static final double REAR_LEFT_OFFSET = -137.8125;
+        public static final double FRONT_RIGHT_OFFSET = -20.09625;
+        public static final double REAR_RIGHT_OFFSET = 155.126953125;
 
 
         //TODO: From mech team
@@ -69,18 +69,18 @@ public final class Constants {
         public static final double GEAR_RATIO = 6.75;
         public static final double ENCODER_CPR = 2048.0;
         public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4);
-        public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
+        public static final double DRIVE_ENCODER_ROT_2_METER = (Math.PI * WHEEL_DIAMETER_METERS) / GEAR_RATIO;
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
 
-        public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 5; //TODO:
+        public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 4.5; //TODO: measure this
 
         public static final double PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI; //TODO
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND / 4; //TODO
+        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND; //TODO
 
         public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 3;
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 3;
+        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 8 * Math.PI;
 
         public static final double TURNING_MOTOR_GEAR_RATIO = 1.0 / 18.0;
 
@@ -97,10 +97,10 @@ public final class Constants {
             public static final double rearLeftFF = 0.01;//0.01;
             public static final double rearRightP = 0.55;//0.35; // 0.6
             public static final double rearRightFF = 0.01;//0.01;
-            public static final SimpleMotorFeedforward fLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
-            public static final SimpleMotorFeedforward fRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
-            public static final SimpleMotorFeedforward rLDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
-            public static final SimpleMotorFeedforward rRDriveFF = new SimpleMotorFeedforward(0.35, 0.01, 0);
+            public static final SimpleMotorFeedforward fLDriveFF = new SimpleMotorFeedforward(0.16095, 2.3837, 0.077757);
+            public static final SimpleMotorFeedforward fRDriveFF = new SimpleMotorFeedforward(0.1645, 2.3928, 0.074191);
+            public static final SimpleMotorFeedforward rLDriveFF = new SimpleMotorFeedforward(0.10265, 2.3955, 0.22997);
+            public static final SimpleMotorFeedforward rRDriveFF = new SimpleMotorFeedforward(0.13952 , 2.4217, 0.137);
         }
     }
 

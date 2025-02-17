@@ -194,6 +194,13 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         setModuleStates(swerveModuleStates);
     }
 
+    public void setMaxDrive() {
+        fLDriveMotor.set(1);
+        fRDriveMotor.set(1);
+        rLDriveMotor.set(1);
+        rRDriveMotor.set(1);
+    }
+
     /**
      * Set the desired states for each of the 4 swerve modules using a SwerveModuleState array
      * @param desiredStates SwerveModuleState array of desired states for each of the modules
@@ -341,7 +348,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 fRTurnMotor,
                 fREncoder,
                 true,
-                false,
+                true,
                 Constants.Drivetrain.FRONT_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.fRDriveFF,
                 Constants.ModuleConstants.DrivetrainPID.frontRightFF,
@@ -365,7 +372,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 rRTurnMotor,
                 rREncoder,
                 true,
-                false,
+                true,
                 Constants.Drivetrain.REAR_RIGHT_OFFSET,
                 Constants.ModuleConstants.DrivetrainPID.rRDriveFF,
                 Constants.ModuleConstants.DrivetrainPID.rearRightFF,
@@ -457,11 +464,12 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
     public SysIdRoutine getSysIdRoutine(String motors) {
         MutVoltage voltMut = Volts.mutable(0);
 
+
         if (motors.equals("drive")) {
             MutDistance posMut = Meters.mutable(0);
             MutLinearVelocity vMut= MetersPerSecond.mutable(0);
 
-            return new SysIdRoutine(new SysIdRoutine.Config(null, voltMut.mut_replace(12, Volts), null),
+            return new SysIdRoutine(new SysIdRoutine.Config(null, voltMut.mut_replace(5, Volts), null),
                     new SysIdRoutine.Mechanism(
                             voltage -> {
                                 fLDriveMotor.setVoltage(voltage.baseUnitMagnitude());

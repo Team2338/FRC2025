@@ -42,8 +42,8 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
 
     //Shooter
-    public static final int SHOOTER_MOTOR_ID = 22;
-    public static final int INDEXER_MOTOR_ID = 37;
+    public static final int SHOOTER_MOTOR_ID = 41;
+    public static final int INDEXER_MOTOR_ID = 42;
 
     public static final int INDEXER_GP_SENSOR_PORT = 0;
     public static final int EXIT_GP_SENSOR_PORT = 1;

@@ -22,14 +22,12 @@ public class TalonFXDriveMotor implements DriveMotor{
      */
     public void configure(boolean inverted) {
         TalonFXConfigurator talonFXConfig = motor.getConfigurator();
-        FeedbackConfigs config = new TalonFXConfiguration().Feedback.withSensorToMechanismRatio(Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER); //TODO:
 
         MotorOutputConfigs motorConfigs = new MotorOutputConfigs();
         motorConfigs.Inverted = inverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
         motorConfigs.NeutralMode = NeutralModeValue.Brake;
 
         talonFXConfig.apply(motorConfigs);
-        talonFXConfig.apply(config);
     }
 
     public double getTemp() {
@@ -38,7 +36,7 @@ public class TalonFXDriveMotor implements DriveMotor{
 
 
     public double getVelocity() {
-        return motor.getVelocity().getValueAsDouble();
+        return motor.getVelocity().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
     }
 
     public double getPosition() {
