@@ -5,9 +5,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.Shoot;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
 import team.gif.robot.commands.drivetrainPbot.TestSwerve;
+import team.gif.robot.subsystems.Elevator;
+
 
 public class OI {
     /*
@@ -106,6 +109,11 @@ public class OI {
         dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dB.whileTrue(new TestSwerve());
         dRTrigger.whileTrue(new Shoot());
+        dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        dY.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+
     }
 
     public void setRumble(boolean rumble) {
