@@ -15,18 +15,19 @@ public abstract class RobotMap {
      *
      */
     public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11; // Falcon 500 and Talon Fx
-    public static final int REAR_LEFT_DRIVE_MOTOR_ID = 12;
-    public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 21;
+    public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 12;
+    public static final int REAR_LEFT_DRIVE_MOTOR_ID = 21;
     public static final int REAR_RIGHT_DRIVE_MOTOR_ID = 22;
-    public static final int FRONT_LEFT_CANCODER_ID = 15;
-    public static final int FRONT_RIGHT_CANCODER_ID = 25;
-    public static final int REAR_LEFT_CANCODER_ID = 16;
-    public static final int REAR_RIGHT_CANCODER_ID = 26;
 
     public static final int FRONT_LEFT_TURNING_MOTOR_ID = 13; //Neo and Spark
-    public static final int REAR_LEFT_TURNING_MOTOR_ID = 14;
-    public static final int FRONT_RIGHT_TURNING_MOTOR_ID = 23;
+    public static final int FRONT_RIGHT_TURNING_MOTOR_ID = 14;
+    public static final int REAR_LEFT_TURNING_MOTOR_ID = 23;
     public static final int REAR_RIGHT_TURNING_MOTOR_ID = 24;
+
+    public static final int FRONT_LEFT_CANCODER_ID = 15;
+    public static final int FRONT_RIGHT_CANCODER_ID = 16;
+    public static final int REAR_LEFT_CANCODER_ID = 25;
+    public static final int REAR_RIGHT_CANCODER_ID = 26;
 
     public static final int PIGEON_ID = 9;
 
@@ -41,13 +42,13 @@ public abstract class RobotMap {
     public static final int PRACTICE_FRONT_RIGHT_TURN_ID = 31;//8;
 
     //Shooter
-    public static final int SHOOTER_MOTOR_ID = 22;
-    public static final int INDEXER_MOTOR_ID = 37;
+    public static final int SHOOTER_MOTOR_ID = 41;
+    public static final int INDEXER_MOTOR_ID = 42;
 
     public static final int INDEXER_GP_SENSOR_PORT = 0;
     public static final int EXIT_GP_SENSOR_PORT = 1;
-    public static final int REEF_LEFT_SENSOR_ID = 65;
-    public static final int REEF_RIGHT_SENSOR_ID = 2;
+    public static final int REEF_LEFT_SENSOR_ID = 52;
+    public static final int REEF_RIGHT_SENSOR_ID = 51;
 
     //UI
     public static final class UI {
