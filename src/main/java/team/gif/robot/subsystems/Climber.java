@@ -10,6 +10,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -18,9 +20,11 @@ public class Climber extends SubsystemBase {
     private TalonFX climber;
     private TalonFXConfigurator talonFXConfig;
     private SoftwareLimitSwitchConfigs softLimitConfig;
+    private DoubleSolenoid solenoid;
 
     public Climber() {
         climber = new TalonFX(RobotMap.CLIMBER_ID);
+
 
         talonFXConfig = climber.getConfigurator();
         softLimitConfig = new TalonFXConfiguration().SoftwareLimitSwitch;
@@ -36,6 +40,8 @@ public class Climber extends SubsystemBase {
 
         talonFXConfig.apply(motorConfigs);
         talonFXConfig.apply(softLimitConfig);
+
+        solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.CLIMBER_SOLENOID_IN_PORT, RobotMap.CLIMBER_SOLENOID_OUT_PORT);
     }
 
     public void runClimber(double percentOutput) {
@@ -54,6 +60,10 @@ public class Climber extends SubsystemBase {
 
     public double getPosition() {
         return climber.getPosition().getValueAsDouble();
+    }
+
+    public void setPistonOut() {
+        solenoid.set(DoubleSolenoid.Value.kForward);
     }
 
 }

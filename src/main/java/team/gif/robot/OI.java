@@ -5,14 +5,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.Shoot;
-import team.gif.robot.commands.climber.ClimberDown;
-import team.gif.robot.commands.climber.ClimberUp;
+import team.gif.robot.commands.climber.ClimberOut;
+import team.gif.robot.commands.climber.ClimberIn;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
-import team.gif.robot.commands.drivetrainPbot.TestSwerve;
 
 public class OI {
     /*
@@ -113,8 +111,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
 
-        aY.whileTrue(new ClimberUp());
-        aA.whileTrue(new ClimberDown());
+        aY.whileTrue(new ClimberIn());
+        aA.whileTrue(new ClimberOut());
     }
 
     public void setRumble(boolean rumble) {

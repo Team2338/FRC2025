@@ -4,7 +4,9 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,9 +35,11 @@ public class Robot extends TimedRobot {
     public static UiSmartDashboard uiSmartDashboard;
     private Command autonomousCommand;
 
+
     // Devices
     public static Pigeon2_0 pigeon;
     public static SwerveDrivetrainMk3 swerveDrive;
+    public static Compressor compressor;
     //  public static SwerveDrivetrainMk4 swerveDrive;
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
@@ -64,6 +68,7 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
+        compressor = new RobotCompressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
@@ -118,6 +123,7 @@ public class Robot extends TimedRobot {
             elapsedTime.start();
             autoSchedulerOnHold = true;
         }
+
     }
 
     /** This function is called periodically during autonomous. */

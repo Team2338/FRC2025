@@ -5,9 +5,9 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 
-public class ClimberDown extends Command {
+public class ClimberOut extends Command {
 
-    public ClimberDown() {
+    public ClimberOut() {
         super();
         addRequirements(Robot.climber);
     }

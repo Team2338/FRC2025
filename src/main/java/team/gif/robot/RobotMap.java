@@ -49,6 +49,8 @@ public abstract class RobotMap {
 
     //Climber
     public static final int CLIMBER_ID = 43;
+    public static final int CLIMBER_SOLENOID_IN_PORT = 4;
+    public static final int CLIMBER_SOLENOID_OUT_PORT = 5;
 
     //UI
     public static final class UI {
@@ -56,4 +58,8 @@ public abstract class RobotMap {
         public static final String INDEXER_PERC = "Indexer Speed";
         public static final String STAGE_PERC = "Stage %";
     }
+
+    //Compressers
+        public static final int COMPRESSER = 1;
+
 }

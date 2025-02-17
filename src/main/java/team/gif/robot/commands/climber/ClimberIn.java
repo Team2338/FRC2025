@@ -5,16 +5,18 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 
-public class ClimberUp extends Command {
+public class ClimberIn extends Command {
 
-    public ClimberUp() {
+    public ClimberIn() {
         super();
         addRequirements(Robot.climber);
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.climber.setPistonOut();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
