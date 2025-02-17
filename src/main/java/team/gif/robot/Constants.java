@@ -242,9 +242,11 @@ public final class Constants {
     }
 
     public static final class Shooter {
-        public static final double SPEED_PERCENT = 0.50;
-        public static final double SPEED_INDEXER_PERCENT = 0.25;
-        public static final double TARGET_DISTANCE_MM = 500;
-        public static final double ALIGN_SPEED_MPS = 0.15; //Meters per Second
+        public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
+        public static final double SHOOT_PERCENT = 1.00; // todo: initial good - needs testing and final number
+        public static final double STAGE_PERCENT = 0.50; // todo: initial good - needs testing and final number
+
+        public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
+        public static final double ALIGN_STRAFE_SPEED_MPS = 0.15; //Meters per Second
     }
 }
