@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.StageCoral;
-import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+//import team.gif.robot.commands.StageCoral;
+//import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     // Devices
     public static Pigeon2_0 pigeon;
     public static Compressor compressor;
+    public static SwerveDrivetrainMk4 swerveDrive;
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
@@ -78,8 +79,9 @@ public class Robot extends TimedRobot {
         // Add a second periodic function to remove non-essential updates from the main scheduler
         addPeriodic(this::secondPeriodic, 0.5, 0.05);
 
-        elapsedTime = new Timer();
+        climber.setPistonIn();
 
+        elapsedTime = new Timer();
     }
 
     /**

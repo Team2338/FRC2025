@@ -20,13 +20,15 @@ public class Climber extends SubsystemBase {
     private TalonFX climber;
     private TalonFXConfigurator talonFXConfig;
     private SoftwareLimitSwitchConfigs softLimitConfig;
+
     private DoubleSolenoid solenoid;
 
     public Climber() {
         climber = new TalonFX(RobotMap.CLIMBER_ID);
 
-
+        // configure the climber
         talonFXConfig = climber.getConfigurator();
+
         softLimitConfig = new TalonFXConfiguration().SoftwareLimitSwitch;
 
         softLimitConfig.withForwardSoftLimitThreshold(Constants.Climber.FORWARD_SOFT_LIMIT);
@@ -41,10 +43,12 @@ public class Climber extends SubsystemBase {
         talonFXConfig.apply(motorConfigs);
         talonFXConfig.apply(softLimitConfig);
 
+        // set up the piston
         solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RobotMap.CLIMBER_SOLENOID_IN_PORT, RobotMap.CLIMBER_SOLENOID_OUT_PORT);
     }
 
     public void runClimber(double percentOutput) {
+        System.out.println("CLimber: " + getPosition());
         climber.set(percentOutput);
     }
 
@@ -54,7 +58,7 @@ public class Climber extends SubsystemBase {
         talonFXConfig.apply(softLimitConfig);
     }
 
-    public void resetEncoder() {
+    public void zeroEncoder() {
         climber.setPosition(0);
     }
 
@@ -66,4 +70,7 @@ public class Climber extends SubsystemBase {
         solenoid.set(DoubleSolenoid.Value.kForward);
     }
 
+    public void setPistonIn() {
+        solenoid.set(DoubleSolenoid.Value.kReverse);
+    }
 }

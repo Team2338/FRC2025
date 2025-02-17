@@ -5,23 +5,21 @@ import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 
-public class ClimberIn extends Command {
+public class ClimberDeploy extends Command {
 
-    public ClimberIn() {
+    public ClimberDeploy() {
         super();
         addRequirements(Robot.climber);
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        Robot.climber.setPistonOut();
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.runClimber(Constants.Climber.SPEED_PERCENT);
+        Robot.climber.runClimber(-Constants.Climber.DEPLOY_PERCENT);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

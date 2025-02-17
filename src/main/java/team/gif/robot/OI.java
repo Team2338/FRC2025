@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.climber.ClimberOut;
-import team.gif.robot.commands.climber.ClimberIn;
+import team.gif.robot.commands.climber.ClimberDeploy;
+import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -109,15 +109,15 @@ public class OI {
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
-        dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
         dRTrigger.whileTrue(new Shoot());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
 
-        aY.whileTrue(new ClimberIn());
-        aA.whileTrue(new ClimberOut());
+        aY.whileTrue(new ClimberClimb());
+        aA.whileTrue(new ClimberDeploy());
+        aDPadDown.onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
     }
 
     public void setRumble(boolean rumble) {

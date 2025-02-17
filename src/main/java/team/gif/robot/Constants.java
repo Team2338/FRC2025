@@ -251,9 +251,9 @@ public final class Constants {
     }
 
     public static final class Climber {
-        public static final double SPEED_PERCENT = 0.25;
-        public static final double FORWARD_SOFT_LIMIT = 0;
-        public static final double REVERSE_SOFT_LIMIT = 0;
-
+        public static final double DEPLOY_PERCENT = 1.00;
+        public static final double CLIMB_PERCENT = 0.75;
+        public static final double FORWARD_SOFT_LIMIT = -300;
+        public static final double REVERSE_SOFT_LIMIT = -1000;
     }
 }
