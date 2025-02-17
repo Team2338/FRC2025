@@ -5,8 +5,8 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,8 +15,8 @@ import team.gif.robot.RobotMap;
 import team.gif.robot.subsystems.drivers.ToFSensor;
 
 public class Shooter extends SubsystemBase {
-    private static TalonSRX shooter;
-    private static TalonSRX indexer;
+    private static VictorSPX shooter;
+    private static VictorSPX indexer;
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
     private static ToFSensor sensorLeft;
@@ -24,14 +24,14 @@ public class Shooter extends SubsystemBase {
 
 
     public Shooter() {
-        shooter = new TalonSRX(RobotMap.SHOOTER_MOTOR_ID);
+        shooter = new VictorSPX(RobotMap.SHOOTER_MOTOR_ID);
         sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
         sensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
 
-        indexer= new TalonSRX(RobotMap.INDEXER_MOTOR_ID);
+        indexer= new VictorSPX(RobotMap.INDEXER_MOTOR_ID);
         indexer.configFactoryDefault();
         indexer.setNeutralMode(NeutralMode.Coast);
 
@@ -48,7 +48,7 @@ public class Shooter extends SubsystemBase {
      * @param percent the percentage of power to apply to the motor
      **/
     public void runShooterMotor(double percent) {
-        shooter.set(TalonSRXControlMode.PercentOutput, percent);
+        shooter.set(VictorSPXControlMode.PercentOutput, percent);
     }
 //
 //    public void moveIndexerFromShuffleboard() {
@@ -86,7 +86,7 @@ public class Shooter extends SubsystemBase {
      * @param percent the percentage of power to apply to the motor
      **/
     public void runIndexerMotor(double percent) {
-        indexer.set(TalonSRXControlMode.PercentOutput, percent);
+        indexer.set(VictorSPXControlMode.PercentOutput, percent);
     }
 
     /**
@@ -119,5 +119,4 @@ public class Shooter extends SubsystemBase {
     public void setShooterCoastMode() {
         shooter.setNeutralMode(NeutralMode.Coast);
     }
-
 }
