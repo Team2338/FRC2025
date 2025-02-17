@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
-        compressor = new RobotCompressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
+        compressor = new Compressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
@@ -110,6 +110,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+        compressor.disable();
 
         // run scheduler immediately if no delay is selected
         if (chosenDelay.getValue() == 0) {
@@ -148,6 +149,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        compressor.enableDigital();
     }
 
     /** This function is called periodically during operator control. */
