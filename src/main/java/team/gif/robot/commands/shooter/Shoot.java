@@ -1,33 +1,38 @@
-package team.gif.robot.commands.drivetrainPbot;
+package team.gif.robot.commands.shooter;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class Reset180 extends Command {
+public class Shoot extends Command {
+    private int counter;
 
-    public Reset180() {}
+    public Shoot() {
+        super();
+        addRequirements(Robot.shooter);
+    }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.pigeon.resetPigeonPosition(180);
+        counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        Robot.shooter.runShooterMotor();
+        counter++;
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return true;
+        return counter > 50;
     }
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
-
-    @Override
-    public boolean runsWhenDisabled() {
-        return true;
+    public void end(boolean interrupted) {
+        Robot.shooter.stopShooterMotor();
     }
 }

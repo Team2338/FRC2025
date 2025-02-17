@@ -1,4 +1,4 @@
-package team.gif.robot.commands;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
@@ -19,6 +19,7 @@ public class StageCoral extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        Robot.shooter.runIndexerMotor();
 
         boolean isIndexerSensorActive = Robot.shooter.getIndexerSensorState();
         boolean isExitSensorActive = Robot.shooter.getExitSensorState();

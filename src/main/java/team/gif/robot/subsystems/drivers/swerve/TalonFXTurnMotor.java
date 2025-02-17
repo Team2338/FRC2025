@@ -23,8 +23,6 @@ public class TalonFXTurnMotor implements TurnMotor {
         talonFXConfig.apply(motorConfigs);
     }
 
-
-
     public double getOutput() {
         return motor.get();
     }
