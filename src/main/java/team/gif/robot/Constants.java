@@ -33,10 +33,10 @@ public final class Constants {
 
         //TODO: From mech team
         // Distance between centers of front and back wheels on robot
-        public static final double TRACK_LENGTH = Units.inchesToMeters(22.5);
+        public static final double TRACK_LENGTH = Units.inchesToMeters(24.899);
 
         // Distance between centers of left and right wheels on robot
-        public static final double TRACK_WIDTH = Units.inchesToMeters(23.5);
+        public static final double TRACK_WIDTH = Units.inchesToMeters(21.399);
 
         // location of wheels from center of robot using following axis
         //        +x
@@ -66,24 +66,15 @@ public final class Constants {
 
     public static final class ModuleConstants {
         public static final double COEFFICIENT_OF_FRICTION = 1;
-        public static final double GEAR_RATIO = 153.0 / 25.0; //TODO:
-        public static final double ENCODER_CPR = 2048.0; //TODO:
-        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.78); //TODO:
+        public static final double GEAR_RATIO = 6.75;
+        public static final double ENCODER_CPR = 2048.0;
+        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4);
         public static final double DRIVE_ENCODER_ROT_2_METER = Math.PI * WHEEL_DIAMETER_METERS / (GEAR_RATIO * ENCODER_CPR);
         public static final double DRIVE_ENCODER_RPM_2_METER_PER_SEC = DRIVE_ENCODER_ROT_2_METER / 60;
-
-        public static final double kDriveEncoderDistancePerPulse =
-                // Assumes the encoders are directly mounted on the wheel shafts
-                (WHEEL_DIAMETER_METERS * Math.PI) / (double) ENCODER_CPR;
-
-        public static final double kTurningEncoderDistancePerPulse =
-                // Assumes the encoders are on a 1:1 reduction with the module shaft.
-                (2 * Math.PI) / (double) ENCODER_CPR;
 
         public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 5; //TODO:
 
         public static final double PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI; //TODO
-        public static final double TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND = PHYSICAL_MAX_SPEED_METERS_PER_SECOND / 4; //TODO
 
         public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND / 4; //TODO
 

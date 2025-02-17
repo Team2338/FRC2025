@@ -53,8 +53,8 @@ public class DriveSwerve extends Command {
                 strafe = strafeSign;
 
             //Forward speed, Sideways speed, Rotation Speed
-            forward = forwardLimiter.calculate(forward) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
-            strafe = strafeLimiter.calculate(strafe) * Constants.ModuleConstants.TELE_DRIVE_MAX_SPEED_METERS_PER_SECOND;
+            forward = forwardLimiter.calculate(forward) * Robot.swerveDrive.getDrivePace().getValue();
+            strafe = strafeLimiter.calculate(strafe) * Robot.swerveDrive.getDrivePace().getValue();
 
              rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 

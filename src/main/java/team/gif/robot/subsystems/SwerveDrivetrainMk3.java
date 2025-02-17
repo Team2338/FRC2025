@@ -162,7 +162,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
 
         //Autos stuff
-        //TODO: put this in constants. need to ref api docs
         RobotConfig ppConfig = null;
         try{
             ppConfig = RobotConfig.fromGUISettings();
@@ -210,11 +209,10 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         boolean ignoreCollectEstimate = true;
         boolean ignoreShooterEstimate = true;
 
-        //TODO ignore both if yaw rate is over 720º/s
-        if(collectEstimate != null && collectEstimate.tagCount > 0) {
+        if(collectEstimate != null && collectEstimate.tagCount > 0 && Robot.pigeon.getYawRate() < 720) {
             ignoreCollectEstimate = false;
         }
-        if(shooterEstimate != null && shooterEstimate.tagCount > 0) {
+        if(shooterEstimate != null && shooterEstimate.tagCount > 0 && Robot.pigeon.getYawRate() < 720) {
             ignoreShooterEstimate = false;
         }
         if(!ignoreCollectEstimate) {
