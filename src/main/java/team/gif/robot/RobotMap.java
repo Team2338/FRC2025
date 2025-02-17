@@ -48,7 +48,7 @@ public abstract class RobotMap {
     public static final int EXIT_SENSOR_ID = 1;
 
     //Elevator
-    public static final int ELEVATOR_ID = 1;
+    public static final int ELEVATOR_ID = 44;
 
     //UI
     public static final class UI {

@@ -13,9 +13,16 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.units.measure.MutAngle;
+import edu.wpi.first.units.measure.MutAngularVelocity;
+import edu.wpi.first.units.measure.MutDistance;
+import edu.wpi.first.units.measure.MutLinearVelocity;
+import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.lib.drivePace;
 import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
@@ -28,6 +35,12 @@ import team.gif.robot.subsystems.drivers.swerve.SparkMaxDriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.SwerveModule;
 import team.gif.robot.subsystems.drivers.swerve.TalonSRXTurnMotorEncoder;
 import team.gif.robot.subsystems.drivers.swerve.TurnMotor;
+
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
 
 /**
  * @author Rohan Cherukuri
@@ -65,7 +78,6 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
             .getStructArrayTopic("ActualSwerveState", SwerveModuleState.struct).publish();
 
 
-
     /**
      * Constructor for swerve drivetrain using 4 swerve modules using NEOs to drive and TalonSRX to control turning
      */
@@ -96,7 +108,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontLeftP
         );
 
-        fR = new SwerveModule (
+        fR = new SwerveModule(
                 fRDriveMotor,
                 fRTurnMotor,
                 fREncoder,
@@ -107,7 +119,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.frontRightP
         );
 
-        rL = new SwerveModule (
+        rL = new SwerveModule(
                 rLDriveMotor,
                 rLTurnMotor,
                 rLEncoder,
@@ -118,7 +130,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 Constants.ModuleConstantsMK3.DrivetrainPID.rearLeftP
         );
 
-        rR = new SwerveModule (
+        rR = new SwerveModule(
                 rRDriveMotor,
                 rRTurnMotor,
                 rREncoder,
@@ -138,7 +150,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         //Autos stuff
         //TODO: put this in constants. need to ref api docs
         RobotConfig ppConfig = null;
-        try{
+        try {
             ppConfig = RobotConfig.fromGUISettings();
         } catch (Exception e) {
             // Handle exception as needed
@@ -157,11 +169,11 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                 ppConfig,
                 () -> {
                     var alliance = DriverStation.getAlliance();
-                    if( alliance.isPresent() ){
+                    if (alliance.isPresent()) {
                         return alliance.get() == DriverStation.Alliance.Red;
                     }
                     return false;
-                 },
+                },
                 this
         );
     }
@@ -197,8 +209,8 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(
-            Robot.pigeon.getRotation2d(),
-            getPosition()
+                Robot.pigeon.getRotation2d(),
+                getPosition()
         );
 
         if (Robot.fullDashboard) {
@@ -213,6 +225,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Reset the odometry to a given pose
+     *
      * @param pose the pose to reset to
      */
     public void resetOdometry(Pose2d pose) {
@@ -233,8 +246,9 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Drive the bot with given params - always field relative
-     * @param x dForward
-     * @param y dLeft
+     *
+     * @param x   dForward
+     * @param y   dLeft
      * @param rot dRot
      */
     public void drive(double x, double y, double rot) {
@@ -244,7 +258,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                                 ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Robot.pigeon.getRotation2d())
                                 : new ChassisSpeeds(x, y, rot));
 
-        SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
+        SwerveModuleState[] actualStates = {fL.getState(), fR.getState(), rL.getState(), rR.getState()};
         targetPublisher.set(swerveModuleStates);
         actualPublisher.set(actualStates);
         setModuleStates(swerveModuleStates);
@@ -252,6 +266,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Set the desired states for each of the 4 swerve modules using a SwerveModuleState array
+     *
      * @param desiredStates SwerveModuleState array of desired states for each of the modules
      * @implNote Only for use in the SwerveDrivetrain class and the RobotTrajectory Singleton, for any general use {@link SwerveDrivetrainMk4#drive(double, double, double)}
      */
@@ -268,6 +283,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Set the desired states for each of the 4 swerve modules using a ChassisSpeeds class
+     *
      * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
      * @implNote Use only in {@link SwerveDrivetrainMk4} or {@link team.gif.lib.RobotTrajectory}
      */
@@ -303,6 +319,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the pigeon heading
+     *
      * @return The pigeon heading in degrees
      */
     public Rotation2d getHeading() {
@@ -311,6 +328,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current pose of the robot
+     *
      * @return The current pose of the robot (Pose2D)
      */
     public Pose2d getPose() {
@@ -329,11 +347,12 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current position of each of the swerve modules
+     *
      * @return An array in form fL -> fR -> rL -> rR of each of the module positions
      */
     public SwerveModulePosition[] getPosition() {
 
-        return new SwerveModulePosition[] {fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()};
+        return new SwerveModulePosition[]{fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()};
     }
 
     /**
@@ -348,6 +367,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current heading of the robot
+     *
      * @return the heading of the robot in degrees
      */
     public double getRobotHeading() {
@@ -356,6 +376,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * set the drivePace settings for the drivebase
+     *
      * @param drivePace the drivePace to set
      */
     public void setDrivePace(drivePace drivePace) {
@@ -364,6 +385,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current drivePace settings
+     *
      * @return the current drivePace settings
      */
     public static drivePace getDrivePace() {
@@ -408,3 +430,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         //TODO: Add target to shuffleboard
     }
 }
+
+
+
+
