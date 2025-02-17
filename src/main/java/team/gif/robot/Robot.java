@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.commands.shooter.StageCoral;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Shooter;
-import team.gif.robot.subsystems.SwerveDrivetrainMk3;
+import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
 
@@ -38,9 +40,7 @@ public class Robot extends TimedRobot {
 
     // Devices
     public static Pigeon2_0 pigeon;
-    public static SwerveDrivetrainMk3 swerveDrive;
     public static Compressor compressor;
-    //  public static SwerveDrivetrainMk4 swerveDrive;
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
@@ -61,9 +61,9 @@ public class Robot extends TimedRobot {
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightCollector = new Limelight("limelight-collect");
         limelightShooter = new Limelight("limelight-shooter");
-        swerveDrive = new SwerveDrivetrainMk3();
-        //  swerveDrive = new SwerveDrivetrainMk4();
-        swerveDrive.setDefaultCommand(new DrivePracticeSwerve());
+//        swerveDrive = new SwerveDrivetrainMk3();
+        swerveDrive = new SwerveDrivetrainMk4();
+        swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
         climber = new Climber();
         robotContainer = new RobotContainer();
@@ -155,8 +155,6 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        // run the indexer all the time
-        shooter.runIndexerMotor();
 
         // rumble the joysticks at various points during the match to notify the drive team
         double timeLeft = DriverStation.getMatchTime();
@@ -167,8 +165,13 @@ public class Robot extends TimedRobot {
     public void secondPeriodic() {
 //        System.out.println(++counter);
         uiSmartDashboard.updateUI();
-        limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), 0, 0, 0, 0);
+        double heading = pigeon.get360Heading();
+        var alliance = DriverStation.getAlliance();
+        if( alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red ){
+            heading = heading - 180;
+        }
+        limelightCollector.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
+        limelightShooter.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
     }
 
     @Override

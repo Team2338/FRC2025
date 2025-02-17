@@ -5,19 +5,14 @@ import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import team.gif.robot.Constants;
 
-public class TalonFXDriveMotor implements DriveMotor{
+public class TalonFXTurnMotor implements TurnMotor {
     private TalonFX motor;
 
-    public TalonFXDriveMotor(int motorID) {
+    public TalonFXTurnMotor(int motorID) {
         motor = new TalonFX(motorID);
     }
 
-    /**
-     * Configures a TalonFX to be a drive motor on a swerve drivetrain.
-     * Sets empty TalonFX config, and sets it to brake mode.
-     */
     public void configure(boolean inverted) {
         TalonFXConfigurator talonFXConfig = motor.getConfigurator();
 
@@ -27,20 +22,6 @@ public class TalonFXDriveMotor implements DriveMotor{
 
         talonFXConfig.apply(motorConfigs);
     }
-
-    public double getTemp() {
-        return motor.getDeviceTemp().getValueAsDouble();
-    }
-
-
-    public double getVelocity() {
-        return motor.getVelocity().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
-    }
-
-    public double getPosition() {
-        return motor.getPosition().getValueAsDouble() * Constants.ModuleConstants.DRIVE_ENCODER_ROT_2_METER;
-    }
-
 
     public double getOutput() {
         return motor.get();
@@ -57,9 +38,4 @@ public class TalonFXDriveMotor implements DriveMotor{
     public double getVoltage() {
         return motor.getMotorVoltage().getValueAsDouble();
     }
-
-    public void resetEncoder() {
-        motor.setPosition(0);
-    }
-
 }
