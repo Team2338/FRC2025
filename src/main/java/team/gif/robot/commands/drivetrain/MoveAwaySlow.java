@@ -1,4 +1,4 @@
-package team.gif.robot.commands.drivetrainPbot;
+package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
@@ -7,7 +7,7 @@ public class MoveAwaySlow extends Command {
 
     public MoveAwaySlow() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.

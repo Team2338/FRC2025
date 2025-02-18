@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.drivetrainPbot.MoveAwaySlow;
-import team.gif.robot.commands.drivetrainPbot.MoveCloserSlow;
-import team.gif.robot.commands.drivetrainPbot.MoveLeftSlow;
-import team.gif.robot.commands.drivetrainPbot.MoveRightSlow;
+import team.gif.robot.commands.drivetrain.MoveAwaySlow;
+import team.gif.robot.commands.drivetrain.MoveCloserSlow;
+import team.gif.robot.commands.drivetrain.MoveLeftSlow;
+import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 
