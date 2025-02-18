@@ -26,7 +26,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.lib.drivePace;
-import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
@@ -163,7 +162,6 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
 
         //Autos stuff
-        //TODO: put this in constants. need to ref api docs
         RobotConfig ppConfig = null;
         try{
             ppConfig = RobotConfig.fromGUISettings();
@@ -208,14 +206,13 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
         LimelightHelpers.PoseEstimate collectEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-collect");
         LimelightHelpers.PoseEstimate shooterEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-shooter");
-        boolean ignoreCollectEstimate = false; //true
-        boolean ignoreShooterEstimate = false; //true
+        boolean ignoreCollectEstimate = true;
+        boolean ignoreShooterEstimate = true;
 
-        //TODO ignore both if yaw rate is over 720º/s
-        if(collectEstimate != null && collectEstimate.tagCount > 0) {
+        if(collectEstimate != null && collectEstimate.tagCount > 0 && Robot.pigeon.getYawRate() < 720) {
             ignoreCollectEstimate = false;
         }
-        if(shooterEstimate != null && shooterEstimate.tagCount > 0) {
+        if(shooterEstimate != null && shooterEstimate.tagCount > 0 && Robot.pigeon.getYawRate() < 720) {
             ignoreShooterEstimate = false;
         }
         if(!ignoreCollectEstimate) {
@@ -297,7 +294,7 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
 
     /**
      * Set the desired states for each of the 4 swerve modules using a ChassisSpeeds class
-     * @param chassisSpeeds Field Relative ChassisSpeeds to apply to wheel speeds
+     * @param chassisSpeeds Robot Relative ChassisSpeeds to apply to wheel speeds
      * @implNote Use only in {@link SwerveDrivetrainMk3}
      */
     public void setModuleChassisSpeeds(ChassisSpeeds chassisSpeeds) {
@@ -316,6 +313,24 @@ public class SwerveDrivetrainMk3 extends SubsystemBase {
         rR.setDesiredState(swerveModuleStates[3]);
 //        chassisSpeedsStructPublisher.set(chassisSpeeds);
 //        targetPublisher.set(swerveModuleStates);
+    }
+
+    public void modulesTo90() {
+        SwerveModuleState state90 = new SwerveModuleState(0, Rotation2d.fromDegrees(90));
+        fL.setDesiredState(state90, true);
+        fR.setDesiredState(state90, false);
+        rL.setDesiredState(state90, true);
+        rR.setDesiredState(state90, false);
+
+    }
+
+    public void modulesTo0() {
+        System.out.println("modules to 0");
+        fL.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        fR.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        rL.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+        rR.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+
     }
 
     /**

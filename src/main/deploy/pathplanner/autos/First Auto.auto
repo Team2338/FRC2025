@@ -11,6 +11,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "MoveModulesIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveAndShoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "A1-P2"
@@ -20,6 +32,18 @@
           "type": "path",
           "data": {
             "pathName": "A1-P3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveModulesIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveAndShoot"
           }
         },
         {

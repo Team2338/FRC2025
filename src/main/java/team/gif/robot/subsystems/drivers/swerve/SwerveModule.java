@@ -75,8 +75,6 @@ public class SwerveModule {
      * @return Returns the heading of the module in radians as a double
      */
     public double getTurningHeading() {
-        //TODO: Redo the offset so that we can get rid of the radian conversion
-        //TODO: I got rid of the is Abs inverted, do we need this??
         double heading = Units.degreesToRadians(getTurningHeadingDegrees());
         heading %= 2 * Math.PI;
         return heading;
@@ -126,8 +124,6 @@ public class SwerveModule {
      * @return the optimized swerve module state
      */
     private SwerveModuleState optimizeState(SwerveModuleState original) {
-        //This code is basically magic. I aint touching it
-
         // Compute all options for a setpoint
         double position = getTurningHeading();
         double setpoint = original.angle.getRadians();
@@ -179,6 +175,35 @@ public class SwerveModule {
         turnMotor.set(turnOutput);
     }
 
+    public void setDesiredState(SwerveModuleState state,  boolean moveCW) {
+        state = optimizeState(state);
+        double driveOutput = driveFF.calculate(state.speedMetersPerSecond);
+
+        double error = getTurningHeading() - state.angle.getRadians();
+
+        if (moveCW) {
+            error = Math.abs(error);
+        } else {
+            error = Math.abs(error) * -1;
+        }
+
+        //if error is negative, FF should also be negative
+        final double ff = turnFF * Math.abs(error) / error;
+        //accum += error;
+        final double turnOutput = ff + (P * error);
+        driveMotor.setVoltage(driveOutput);
+        turnMotor.set(turnOutput);
+    }
+
+    public void turnHoldZero() {
+
+        double error = getTurningHeading();
+        final double ff = turnFF * Math.abs(error) / error;
+        final double turnOutput = ff + (P * error);
+        turnMotor.set(turnOutput);
+
+    }
+
     /**
      * Stop the swerve modules
      */
@@ -188,19 +213,10 @@ public class SwerveModule {
     }
 
     /**
-     * Get the position of the swerve module - TODO: HAS BUG
+     * Get the position of the swerve module
      * @return the position of the swerve module
-     *
-     * Process:
-     * Set adjust to 1.0
-     * Create auto with the longest straight line possible
-     * adjust = actual distance / desired distance
-     *
      */
     public SwerveModulePosition getPosition() {
-
-        //TODO: idk why we multiply by 2176.5
-        double adjust = 0.9578661376;
         return new SwerveModulePosition(driveMotor.getPosition(), new Rotation2d(getTurningHeading()));
     }
 

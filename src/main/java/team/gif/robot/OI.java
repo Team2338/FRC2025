@@ -3,17 +3,18 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.Shoot;
+import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.drivetrainPbot.MoveAwaySlow;
 import team.gif.robot.commands.drivetrainPbot.MoveCloserSlow;
 import team.gif.robot.commands.drivetrainPbot.MoveLeftSlow;
 import team.gif.robot.commands.drivetrainPbot.MoveRightSlow;
-import team.gif.robot.commands.drivetrainPbot.Reset0;
-import team.gif.robot.commands.drivetrainPbot.TestSwerve;
+import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 
 public class OI {
     /*
@@ -109,8 +110,7 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
-        dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
-        dB.whileTrue(new TestSwerve());
+        dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
@@ -119,6 +119,8 @@ public class OI {
         dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
         dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
 
+        dX.whileTrue(new AutoDriveAndShoot(false));
+        dB.whileTrue(new AutoDriveAndShoot(true));
     }
 
     public void setRumble(boolean rumble) {

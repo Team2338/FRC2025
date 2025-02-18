@@ -1,4 +1,4 @@
-package team.gif.robot.commands;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
@@ -25,18 +25,21 @@ public class StageCoral extends Command {
 
         //if both not active, don't move
         if (!isExitSensorActive && !isIndexerSensorActive) {
+            Robot.shooter.runIndexerMotor();
             Robot.shooter.stopShooterMotor();
             return;
         }
 
         //if only indexer sensor active, move
         if (!isExitSensorActive && isIndexerSensorActive) {
-            Robot.shooter.runShooterMotor(Robot.shooter.getStagePercent());
+            Robot.shooter.runIndexerMotor();
+            Robot.shooter.stageShooterMotor();
             return;
         }
 
         //if shooter sensor active, stop
         if (isExitSensorActive) {
+            Robot.shooter.stopIndexerMotor();
             Robot.shooter.stopShooterMotor();
         }
     }
@@ -50,6 +53,7 @@ public class StageCoral extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Robot.shooter.stopIndexerMotor();
         Robot.shooter.stopShooterMotor();
         Robot.shooter.setShooterCoastMode();
     }
