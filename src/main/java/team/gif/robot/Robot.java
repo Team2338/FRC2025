@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.lib.RobotMode;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
     private static delay chosenDelay;
     public static final boolean fullDashboard = true;
     private final Timer elapsedTime;
+    private static RobotMode robotMode;
 
     /**
     * This function is run when the robot is first started up and should be used for any
@@ -75,6 +77,9 @@ public class Robot extends TimedRobot {
 
         shooter.setDefaultCommand(new StageCoral());
         elapsedTime = new Timer();
+
+        robotMode = RobotMode.ROBOT_CONTROL;
+
     }
 
     /**
@@ -179,4 +184,18 @@ public class Robot extends TimedRobot {
     /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {}
+
+    public static RobotMode getRobotMode() {
+        return robotMode;
+    }
+
+    public void enableRobotModeManual() {
+        robotMode = RobotMode.MANUAL;
+        elevator.setElevatorManualMode(true);
+    }
+
+    public void enableRobotModeRobotControl() {
+        robotMode = RobotMode.ROBOT_CONTROL;
+        elevator.setElevatorManualMode(false);
+    }
 }
