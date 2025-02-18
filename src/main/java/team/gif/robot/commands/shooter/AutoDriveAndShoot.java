@@ -26,7 +26,7 @@ public class AutoDriveAndShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.isFireReady() && !hasTarget) {
+        if (Robot.shooter.isShooterAligned() && !hasTarget) {
             Robot.shooter.runShooterMotor();
             Robot.swerveDrive.drive(0.0, 0.0, 0.0);
             hasTarget = true;
@@ -42,7 +42,7 @@ public class AutoDriveAndShoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.shooter.isFireReady();
+        return Robot.shooter.isShooterAligned();
         //TODO: This needs to be based off of the gamepiece sensors, not the ToF sensors
     }
 
