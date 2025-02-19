@@ -9,12 +9,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import team.gif.lib.delay;
+import team.gif.lib.RobotMode;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
@@ -51,6 +50,7 @@ public class Robot extends TimedRobot {
     private static delay chosenDelay;
     public static final boolean fullDashboard = true;
     private final Timer elapsedTime;
+    private static RobotMode robotMode;
 
     /**
     * This function is run when the robot is first started up and should be used for any
@@ -80,6 +80,8 @@ public class Robot extends TimedRobot {
         addPeriodic(this::secondPeriodic, 0.5, 0.05);
 
         elapsedTime = new Timer();
+
+        robotMode = RobotMode.STANDARD_OP;
 
     }
 
@@ -189,4 +191,18 @@ public class Robot extends TimedRobot {
     /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {}
+
+    public static RobotMode getRobotMode() {
+        return robotMode;
+    }
+
+    public void enableRobotModeManual() {
+        robotMode = RobotMode.MANUAL;
+        elevator.setElevatorManualMode(true);
+    }
+
+    public void enableRobotModeStandardOp() {
+        robotMode = RobotMode.STANDARD_OP;
+        elevator.setElevatorManualMode(false);
+    }
 }

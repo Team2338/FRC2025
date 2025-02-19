@@ -2,6 +2,7 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -31,7 +32,7 @@ import static edu.wpi.first.units.Units.Volts;
 public class Elevator extends SubsystemBase {
     public final TalonFX elevatorMotor;
 
-    public boolean elevatorManualFlag = false;
+    private boolean elevatorManualMode = false;
     private double elevatorTargetPos;
 
     String TalonFX = "";
@@ -41,6 +42,10 @@ public class Elevator extends SubsystemBase {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_ID);
         configElevatorTalon();
         zeroEncoder();
+    }
+
+    public void setElevatorManualMode(boolean elevatorManualMode) {
+        this.elevatorManualMode = elevatorManualMode;
     }
 
     /**
@@ -198,8 +203,12 @@ public class Elevator extends SubsystemBase {
     /**
      * Sets the reverse soft limit of the elevator
      */
-    public void enableLowerSoftLimit(boolean engage) {
-        elevatorMotor.getFault_ReverseSoftLimit(engage);
+    public void enableLowerSoftLimit(boolean enable) {
+        TalonFXConfiguration config = new TalonFXConfiguration();
+
+        config.SoftwareLimitSwitch.ReverseSoftLimitEnable = enable;
+
+        elevatorMotor.getConfigurator().apply(config);
     }
 
     /**
@@ -264,7 +273,6 @@ public class Elevator extends SubsystemBase {
         //elevatorSwitchConfigs.reverseLimitSwitchEnabled(true);
         //elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
         //elevatorMotor.getConfigurator().apply(elevatorSwitchConfigs);
-
     */
     }
 
