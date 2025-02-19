@@ -5,6 +5,8 @@ import team.gif.robot.Robot;
 
 public class MoveAwaySlow extends Command {
 
+    private boolean inverted;
+
     public MoveAwaySlow() {
         super();
         addRequirements(Robot.swerveDrive);
@@ -22,6 +24,12 @@ public class MoveAwaySlow extends Command {
             Robot.swerveDrive.drive(0.2, 0, 0.0);
         else
             Robot.swerveDrive.drive(0.2, 0, 0.0);
+
+        if(inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270)
+            Robot.swerveDrive.drive(0.2, 0, 0.0);
+        else
+            Robot.swerveDrive.drive(-0.2,0,0);
+
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
