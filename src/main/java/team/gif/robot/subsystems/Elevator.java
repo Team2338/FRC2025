@@ -19,13 +19,10 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
-
 import static com.ctre.phoenix6.signals.InvertedValue.Clockwise_Positive;
-import static com.ctre.phoenix6.signals.InvertedValue.CounterClockwise_Positive;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Volts;
-
 
 public class Elevator extends SubsystemBase {
     public final TalonFX elevatorMotor;
@@ -33,17 +30,19 @@ public class Elevator extends SubsystemBase {
     private boolean elevatorManualMode = false;
     private double elevatorTargetPos;
 
-    String TalonFX = "";
-    BaseTalon BaseTalon = new BaseTalon(33, TalonFX);
-
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_ID);
         configElevatorTalon();
         zeroEncoder();
     }
 
-    public void setElevatorManualMode(boolean elevatorManualMode) {
-        this.elevatorManualMode = elevatorManualMode;
+    /**
+     * Sets the elevator to either manual or motion magic (ad PID) mode
+     *
+     * @param manual set to rue if manual mode, false if motion magic mode
+     */
+    public void setElevatorManualMode(boolean manual) {
+        this.elevatorManualMode = manual;
     }
 
     /**
@@ -51,7 +50,6 @@ public class Elevator extends SubsystemBase {
      *
      * @param percent percent of max speed to run the elevator motor
      */
-
     public void move(double percent) {
         elevatorMotor.set(percent);
     }
@@ -147,23 +145,6 @@ public class Elevator extends SubsystemBase {
     public void setElevatorTargetPos(double pos) {
         elevatorTargetPos = pos;
     }
-
-    /**
-     * Sets the forward limit switch to be normally open or normally closed
-     */
-    public boolean getFwdLimit() {
-        SensorCollection elSensor = new SensorCollection(BaseTalon);
-        return elSensor.isFwdLimitSwitchClosed();
-    }
-
-    /**
-     * Sets the reverse limit switch to be normally open or normally closed
-     */
-    public boolean getRevLimit() {
-        SensorCollection elSensor = new SensorCollection(BaseTalon);
-        return elSensor.isRevLimitSwitchClosed();
-    }
-
 
     public boolean isFinished() {
         return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
@@ -298,8 +279,3 @@ public class Elevator extends SubsystemBase {
     }
 
 }
-
-
-
-
-
