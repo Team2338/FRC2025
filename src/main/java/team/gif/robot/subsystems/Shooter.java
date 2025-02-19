@@ -78,12 +78,20 @@ public class Shooter extends SubsystemBase {
         runShooterMotor(0);
     }
 
+    public double getLeftD() {
+        return sensorLeft.getDistance();
+    }
+
+    public double getRightD() {
+        return sensorRight.getDistance();
+    }
+
     /**
      * returns true when both sensors are active
      * indicating robot is properly aligned with reef branch
      **/
     public boolean isShooterAligned() {
-//        System.out.println("left: " + sensorLeft.getDistance() + " right: " + sensorRight.getDistance());
+        System.out.println("left: " + sensorLeft.getDistance() + " right: " + sensorRight.getDistance());
         return (sensorLeftActive() && sensorRightActive());
     }
 

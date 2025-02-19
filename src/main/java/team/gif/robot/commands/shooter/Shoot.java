@@ -6,6 +6,10 @@ import team.gif.robot.Robot;
 public class Shoot extends Command {
     private int counter;
 
+    /**
+     * Runs the shooter motor and ends after a predefined set of seconds (self-ending). <br>
+     * No prerequisites (i.e. regardless of game piece or reef branch sensors)
+     */
     public Shoot() {
         super();
         addRequirements(Robot.shooter);
