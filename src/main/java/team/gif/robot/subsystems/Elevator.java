@@ -183,12 +183,12 @@ public class Elevator extends SubsystemBase {
      * Sets the reverse soft limit of the elevator
      */
     public void enableLowerSoftLimit(boolean enable) {
-/*        TalonFXConfiguration config = new TalonFXConfiguration();
+        TalonFXConfiguration config = new TalonFXConfiguration();
 
         config.SoftwareLimitSwitch.ReverseSoftLimitEnable = enable;
 
         elevatorMotor.getConfigurator().apply(config);
- */
+
     }
 
     /**
@@ -207,32 +207,40 @@ public class Elevator extends SubsystemBase {
 
         TalonFXConfiguration config = new TalonFXConfiguration();
 
-        // PID_HOLD configuration
+        // Slot 1 (PID_HOLD) configuration
         config.Slot1.kP = Constants.Elevator.ELEVATOR_KP_HOLD;
         config.Slot1.kI = Constants.Elevator.ELEVATOR_KI_HOLD;
         config.Slot1.kD = Constants.Elevator.ELEVATOR_KD_HOLD;
 
         // invert direction
-        MotorOutputConfigs motorOutputConfig = new MotorOutputConfigs();
-        motorOutputConfig.withInverted(Clockwise_Positive);
-        config.withMotorOutput(motorOutputConfig);
+        config.MotorOutput.Inverted = Clockwise_Positive;
+//        MotorOutputConfigs motorOutputConfig = new MotorOutputConfigs();
+//        motorOutputConfig.withInverted(Clockwise_Positive);
+//        config.withMotorOutput(motorOutputConfig);
 
         // Soft Limits
-        SoftwareLimitSwitchConfigs limitSwitchConfig = new SoftwareLimitSwitchConfigs();
-        limitSwitchConfig.withReverseSoftLimitEnable(true);
-        limitSwitchConfig.withReverseSoftLimitThreshold(Constants.Elevator.MIN_POS);
-        limitSwitchConfig.withForwardSoftLimitEnable(true);
-        limitSwitchConfig.withForwardSoftLimitThreshold(Constants.Elevator.MAX_POS);
-        config.withSoftwareLimitSwitch(limitSwitchConfig);
+        config.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+        config.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+        config.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Constants.Elevator.MIN_POS;
+        config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Constants.Elevator.MAX_POS;
+
+//        SoftwareLimitSwitchConfigs limitSwitchConfig = new SoftwareLimitSwitchConfigs();
+//        limitSwitchConfig.withReverseSoftLimitEnable(true);
+//        limitSwitchConfig.withReverseSoftLimitThreshold(Constants.Elevator.MIN_POS);
+//        limitSwitchConfig.withForwardSoftLimitEnable(true);
+//        limitSwitchConfig.withForwardSoftLimitThreshold(Constants.Elevator.MAX_POS);
+//        config.withSoftwareLimitSwitch(limitSwitchConfig);
 
         /*   Motion Magic configuration  */
         // Motion magic config values
-        MotionMagicConfigs motionMagicConfig = new MotionMagicConfigs();
-        motionMagicConfig.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
-        motionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
-        config.withMotionMagic(motionMagicConfig);
+        config.MotionMagic.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
+        config.MotionMagic.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
+//        MotionMagicConfigs motionMagicConfig = new MotionMagicConfigs();
+//        motionMagicConfig.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
+//        motionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
+//        config.withMotionMagic(motionMagicConfig);
 
-        // Motion Magic PID values
+        // Slot 0 (Motion Magic) PID values
         config.Slot0.kP = Constants.Elevator.ELEVATOR_KP;
         config.Slot0.kI = Constants.Elevator.ELEVATOR_KI;
         config.Slot0.kD = Constants.Elevator.ELEVATOR_KD;
