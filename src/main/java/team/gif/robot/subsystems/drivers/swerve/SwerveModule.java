@@ -228,11 +228,6 @@ public class SwerveModule {
     }
 
     public boolean isDriveMotorHot() {
-        if (driveMotor.getTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP) {
-            return true;
-        }
-        return false;
+        return driveMotor.getTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP;
     }
-
-
 }
