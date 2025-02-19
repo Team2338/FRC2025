@@ -251,6 +251,7 @@ public final class Constants {
     }
 
     public static final class Elevator{
+        public static final double PID_HOLD_FF = 0.025; //percent motor controller for simple FF pid
         public static final double ELEVATOR_KP = 0;
         public static final double ELEVATOR_KI = 0;
         public static final double ELEVATOR_KD = 0;
@@ -268,5 +269,6 @@ public final class Constants {
         public static final int REV_MAX_VELOCITY = 0;
         public static final double MIN_PERCENT_MANUAL = -.15;
         public static final double MAX_PERCENT_MANUAL = .15;
+
     }
 }

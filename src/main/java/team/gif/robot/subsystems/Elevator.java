@@ -57,6 +57,7 @@ public class Elevator extends SubsystemBase {
      * Holds the elevator at its given position with PID
      */
     public void PIDHold() {
+        move(Constants.Elevator.PID_HOLD_FF);
         //PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
         //elevatorMotor.setPosition(1, 0);
         // the elevator needs a different kF when it is lower to the ground, otherwise it doesn't stay at the position

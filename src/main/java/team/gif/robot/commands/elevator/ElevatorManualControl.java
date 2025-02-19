@@ -21,7 +21,7 @@ public class ElevatorManualControl extends Command {
         double percent = -Robot.oi.aux.getLeftY();
 
         if (percent > Constants.Elevator.MIN_PERCENT_MANUAL && percent < Constants.Elevator.MAX_PERCENT_MANUAL){
-            percent = 0.025; // apply minimum FeedForward to keep the elevator from falling (0.10 is max before elevator begins to move)
+            percent = Constants.Elevator.PID_HOLD_FF; // apply minimum FeedForward to keep the elevator from falling
         } else {
             percent = percent/9;
         }
@@ -47,7 +47,7 @@ public class ElevatorManualControl extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.elevator.setElevatorTargetPos(Robot.elevator.getPosition());
-        //-Robot.elevator.PIDHold();
+        Robot.elevator.PIDHold();
         Robot.elevator.enableLowerSoftLimit(true);
     }
 }

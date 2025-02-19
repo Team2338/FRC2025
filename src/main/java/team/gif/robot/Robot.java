@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import team.gif.lib.delay;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
         shooter = new Shooter();
         elevator = new Elevator();
         //default command for manual control
-        elevator.setDefaultCommand(new ElevatorManualControl());
+        elevator.setDefaultCommand(new InstantCommand(elevator::PIDHold));
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
