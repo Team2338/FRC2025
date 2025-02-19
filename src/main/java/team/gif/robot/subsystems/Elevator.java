@@ -180,15 +180,14 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
-     * Sets the reverse soft limit of the elevator
+     * Enables/disables the reverse soft limit of the elevator
      */
-    public void enableLowerSoftLimit(boolean enable) {
+    public void enableLowerSoftLimit(boolean state) {
         TalonFXConfiguration config = new TalonFXConfiguration();
 
-        config.SoftwareLimitSwitch.ReverseSoftLimitEnable = enable;
+        config.SoftwareLimitSwitch.ReverseSoftLimitEnable = state;
 
         elevatorMotor.getConfigurator().apply(config);
-
     }
 
     /**
