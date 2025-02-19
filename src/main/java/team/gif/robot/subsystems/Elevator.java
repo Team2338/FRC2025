@@ -1,10 +1,5 @@
 package team.gif.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
@@ -37,9 +32,9 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
-     * Sets the elevator to either manual or motion magic (ad PID) mode
+     * Sets the elevator to either manual or motion magic (and PID) mode
      *
-     * @param manual set to rue if manual mode, false if motion magic mode
+     * @param manual set to true if manual mode, false if motion magic mode
      */
     public void setElevatorManualMode(boolean manual) {
         this.elevatorManualMode = manual;
