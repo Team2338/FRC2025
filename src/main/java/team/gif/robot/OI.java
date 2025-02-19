@@ -108,12 +108,15 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
+        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
         //dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
         //dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
+
+        //test sys id for elevator, delete later
         dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
         dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));

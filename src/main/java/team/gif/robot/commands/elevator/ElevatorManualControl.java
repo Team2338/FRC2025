@@ -18,7 +18,7 @@ public class ElevatorManualControl extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        double percent = -Robot.oi.aux.getRightY();
+        double percent = -Robot.oi.aux.getLeftY();
 
         if (percent > Constants.Elevator.MIN_PERCENT_MANUAL && percent < Constants.Elevator.MAX_PERCENT_MANUAL){
             percent = 0.15; // apply minimum FeedForward to keep the elevator from falling (0.10 is max before elevator begins to move)
@@ -37,14 +37,15 @@ public class ElevatorManualControl extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return !Robot.elevator.elevatorManualFlag;
+        //return !Robot.elevator.elevatorManualFlag;
+        return false;
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         Robot.elevator.setElevatorTargetPos(Robot.elevator.getPosition());
-        Robot.elevator.PIDHold();
+        //-Robot.elevator.PIDHold();
         Robot.elevator.enableLowerSoftLimit(true);
     }
 }
