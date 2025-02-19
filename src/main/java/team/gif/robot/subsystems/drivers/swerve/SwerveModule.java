@@ -227,11 +227,11 @@ public class SwerveModule {
         driveMotor.resetEncoder();
     }
 
-    public boolean isDriveMotorCool() {
+    public boolean isDriveMotorHot() {
         if (driveMotor.getTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 
