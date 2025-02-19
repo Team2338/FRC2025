@@ -249,4 +249,26 @@ public final class Constants {
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.15; //Meters per Second
     }
+
+    public static final class Elevator{
+        public static final double PID_HOLD_FF = 0.025; //percent motor controller for simple FF pid
+        public static final double ELEVATOR_KP = 0;
+        public static final double ELEVATOR_KI = 0;
+        public static final double ELEVATOR_KD = 0;
+        public static final double ELEVATOR_KS = 0;
+        public static final double ELEVATOR_KP_HOLD = 0;
+        public static final double ELEVATOR_KI_HOLD = 0;
+        public static final double ELEVATOR_KD_HOLD = 0;
+        public static final double TICKS_PER_INCH = 1;
+        public static final double ZERO_OFFSET_TICKS = 1;
+        public static final double MAX_POS = 1;
+        public static final double MIN_POS = 1;
+        public static final int MAX_VELOCITY = 1;
+        public static final double PID_TOLERANCE = 1;
+        public static final double MAX_ACCELERATION = 1;
+        public static final int REV_MAX_VELOCITY = 0;
+        public static final double MIN_PERCENT_MANUAL = -.15;
+        public static final double MAX_PERCENT_MANUAL = .15;
+
+    }
 }

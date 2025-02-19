@@ -50,6 +50,9 @@ public abstract class RobotMap {
     public static final int REEF_LEFT_SENSOR_ID = 52;
     public static final int REEF_RIGHT_SENSOR_ID = 51;
 
+    //Elevator
+    public static final int ELEVATOR_ID = 44;
+
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";

@@ -11,6 +11,8 @@ import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+
 
 public class OI {
     /*
@@ -106,12 +108,20 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
+        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        //dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
+
+        //test sys id for elevator, delete later
+        dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        dY.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+
     }
 
     public void setRumble(boolean rumble) {
