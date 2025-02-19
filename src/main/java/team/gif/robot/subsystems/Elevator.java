@@ -9,6 +9,7 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
@@ -20,6 +21,8 @@ import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
 
 
+import static com.ctre.phoenix6.signals.InvertedValue.Clockwise_Positive;
+import static com.ctre.phoenix6.signals.InvertedValue.CounterClockwise_Positive;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Volts;
@@ -54,11 +57,11 @@ public class Elevator extends SubsystemBase {
      * Holds the elevator at its given position with PID
      */
     public void PIDHold() {
-        PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
-        elevatorMotor.setPosition(1, 0);
+        //PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
+        //elevatorMotor.setPosition(1, 0);
         // the elevator needs a different kF when it is lower to the ground, otherwise it doesn't stay at the position
         //elevatorMotor.config_kF(1, Constants.Elevator.F_HOLD);
-        elevatorMotor.setControl(elevatorPos.withPosition(elevatorTargetPos)); // closed loop position control
+        //elevatorMotor.setControl(elevatorPos.withPosition(elevatorTargetPos)); // closed loop position control
     }
 
     /**
@@ -215,7 +218,11 @@ public class Elevator extends SubsystemBase {
         //elevatorMotor.setSensorPhase(true);
         elevatorMotor.setNeutralMode(NeutralModeValue.Brake);
 
-        //creates configurable talon
+        MotorOutputConfigs motorOutput = new MotorOutputConfigs();
+        motorOutput.withInverted(Clockwise_Positive);
+        elevatorMotor.getConfigurator().apply(motorOutput, 0.05);
+
+        /*//creates configurable talon
         var talonFXConfigs = new TalonFXConfiguration();
 
         //applies configs to slot 0
@@ -257,7 +264,7 @@ public class Elevator extends SubsystemBase {
         //elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
         //elevatorMotor.getConfigurator().apply(elevatorSwitchConfigs);
 
-
+    */
     }
 
     private SysIdRoutine getSysIdRoutine(){

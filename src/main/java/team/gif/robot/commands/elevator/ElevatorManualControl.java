@@ -21,7 +21,9 @@ public class ElevatorManualControl extends Command {
         double percent = -Robot.oi.aux.getLeftY();
 
         if (percent > Constants.Elevator.MIN_PERCENT_MANUAL && percent < Constants.Elevator.MAX_PERCENT_MANUAL){
-            percent = 0.15; // apply minimum FeedForward to keep the elevator from falling (0.10 is max before elevator begins to move)
+            percent = 0.025; // apply minimum FeedForward to keep the elevator from falling (0.10 is max before elevator begins to move)
+        } else {
+            percent = percent/9;
         }
 
         Robot.elevator.move(percent);

@@ -108,7 +108,7 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
-        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder));
+        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
         //dRBump.whileTrue(new EnableRobotOrientedMode());
