@@ -54,6 +54,7 @@ public class UiSmartDashboard {
 
         // Update Developer Tab
         SmartDashboard.putString("Selected Shooter %", String.format("%11.2f", SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0)));
+        SmartDashboard.putString("Climber", String.format("%11.2f", Robot.climber.getPosition()));
 
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
