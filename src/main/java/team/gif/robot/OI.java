@@ -117,10 +117,10 @@ public class OI {
         dB.whileTrue(new AutoDriveAndShoot(true));
 
         //test sys id for elevator, delete later
-        dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
-        dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-        dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-        dY.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+        //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        //dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        //dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        //dY.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
 
     }
 
