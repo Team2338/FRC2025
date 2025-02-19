@@ -12,10 +12,6 @@ import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import team.gif.robot.commands.Shoot;
-import team.gif.robot.commands.drivetrainPbot.Reset0;
-import team.gif.robot.commands.drivetrainPbot.TestSwerve;
-import team.gif.robot.subsystems.Elevator;
 
 
 public class OI {
@@ -114,9 +110,9 @@ public class OI {
         dBack.and(dDPadDown).onTrue(new Reset0());
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        //dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
-        dX.whileTrue(new AutoDriveAndShoot(false));
+        //dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
         dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
         dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));

@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
-import team.gif.robot.commands.StageCoral;
-import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
