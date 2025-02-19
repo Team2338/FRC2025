@@ -9,8 +9,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.shooter.AutoDriveAndShoot;
+import team.gif.robot.commands.drivetrain.MoveAwaySlow;
+import team.gif.robot.commands.drivetrain.MoveCloserSlow;
+import team.gif.robot.commands.drivetrain.MoveLeftSlow;
+import team.gif.robot.commands.drivetrain.MoveRightSlow;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 
 public class OI {
     /*
@@ -110,6 +114,11 @@ public class OI {
         dRTrigger.whileTrue(new Shoot());
         dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
+        dDPadUp.onTrue(new MoveCloserSlow());
+        dDPadDown.and(dStart.negate()).whileTrue(new MoveAwaySlow());
+        dDPadLeft.and(dStart.negate()).whileTrue(new MoveRightSlow());
+        dDPadRight.and(dStart.negate()).whileTrue(new MoveLeftSlow());
+
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
     }

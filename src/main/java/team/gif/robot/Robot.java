@@ -24,7 +24,6 @@ import team.gif.robot.subsystems.drivers.Pigeon2_0;
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
-
     // Framework objects
     private static RobotContainer robotContainer;
     public static Diagnostics diagnostics;
