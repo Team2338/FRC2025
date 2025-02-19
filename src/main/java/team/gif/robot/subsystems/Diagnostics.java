@@ -4,7 +4,6 @@
 
 package team.gif.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class Diagnostics extends SubsystemBase {
@@ -16,10 +15,10 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getDriveMotorTempHot() {
-        return (Robot.swerveDrive.fLDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.fRDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.rLDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP ||
-                Robot.swerveDrive.rRDriveTemp() >= Constants.MotorTemps.DRIVETRAIN_MOTOR_TEMP);
+        return (Robot.swerveDrive.fL.isDriveMotorCool() ||
+                Robot.swerveDrive.fR.isDriveMotorCool() ||
+                Robot.swerveDrive.rL.isDriveMotorCool() ||
+                Robot.swerveDrive.rR.isDriveMotorCool());
     }
 
     public boolean getAnyMotorTempHot() {
@@ -27,7 +26,7 @@ public class Diagnostics extends SubsystemBase {
     }
 
     public boolean getAnyMotorTempHotFlash() {
-        final int FLASH_CYCLES = 30; //number of 20ms intervals in a period
+        final int FLASH_CYCLES = 2; //number of 500ms intervals in a period
 
         // if all motors cool return false
         if (!getAnyMotorTempHot()) {

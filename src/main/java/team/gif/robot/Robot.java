@@ -10,13 +10,15 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.robot.commands.shooter.StageCoral;
+import team.gif.robot.commands.drivetrain.DriveSwerve;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DriveSwerve;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
-import team.gif.robot.subsystems.SwerveDrivetrainMk3;
+import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
 
@@ -37,8 +39,8 @@ public class Robot extends TimedRobot {
 
     // Devices
     public static Pigeon2_0 pigeon;
-    public static SwerveDrivetrainMk3 swerveDrive;
-    //  public static SwerveDrivetrainMk4 swerveDrive;
+//    public static SwerveDrivetrainMk3 swerveDrive;
+    public static SwerveDrivetrainMk4 swerveDrive;
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
@@ -59,8 +61,8 @@ public class Robot extends TimedRobot {
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightCollector = new Limelight("limelight-collect");
         limelightShooter = new Limelight("limelight-shooter");
-        swerveDrive = new SwerveDrivetrainMk3();
-        //  swerveDrive = new SwerveDrivetrainMk4();
+//        swerveDrive = new SwerveDrivetrainMk3();
+        swerveDrive = new SwerveDrivetrainMk4();
         swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
         elevator = new Elevator();
@@ -74,7 +76,12 @@ public class Robot extends TimedRobot {
         pigeon.addToShuffleboard("Heading");
 
         shooter.setDefaultCommand(new StageCoral());
+
+        // Add a second periodic function to remove non-essential updates from the main scheduler
+        addPeriodic(this::secondPeriodic, 0.5, 0.05);
+
         elapsedTime = new Timer();
+
     }
 
     /**
@@ -91,12 +98,6 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        uiSmartDashboard.updateUI();
-
-        //Vision Localization
-    //        limelightCollector.setRobotOrientation(pigeon.getCompassHeading(), 0, 0, 0, 0, 0);
-        limelightCollector.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
-        limelightShooter.setRobotOrientation(pigeon.getHeading(), pigeon.getYawRate(), pigeon.getPitch(), 0, pigeon.getRoll(), 0);
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -153,13 +154,23 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        // run the indexer all the time
-        shooter.runIndexerMotor();
 
         // rumble the joysticks at various points during the match to notify the drive team
         double timeLeft = DriverStation.getMatchTime();
         oi.setRumble((timeLeft <= 15.0 && timeLeft >= 12.0) ||
                 (timeLeft <= 5.0 && timeLeft >= 3.0));
+    }
+
+    public void secondPeriodic() {
+//        System.out.println(++counter);
+        uiSmartDashboard.updateUI();
+        double heading = pigeon.get360Heading();
+        var alliance = DriverStation.getAlliance();
+        if( alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red ){
+            heading = heading - 180;
+        }
+        limelightCollector.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
+        limelightShooter.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
     }
 
     @Override

@@ -3,6 +3,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.delay;
+import team.gif.robot.commands.drivetrain.Reset180;
 
 public class UiSmartDashboard {
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -35,6 +36,8 @@ public class UiSmartDashboard {
         delayChooser.addOption("14", delay.DELAY_14);
         delayChooser.addOption("15", delay.DELAY_15);
         SmartDashboard.putData("Delay", delayChooser);
+
+        SmartDashboard.putData("Reset180", new Reset180());
     }
 
     //adds autos to select

@@ -3,8 +3,14 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.shooter.Shoot;
+import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.driveModes.EnableBoost;
+import team.gif.robot.commands.shooter.AutoDriveAndShoot;
+import team.gif.robot.commands.drivetrain.Reset0;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.Shoot;
 import team.gif.robot.commands.drivetrainPbot.Reset0;
@@ -24,7 +30,7 @@ public class OI {
 
     public final CommandXboxController driver = new CommandXboxController(RobotMap.DRIVER_CONTROLLER_ID);
     public final CommandXboxController aux = new CommandXboxController(RobotMap.AUX_CONTROLLER_ID);
-//-    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
+    public final CommandXboxController test = new CommandXboxController(RobotMap.TEST_CONTROLLER_ID);
 
     public final Trigger dA = driver.a();
     public final Trigger dB = driver.b();
@@ -106,9 +112,12 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
-        dA.onTrue(new InstantCommand(Robot.swerveDrive::resetDriveEncoders));
-        dB.whileTrue(new TestSwerve());
+        dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
+        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dLStickBtn.whileTrue(new EnableBoost());
+        dX.whileTrue(new AutoDriveAndShoot(false));
+        dB.whileTrue(new AutoDriveAndShoot(true));
         dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
         dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));

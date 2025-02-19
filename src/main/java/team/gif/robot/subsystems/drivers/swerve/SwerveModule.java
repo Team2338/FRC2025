@@ -1,11 +1,11 @@
 package team.gif.robot.subsystems.drivers.swerve;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import team.gif.robot.Constants;
-import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 
 public class SwerveModule {
     /* ------ Devices ------*/
@@ -14,8 +14,9 @@ public class SwerveModule {
     private final Encoder encoder;
 
     /* ----- PID Constants -----*/
-    private final double FF;
     private final double P;
+    private final SimpleMotorFeedforward driveFF;
+    private final double turnFF;
 
     private double turnOffset;
 
@@ -26,7 +27,8 @@ public class SwerveModule {
             boolean isTurnInverted,
             boolean isDriveInverted,
             double turningOffset,
-            double FF,
+            SimpleMotorFeedforward driveFF,
+            double turnFF,
             double P
     ) {
 
@@ -39,9 +41,10 @@ public class SwerveModule {
         this.encoder.configure();
 
         this.turnOffset = turningOffset;
-        this.FF = FF;
         this.P = P;
 
+        this.driveFF = driveFF;
+        this.turnFF = turnFF;
     }
 
     /**
@@ -72,8 +75,6 @@ public class SwerveModule {
      * @return Returns the heading of the module in radians as a double
      */
     public double getTurningHeading() {
-        //TODO: Redo the offset so that we can get rid of the radian conversion
-        //TODO: I got rid of the is Abs inverted, do we need this??
         double heading = Units.degreesToRadians(getTurningHeadingDegrees());
         heading %= 2 * Math.PI;
         return heading;
@@ -92,7 +93,7 @@ public class SwerveModule {
      */
     public void resetWheel() {
         final double error = getTurningHeading();
-        final double ff = FF * Math.abs(error) / error;
+        final double ff = turnFF * Math.abs(error) / error;
         final double turnOutput = ff + (P * error);
 
         turnMotor.set(turnOutput);
@@ -123,8 +124,6 @@ public class SwerveModule {
      * @return the optimized swerve module state
      */
     private SwerveModuleState optimizeState(SwerveModuleState original) {
-        //This code is basically magic. I aint touching it
-
         // Compute all options for a setpoint
         double position = getTurningHeading();
         double setpoint = original.angle.getRadians();
@@ -160,18 +159,49 @@ public class SwerveModule {
     /**
      * Set the desired state of the swerve module
      * @param state The desired state of the swerve module
+     * @implNote This function does not account for the current drivePace or
+     * Max module velocity. These should be implemented before this function is called
      */
     public void setDesiredState(SwerveModuleState state) {
         SwerveModuleState stateOptimized = optimizeState(state);
-        double driveOutput = stateOptimized.speedMetersPerSecond / SwerveDrivetrainMk3.getDrivePace().getValue();
+        double driveOutput = driveFF.calculate(stateOptimized.speedMetersPerSecond);
         final double error = getTurningHeading() - stateOptimized.angle.getRadians();
 
         //if error is negative, FF should also be negative
-        final double ff = FF * Math.abs(error) / error;
+        final double ff = turnFF * Math.abs(error) / error;
         //accum += error;
         final double turnOutput = ff + (P * error);
-        driveMotor.set(driveOutput);
+        driveMotor.setVoltage(driveOutput);
         turnMotor.set(turnOutput);
+    }
+
+    public void setDesiredState(SwerveModuleState state,  boolean moveCW) {
+        state = optimizeState(state);
+        double driveOutput = driveFF.calculate(state.speedMetersPerSecond);
+
+        double error = getTurningHeading() - state.angle.getRadians();
+
+        if (moveCW) {
+            error = Math.abs(error);
+        } else {
+            error = Math.abs(error) * -1;
+        }
+
+        //if error is negative, FF should also be negative
+        final double ff = turnFF * Math.abs(error) / error;
+        //accum += error;
+        final double turnOutput = ff + (P * error);
+        driveMotor.setVoltage(driveOutput);
+        turnMotor.set(turnOutput);
+    }
+
+    public void turnHoldZero() {
+
+        double error = getTurningHeading();
+        final double ff = turnFF * Math.abs(error) / error;
+        final double turnOutput = ff + (P * error);
+        turnMotor.set(turnOutput);
+
     }
 
     /**
@@ -183,19 +213,10 @@ public class SwerveModule {
     }
 
     /**
-     * Get the position of the swerve module - TODO: HAS BUG
+     * Get the position of the swerve module
      * @return the position of the swerve module
-     *
-     * Process:
-     * Set adjust to 1.0
-     * Create auto with the longest straight line possible
-     * adjust = actual distance / desired distance
-     *
      */
     public SwerveModulePosition getPosition() {
-
-        //TODO: idk why we multiply by 2176.5
-        double adjust = 0.9578661376;
         return new SwerveModulePosition(driveMotor.getPosition(), new Rotation2d(getTurningHeading()));
     }
 
@@ -212,5 +233,6 @@ public class SwerveModule {
         }
         return true;
     }
+
 
 }
