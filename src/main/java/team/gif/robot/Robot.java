@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
         shooter.setDefaultCommand(new StageCoral());
         elapsedTime = new Timer();
 
-        robotMode = RobotMode.ROBOT_CONTROL;
+        robotMode = RobotMode.STANDARD_OP;
 
     }
 
@@ -194,8 +194,8 @@ public class Robot extends TimedRobot {
         elevator.setElevatorManualMode(true);
     }
 
-    public void enableRobotModeRobotControl() {
-        robotMode = RobotMode.ROBOT_CONTROL;
+    public void enableRobotModeStandardOp() {
+        robotMode = RobotMode.STANDARD_OP;
         elevator.setElevatorManualMode(false);
     }
 }

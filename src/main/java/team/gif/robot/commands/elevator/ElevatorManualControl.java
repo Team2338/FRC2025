@@ -38,7 +38,7 @@ public class ElevatorManualControl extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.getRobotMode() == RobotMode.ROBOT_CONTROL;
+        return Robot.getRobotMode() == RobotMode.STANDARD_OP;
     }
 
     // Called when the command ends or is interrupted.
