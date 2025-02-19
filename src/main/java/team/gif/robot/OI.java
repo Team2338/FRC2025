@@ -113,7 +113,7 @@ public class OI {
         dRTrigger.whileTrue(new Shoot());
         //dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
-        //dX.whileTrue(new AutoDriveAndShoot(false));
+        dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
 
         //test sys id for elevator, delete later

@@ -222,7 +222,7 @@ public class Elevator extends SubsystemBase {
      * Configures the elevator Talon
      */
     private void configElevatorTalon() {
-        elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
+//        elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
         //elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         //elevatorMotor.enableVoltageCompensation(true);
         //elevatorMotor.setSensorPhase(true);
