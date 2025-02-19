@@ -2,15 +2,13 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
@@ -223,57 +221,51 @@ public class Elevator extends SubsystemBase {
      * Configures the elevator Talon
      */
     private void configElevatorTalon() {
-//        elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
-        //elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        //elevatorMotor.enableVoltageCompensation(true);
-        //elevatorMotor.setSensorPhase(true);
+        // set to brake mode
         elevatorMotor.setNeutralMode(NeutralModeValue.Brake);
 
-        MotorOutputConfigs motorOutput = new MotorOutputConfigs();
-        motorOutput.withInverted(Clockwise_Positive);
-        elevatorMotor.getConfigurator().apply(motorOutput, 0.05);
+        TalonFXConfiguration config = new TalonFXConfiguration();
 
-        /*//creates configurable talon
-        var talonFXConfigs = new TalonFXConfiguration();
+        // PID_HOLD configuration
+        config.Slot1.kP = Constants.Elevator.ELEVATOR_KP_HOLD;
+        config.Slot1.kI = Constants.Elevator.ELEVATOR_KI_HOLD;
+        config.Slot1.kD = Constants.Elevator.ELEVATOR_KD_HOLD;
 
-        //applies configs to slot 0
-        var elevatorConfigs = talonFXConfigs.Slot0;
-        elevatorConfigs.kP = Constants.Elevator.ELEVATOR_KP;
-        elevatorConfigs.kI = Constants.Elevator.ELEVATOR_KI;
-        elevatorConfigs.kD = Constants.Elevator.ELEVATOR_KD;
-        elevatorConfigs.kS = Constants.Elevator.ELEVATOR_KS;
-        //apply configs with 50ms timeout
-        elevatorMotor.getConfigurator().apply(elevatorConfigs, 0.05);
+        // invert direction
+        MotorOutputConfigs motorOutputConfig = new MotorOutputConfigs();
+        motorOutputConfig.withInverted(Clockwise_Positive);
+        config.withMotorOutput(motorOutputConfig);
 
-        //applies configs to slot 1
-        var elevatorHoldConfigs = talonFXConfigs.Slot1;
-        elevatorHoldConfigs.kP = Constants.Elevator.ELEVATOR_KP_HOLD;
-        elevatorHoldConfigs.kI = Constants.Elevator.ELEVATOR_KI_HOLD;
-        elevatorHoldConfigs.kD = Constants.Elevator.ELEVATOR_KD_HOLD;
-        elevatorMotor.getConfigurator().apply(elevatorHoldConfigs, 0.05);
+        // Soft Limits
+        SoftwareLimitSwitchConfigs limitSwitchConfig = new SoftwareLimitSwitchConfigs();
+        limitSwitchConfig.withReverseSoftLimitEnable(true);
+        limitSwitchConfig.withReverseSoftLimitThreshold(Constants.Elevator.MIN_POS);
+        limitSwitchConfig.withForwardSoftLimitEnable(true);
+        limitSwitchConfig.withForwardSoftLimitThreshold(Constants.Elevator.MAX_POS);
+        config.withSoftwareLimitSwitch(limitSwitchConfig);
 
-        MotionMagicConfigs elevatorMotionConfig = talonFXConfigs.MotionMagic;
-        elevatorMotionConfig.withMotionMagicAcceleration(Constants.Elevator.MAX_ACCELERATION);
-        elevatorMotionConfig.withMotionMagicCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
-        elevatorMotor.getConfigurator().apply(elevatorMotionConfig);
+        /*   Motion Magic configuration  */
+        // Motion magic config values
+        MotionMagicConfigs motionMagicConfig = new MotionMagicConfigs();
+        motionMagicConfig.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
+        motionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
+        config.withMotionMagic(motionMagicConfig);
+
+        // Motion Magic PID values
+        config.Slot0.kP = Constants.Elevator.ELEVATOR_KP;
+        config.Slot0.kI = Constants.Elevator.ELEVATOR_KI;
+        config.Slot0.kD = Constants.Elevator.ELEVATOR_KD;
+        config.Slot0.kS = Constants.Elevator.ELEVATOR_KS;
+
+        // Write these configs to the TalonFX
+        elevatorMotor.getConfigurator().apply(config);
+
+        /*
 
         MotorOutputConfigs elevatorOutputConfigs = new MotorOutputConfigs();
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorMotor.getConfigurator().apply(elevatorOutputConfigs);
-
-        //Limit switch configs, might not be needed.
-        //HardwareLimitSwitchConfigs elevatorHardwareSwitchConfigs = new HardwareLimitSwitchConfigs();
-        //elevatorHardwareSwitchConfigs.withForwardLimitSource(RemoteTalonFX);
-        //elevatorHardwareSwitchConfigs.withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX);
-        //elevatorHardwareSwitchConfigs.withForwardLimitType(ForwardLimitTypeValue.NormallyClosed);
-        //elevatorHardwareSwitchConfigs.withReverseLimitType(ReverseLimitTypeValue.NormallyClosed);
-        //elevatorMotor.getConfigurator().apply(elevatorHardwareSwitchConfigs);
-
-        //LimitSwitchConfig elevatorSwitchConfigs = new LimitSwitchConfig();
-        //elevatorSwitchConfigs.reverseLimitSwitchEnabled(true);
-        //elevatorSwitchConfigs.forwardLimitSwitchEnabled(true);
-        //elevatorMotor.getConfigurator().apply(elevatorSwitchConfigs);
     */
     }
 
