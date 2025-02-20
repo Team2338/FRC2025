@@ -142,7 +142,7 @@ public class Elevator extends SubsystemBase {
         elevatorTargetPos = pos;
     }
 
-    public boolean isFinished() {
+    public boolean isMotionMagicFinished() {
         return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
     }
 
