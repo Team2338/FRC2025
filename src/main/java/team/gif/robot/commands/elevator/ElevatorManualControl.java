@@ -25,7 +25,11 @@ public class ElevatorManualControl extends Command {
         if (percent > Constants.Elevator.MIN_PERCENT_MANUAL && percent < Constants.Elevator.MAX_PERCENT_MANUAL){
             percent = Constants.Elevator.PID_HOLD_FF; // apply minimum FeedForward to keep the elevator from falling
         } else {
-            percent = percent/9;
+            if (percent < 0 ){
+                percent = percent/3;
+            } else {
+                percent = percent/9;
+            }
         }
 
         Robot.elevator.move(percent);
