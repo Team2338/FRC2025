@@ -67,8 +67,7 @@ public class Robot extends TimedRobot {
         swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
         elevator = new Elevator();
-        //elevator.setDefaultCommand(new ElevatorPIDControl());
-        elevator.setDefaultCommand(new ElevatorManualControl());
+        elevator.setDefaultCommand(new ElevatorPIDControl());
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();

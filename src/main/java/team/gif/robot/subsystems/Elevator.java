@@ -123,8 +123,8 @@ public class Elevator extends SubsystemBase {
      * @param position the position to set the elevator to
      */
     public void setMotionMagic(double position) {
-        final MotionMagicVoltage elevatorMotionMagic = new MotionMagicVoltage(0);
-        elevatorMotor.setPosition(elevatorMotionMagic.Position);
+        final MotionMagicVoltage elevatorMotionMagic = new MotionMagicVoltage(position);
+        elevatorMotor.setControl(elevatorMotionMagic);
     }
 
     /**
@@ -188,6 +188,10 @@ public class Elevator extends SubsystemBase {
             elevatorMotor.getConfigurator().apply(config);
             softLimitEnabled = state;
         }
+    }
+
+    public double getValue() {
+        return elevatorMotor.getMotorVoltage().getValueAsDouble();
     }
 
     /**
