@@ -21,8 +21,14 @@ public class Diagnostics extends SubsystemBase {
                 Robot.swerveDrive.rR.isDriveMotorHot());
     }
 
+    //could change to get getMechanismMotorTempHot if we just want to break temps into drive and mechanisms.
+    public boolean getElevatorMotorTempHot(){
+        return (Robot.elevator.isElevatorMotorHot());
+    }
+
     public boolean getAnyMotorTempHot() {
-        return getDriveMotorTempHot();
+        return getDriveMotorTempHot() ||
+        getElevatorMotorTempHot();
     }
 
     public boolean getAnyMotorTempHotFlash() {
