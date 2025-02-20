@@ -1,4 +1,4 @@
-package team.gif.robot.commands;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.lib.drivePace;
@@ -26,15 +26,15 @@ public class AutoDriveAndShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.isFireReady() && !hasTarget) {
-            Robot.shooter.runShooterMotor(Constants.Shooter.SPEED_PERCENT);
+        if (Robot.shooter.isShooterAligned() && !hasTarget) {
+            Robot.shooter.runShooterMotor();
             Robot.swerveDrive.drive(0.0, 0.0, 0.0);
             hasTarget = true;
         } else if (!hasTarget) {
                 boolean inverted = moveRight;
                 //If we are facing the alliance wall, invert
                 inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
-                double speed = Constants.Shooter.ALIGN_SPEED_MPS * (inverted ? -1 : 1);
+                double speed = Constants.Shooter.ALIGN_STRAFE_SPEED_MPS * (inverted ? -1 : 1);
                 Robot.swerveDrive.drive(0, speed, 0.0);
             }
         }
@@ -42,7 +42,7 @@ public class AutoDriveAndShoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.shooter.isFireReady();
+        return Robot.shooter.isShooterAligned();
         //TODO: This needs to be based off of the gamepiece sensors, not the ToF sensors
     }
 
@@ -51,7 +51,7 @@ public class AutoDriveAndShoot extends Command {
     public void end(boolean interrupted) {
         System.out.println("finished auto drive shoot");
 
-        Robot.shooter.runShooterMotor(0);
+        Robot.shooter.stopShooterMotor();
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }
