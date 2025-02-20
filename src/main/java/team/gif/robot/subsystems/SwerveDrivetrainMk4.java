@@ -26,7 +26,6 @@ import team.gif.lib.logging.TelemetryFileLogger;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.RobotMap;
-import team.gif.robot.commands.PathOnFly;
 import team.gif.robot.subsystems.drivers.swerve.CANCoderEncoder;
 import team.gif.robot.subsystems.drivers.swerve.DriveMotor;
 import team.gif.robot.subsystems.drivers.swerve.Encoder;
