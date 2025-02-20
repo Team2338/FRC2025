@@ -22,17 +22,17 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.elevator.setElevatorTargetPos(desiredPosition);
-
-        if (desiredPosition > Robot.elevator.getPosition()) {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.F);
-            Robot.elevator.setMotionMagic(desiredPosition);
-        } else {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.REV_F);
-            Robot.elevator.setMotionMagic(desiredPosition);
-        }
+//        Robot.elevator.setElevatorTargetPos(desiredPosition);
+//
+//        if (desiredPosition > Robot.elevator.getPosition()) {
+//            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
+//           // Robot.elevator.configF(Constants.Elevator.F);
+//            Robot.elevator.setMotionMagic(desiredPosition);
+//        } else {
+//            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
+//           // Robot.elevator.configF(Constants.Elevator.REV_F);
+//            Robot.elevator.setMotionMagic(desiredPosition);
+//        }
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -42,6 +42,7 @@ public class SetElevatorPosition extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
+        // todo - why os this not set-and-forget?
         return Robot.elevator.isMotionMagicFinished();
     }
 
