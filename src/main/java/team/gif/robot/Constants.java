@@ -261,7 +261,7 @@ public final class Constants {
         public static final double ELEVATOR_KD_HOLD = 0;
         public static final double TICKS_PER_INCH = 1;
         public static final double ZERO_OFFSET_TICKS = 1;
-        public static final double MAX_POS = 63;
+        public static final double MAX_POS = 61;
         public static final double MIN_POS = 0;
         public static final int MAX_VELOCITY = 1;
         public static final double PID_TOLERANCE = 5;
