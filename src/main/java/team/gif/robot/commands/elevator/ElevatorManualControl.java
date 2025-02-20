@@ -10,6 +10,7 @@ public class ElevatorManualControl extends Command {
     public ElevatorManualControl() {
         super();
         addRequirements(Robot.elevator);
+        Robot.elevator.setElevatorManualMode(true);
     }
 
     // Called when the command is initially scheduled.
@@ -41,8 +42,7 @@ public class ElevatorManualControl extends Command {
     @Override
     public boolean isFinished() {
         // end manual mode when operator switches back to standard mode
-//        return Robot.getRobotMode() == RobotMode.STANDARD_OP; // todo put back in when toggleManual is implemented
-        return false;
+        return Robot.getRobotMode() == RobotMode.STANDARD_OP;
     }
 
     // Called when the command ends or is interrupted.
