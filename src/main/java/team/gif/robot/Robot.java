@@ -13,6 +13,7 @@ import team.gif.lib.delay;
 import team.gif.robot.commands.StageCoral;
 import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Flapper;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk3;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
+    public static Flapper flapper;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -64,7 +66,7 @@ public class Robot extends TimedRobot {
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
-
+        flapper = new Flapper(0);
         shooter.setDefaultCommand(new StageCoral());
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
@@ -102,6 +104,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+
 
         // run scheduler immediately if no delay is selected
         if (chosenDelay.getValue() == 0) {

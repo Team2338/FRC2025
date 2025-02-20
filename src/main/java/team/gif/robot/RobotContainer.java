@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.AutoDriveAndShoot;
+import team.gif.robot.commands.DropFlapper;
 import team.gif.robot.commands.Shoot;
 import team.gif.robot.commands.drivetrainPbot.MoveModulesIn;
 
@@ -40,6 +41,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Shoot", new Shoot());
         NamedCommands.registerCommand("MoveModulesIn", new MoveModulesIn());
         NamedCommands.registerCommand("AutoDriveAndShoot", new AutoDriveAndShoot(true).withTimeout(5));
+        NamedCommands.registerCommand("Servo", new DropFlapper());
 
 
         // Configure the trigger bindings
