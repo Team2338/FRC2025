@@ -59,7 +59,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
-        SmartDashboard.putBoolean("Manual", Robot.getRobotModeManual());
+        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
 
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
