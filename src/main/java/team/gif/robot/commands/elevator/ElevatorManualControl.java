@@ -26,9 +26,9 @@ public class ElevatorManualControl extends Command {
             percent = Constants.Elevator.PID_HOLD_FF; // apply minimum FeedForward to keep the elevator from falling
         } else {
             if (percent < 0 ){
-                percent = percent/3;
+                percent = percent/5; // down (smaller = faster)
             } else {
-                percent = percent/9;
+                percent = percent/2.5; // up (smaller = faster)
             }
         }
 
