@@ -220,7 +220,9 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
-     * Returns elevator motor temp as true or false depending on if it is over set limit.
+     * Indicates elevator motor temp as true or false
+     *
+     * @return True if temp equal or greater than set temp limit, otherwise return false.
      */
     public boolean isElevatorMotorHot(){
         return elevatorMotor.getDeviceTemp().getValueAsDouble() >= Constants.MotorTemps.ELEVATOR_MOTOR_TEMP;
