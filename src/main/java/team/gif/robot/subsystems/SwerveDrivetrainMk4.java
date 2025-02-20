@@ -390,10 +390,10 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         return getPose().getY();
     }
 
+    private Pose2d pose;
+
     public Command driveToPose(boolean isRedAlliance, String reefPosition) {
-        Pose2d pose;
-        PathConstraints constraints;
-        List waypoints;
+
 
         //logic here if and switch
         if (isRedAlliance) {
