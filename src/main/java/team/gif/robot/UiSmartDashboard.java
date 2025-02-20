@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team.gif.lib.RobotMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -58,6 +59,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
+        SmartDashboard.putBoolean( "Manual", Robot.getRobotModeManual());
 
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());

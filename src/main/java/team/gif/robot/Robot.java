@@ -198,13 +198,24 @@ public class Robot extends TimedRobot {
         return robotMode;
     }
 
-    public void enableRobotModeManual() {
+    static public void enableRobotModeManual() {
         robotMode = RobotMode.MANUAL;
         elevator.setElevatorManualMode(true);
     }
 
-    public void enableRobotModeStandardOp() {
+    static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
         elevator.setElevatorManualMode(false);
     }
+
+    /**
+     * returns true if robot is in manual mode
+     * Needed for dashboard functionality
+     *
+     * @return true if robot is in manual mode, false if in StandardOp mode
+     */
+    public static boolean getRobotModeManual() {
+        return robotMode == RobotMode.MANUAL;
+    }
+
 }

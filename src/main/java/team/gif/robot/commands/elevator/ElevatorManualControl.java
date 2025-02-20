@@ -41,8 +41,8 @@ public class ElevatorManualControl extends Command {
     @Override
     public boolean isFinished() {
         // end manual mode when operator switches back to standard mode
-//        return Robot.getRobotMode() == RobotMode.STANDARD_OP; // todo put back in when toggleManual is implemented
-        return false;
+        return Robot.getRobotMode() == RobotMode.STANDARD_OP;
+//        return false;
     }
 
     // Called when the command ends or is interrupted.
