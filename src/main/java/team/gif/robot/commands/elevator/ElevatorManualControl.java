@@ -10,6 +10,7 @@ public class ElevatorManualControl extends Command {
     public ElevatorManualControl() {
         super();
         addRequirements(Robot.elevator);
+        Robot.elevator.setElevatorManualMode(true);
     }
 
     // Called when the command is initially scheduled.

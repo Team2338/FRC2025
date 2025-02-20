@@ -200,12 +200,14 @@ public class Robot extends TimedRobot {
 
     static public void enableRobotModeManual() {
         robotMode = RobotMode.MANUAL;
-//-        elevator.setElevatorManualMode(true);
+
+        new ElevatorManualControl().schedule();
     }
 
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
-//-        elevator.setElevatorManualMode(false);
+
+        elevator.setElevatorManualMode(false);
     }
 
     /**

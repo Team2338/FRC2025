@@ -2,9 +2,13 @@ package team.gif.robot.commands.toggleManualControl;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
-//import team.gif.robot.commands.climber.ClimberManualControl;
-//import team.gif.robot.commands.elevator.ElevatorManualControl;
 
+/**
+ * ToggleManualControl is designed so that each time the button
+ * is pressed, it toggles between manual mode and standard mode
+ *
+ * Call using ToggleOnTrue which toggles between calling initialize() and end()
+ */
 public class ToggleManualControl extends Command {
 
     public ToggleManualControl() {
@@ -15,9 +19,6 @@ public class ToggleManualControl extends Command {
     @Override
     public void initialize() {
         Robot.enableRobotModeManual();
-
-        // enable manual mode for the elevator
-//-        new ElevatorManualControl().schedule();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
