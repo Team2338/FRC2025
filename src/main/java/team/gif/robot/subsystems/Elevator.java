@@ -24,6 +24,7 @@ public class Elevator extends SubsystemBase {
 
     private boolean elevatorManualMode = false;
     private double elevatorTargetPos;
+    private boolean softLimitEnabled;
 
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_ID);
@@ -178,11 +179,15 @@ public class Elevator extends SubsystemBase {
      * Enables/disables the reverse soft limit of the elevator
      */
     public void enableLowerSoftLimit(boolean state) {
-        TalonFXConfiguration config = new TalonFXConfiguration();
+        // changing the config of the talon is very expensive, causes loop overruns
+        // only update the talon config if it has changed since the last setting
+        if (softLimitEnabled != state) {
+            TalonFXConfiguration config = new TalonFXConfiguration();
 
-        config.SoftwareLimitSwitch.ReverseSoftLimitEnable = state;
-
-        elevatorMotor.getConfigurator().apply(config);
+            config.SoftwareLimitSwitch.ReverseSoftLimitEnable = state;
+            elevatorMotor.getConfigurator().apply(config);
+            softLimitEnabled = state;
+        }
     }
 
     /**
@@ -208,31 +213,18 @@ public class Elevator extends SubsystemBase {
 
         // invert direction
         config.MotorOutput.Inverted = Clockwise_Positive;
-//        MotorOutputConfigs motorOutputConfig = new MotorOutputConfigs();
-//        motorOutputConfig.withInverted(Clockwise_Positive);
-//        config.withMotorOutput(motorOutputConfig);
 
         // Soft Limits
         config.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
         config.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
         config.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Constants.Elevator.MIN_POS;
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Constants.Elevator.MAX_POS;
-
-//        SoftwareLimitSwitchConfigs limitSwitchConfig = new SoftwareLimitSwitchConfigs();
-//        limitSwitchConfig.withReverseSoftLimitEnable(true);
-//        limitSwitchConfig.withReverseSoftLimitThreshold(Constants.Elevator.MIN_POS);
-//        limitSwitchConfig.withForwardSoftLimitEnable(true);
-//        limitSwitchConfig.withForwardSoftLimitThreshold(Constants.Elevator.MAX_POS);
-//        config.withSoftwareLimitSwitch(limitSwitchConfig);
+        softLimitEnabled = true;
 
         /*   Motion Magic configuration  */
         // Motion magic config values
         config.MotionMagic.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
         config.MotionMagic.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
-//        MotionMagicConfigs motionMagicConfig = new MotionMagicConfigs();
-//        motionMagicConfig.MotionMagicAcceleration = Constants.Elevator.MAX_ACCELERATION;
-//        motionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.MAX_VELOCITY;
-//        config.withMotionMagic(motionMagicConfig);
 
         // Slot 0 (Motion Magic) PID values
         config.Slot0.kP = Constants.Elevator.ELEVATOR_KP;
@@ -243,13 +235,12 @@ public class Elevator extends SubsystemBase {
         // Write these configs to the TalonFX
         elevatorMotor.getConfigurator().apply(config);
 
-        /*
-
+        /* from 2023 - do we need?
         MotorOutputConfigs elevatorOutputConfigs = new MotorOutputConfigs();
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorOutputConfigs.withPeakReverseDutyCycle(0);
         elevatorMotor.getConfigurator().apply(elevatorOutputConfigs);
-    */
+        */
     }
 
     private SysIdRoutine getSysIdRoutine(){
