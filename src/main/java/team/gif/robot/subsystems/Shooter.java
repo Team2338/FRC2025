@@ -91,7 +91,6 @@ public class Shooter extends SubsystemBase {
      * indicating robot is properly aligned with reef branch
      **/
     public boolean isShooterAligned() {
-        System.out.println("left: " + sensorLeft.getDistance() + " right: " + sensorRight.getDistance());
         return (sensorLeftActive() && sensorRightActive());
     }
 

@@ -14,14 +14,18 @@ public class ToFSensor extends SubsystemBase {
     public ToFSensor(int id) {
         sensor = new TimeOfFlight(id);
         sensor.setRangingMode(RangingMode.Short, 25);
-        sensor.setRangeOfInterest(7,0,9,15);
+        sensor.setRangeOfInterest(6,0,10,15);
+    }
+
+    public double getSigma() {
+        return sensor.getRangeSigma();
     }
 
     public double getDistance() {
-        if (sensor.isRangeValid()) {
+        if (sensor.getRangeSigma()< 10) {
             return sensor.getRange();
         } else {
             return 2000.0;
-        }
+       }
     }
 }
