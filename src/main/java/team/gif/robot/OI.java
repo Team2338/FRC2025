@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -13,6 +14,8 @@ import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
+
+import java.util.Set;
 
 
 public class OI {
@@ -117,7 +120,12 @@ public class OI {
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
 
+        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
+        aDPadUp.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        aDPadLeft.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+        aDPadDown.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
 
         //test sys id for elevator, delete later
         //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));

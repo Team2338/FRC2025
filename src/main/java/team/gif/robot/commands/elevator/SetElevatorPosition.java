@@ -1,5 +1,6 @@
 package team.gif.robot.commands.elevator;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
@@ -42,9 +43,9 @@ public class SetElevatorPosition extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-//        if( Robot.arm.getPositionDegrees() < Constants.Arm.MOVE_FROM_HOME_POS && Robot.elevator.getPosition() > Constants.Elevator.MAX_HOME_SAFE_POS)
-//            return false; // TODO: prevent arm from crashing into top rail
-        return Robot.elevator.isFinished();
+        // need to keep this command running until elevator is at target position
+        // so it doesn't let PIDHold take over
+        return Robot.elevator.isMotionMagicFinished();
     }
 
     // Called when the command ends or is interrupted.
