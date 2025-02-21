@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.lib.RobotMode;
+import team.gif.robot.commands.climber.ClimberManualControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.shooter.StageCoral;
@@ -166,7 +167,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
-        compressor.enableDigital();
+        //-compressor.enableDigital();
+        compressor.disable();
         climber.setPistonIn();
     }
 
@@ -217,13 +219,12 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeManual() {
         robotMode = RobotMode.MANUAL;
 
+        new ClimberManualControl().schedule();
         new ElevatorManualControl().schedule();
     }
 
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
-
-        elevator.setElevatorManualMode(false);
     }
 
     /**

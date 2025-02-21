@@ -55,8 +55,8 @@ public abstract class RobotMap {
 
     //Climber
     public static final int CLIMBER_ID = 43;
-    public static final int CLIMBER_SOLENOID_IN_PORT = 4;
-    public static final int CLIMBER_SOLENOID_OUT_PORT = 5;
+    public static final int CLIMBER_SOLENOID_IN_PORT = 5;
+    public static final int CLIMBER_SOLENOID_OUT_PORT = 4;
 
     //UI
     public static final class UI {
