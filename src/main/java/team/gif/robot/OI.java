@@ -118,7 +118,7 @@ public class OI {
 
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
-        aDPadDown.onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        aBack.and(aDPadDown).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
     }
 
     public void setRumble(boolean rumble) {
