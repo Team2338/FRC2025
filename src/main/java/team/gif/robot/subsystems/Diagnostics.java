@@ -20,9 +20,10 @@ public class Diagnostics extends SubsystemBase {
                 Robot.swerveDrive.rL.isDriveMotorHot() ||
                 Robot.swerveDrive.rR.isDriveMotorHot());
     }
-
+    
     public boolean getAnyMotorTempHot() {
-        return getDriveMotorTempHot();
+        return (getDriveMotorTempHot() ||
+                Robot.elevator.isElevatorMotorHot());
     }
 
     public boolean getAnyMotorTempHotFlash() {
