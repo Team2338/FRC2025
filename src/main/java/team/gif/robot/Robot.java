@@ -110,6 +110,8 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        climber.setPistonIn();
+
         autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
         compressor.disable();
@@ -152,6 +154,7 @@ public class Robot extends TimedRobot {
             autonomousCommand.cancel();
         }
         compressor.enableDigital();
+        climber.setPistonIn();
     }
 
     /** This function is called periodically during operator control. */
