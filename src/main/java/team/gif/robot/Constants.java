@@ -230,12 +230,12 @@ public final class Constants {
         public static final double DEADBAND = 0.1;
     }
     public static final class MotorTemps {
-        public static final double SHOOTER_MOTOR_TEMP = 70;
-        public static final double INDEXER_MOTOR_TEMP = 70;
-        public static final double DRIVETRAIN_MOTOR_TEMP = 85;
-        public static final double COLLECTOR_MOTOR_TEMP = 70;
-        public static final double ELEVATOR_MOTOR_TEMP = 70;
-        public static final double CLIMBER_MOTOR_TEMP = 70;
+        public static final double SHOOTER_WARNING_MOTOR_TEMP = 70;
+        public static final double INDEXER_WARNING_MOTOR_TEMP = 70;
+        public static final double DRIVETRAIN_WARNING_MOTOR_TEMP = 85;
+        public static final double COLLECTOR_WARNING_MOTOR_TEMP = 70;
+        public static final double ELEVATOR_WARNING_MOTOR_TEMP = 70;
+        public static final double CLIMBER_WARNING_MOTOR_TEMP = 70;
     }
     public static final class LED {
         public static final int NUM_LEDS_TOTAL = 6;
@@ -243,7 +243,7 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
-        public static final double SHOOT_PERCENT = 1.00; // todo: initial good - needs testing and final number
+        public static final double SHOOT_PERCENT = 0.85; // todo: initial good - needs testing and final number
         public static final double STAGE_PERCENT = 0.50; // todo: initial good - needs testing and final number
 
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
@@ -259,7 +259,7 @@ public final class Constants {
     }
 
     public static final class Elevator{
-        public static final double PID_HOLD_FF = 0.033 ; // percent motor controller for simple FF pid, roughly 0.4 volts
+        public static final double PID_HOLD_FF = 0.033 ; // percent motor controller for simple FF PID, roughly (12*0.033) = 0.4 volts
         public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
         public static final double ELEVATOR_KI = 0;
         public static final double ELEVATOR_KD = 0;
@@ -271,16 +271,16 @@ public final class Constants {
         public static final double ZERO_OFFSET_TICKS = 1;
         public static final double MAX_POS = 61;
         public static final double MIN_POS = 0;
-        public static final int MAX_VELOCITY = 40; //40
+        public static final int MAX_VELOCITY = 40;
         public static final double PID_TOLERANCE = 0.1;
-        public static final double MAX_ACCELERATION = 80; // 40
+        public static final double MAX_ACCELERATION = 80;
         public static final int REV_MAX_VELOCITY = 1;
-        public static final double MIN_PERCENT_MANUAL = -.15;
-        public static final double MAX_PERCENT_MANUAL = .15;
+        public static final double MIN_PERCENT_MANUAL = -0.15;
+        public static final double MAX_PERCENT_MANUAL = 0.15;
 
-        public static final double LEVEL_4_POSITION = 60.0 ;
+        public static final double LEVEL_4_POSITION = 60.0;
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
-        public static final double COLLECTOR_POSITION = 0;
+        public static final double COLLECTOR_POSITION = 0.0;
     }
 }
