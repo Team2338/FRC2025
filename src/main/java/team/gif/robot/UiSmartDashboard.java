@@ -43,7 +43,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Reset180", new Reset180());
 
-        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+//        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
 
     //adds autos to select
@@ -71,7 +71,5 @@ public class UiSmartDashboard {
         SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
-
-        SmartDashboard.putNumber("MotorVolt", Robot.elevator.getValue() );
     }
 }

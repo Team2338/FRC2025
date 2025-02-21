@@ -34,14 +34,11 @@ public class SetElevatorPosition extends Command {
            // Robot.elevator.configF(Constants.Elevator.REV_F);
             Robot.elevator.setMotionMagic(desiredPosition);
         }
-        System.out.println("****************   Start  " + desiredPosition + " **************");
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {
-        System.out.println( Robot.elevator.getValue() + " elevator Voltage@ " + Timer.getFPGATimestamp());
-    }
+    public void execute() {}
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
@@ -53,8 +50,5 @@ public class SetElevatorPosition extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        System.out.println("****************   End   **************");
-
-    }
+    public void end(boolean interrupted) {}
 }
