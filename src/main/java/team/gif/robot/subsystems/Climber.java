@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase {
     private boolean softLimitEnabled;
 
     public Climber() {
-        climberMotor = new TalonFX(RobotMap.CLIMBER_ID);
+        climberMotor = new TalonFX(RobotMap.CLIMBER_MOTOR_ID);
         configTalon();
 
         // set up the piston

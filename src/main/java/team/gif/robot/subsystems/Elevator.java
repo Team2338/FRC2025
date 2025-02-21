@@ -27,7 +27,7 @@ public class Elevator extends SubsystemBase {
     private boolean softLimitEnabled;
 
     public Elevator() {
-        elevatorMotor = new TalonFX(RobotMap.ELEVATOR_ID);
+        elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
         configElevatorTalon();
         zeroEncoder();
     }
@@ -207,7 +207,7 @@ public class Elevator extends SubsystemBase {
      * @return True if temp equal or greater than set temp limit, otherwise return false.
      */
     public boolean isElevatorMotorHot(){
-        return elevatorMotor.getDeviceTemp().getValueAsDouble() >= Constants.MotorTemps.ELEVATOR_MOTOR_TEMP;
+        return elevatorMotor.getDeviceTemp().getValueAsDouble() >= Constants.MotorTemps.ELEVATOR_WARNING_MOTOR_TEMP;
     }
 
     /**

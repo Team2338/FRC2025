@@ -14,12 +14,12 @@ public abstract class RobotMap {
      *   Rear(2)    21     22          23      24       25      26
      *
      */
-    public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11; // Falcon 500 and Talon Fx
+    public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 11;
     public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 12;
     public static final int REAR_LEFT_DRIVE_MOTOR_ID = 21;
     public static final int REAR_RIGHT_DRIVE_MOTOR_ID = 22;
 
-    public static final int FRONT_LEFT_TURNING_MOTOR_ID = 13; //Neo and Spark
+    public static final int FRONT_LEFT_TURNING_MOTOR_ID = 13;
     public static final int FRONT_RIGHT_TURNING_MOTOR_ID = 14;
     public static final int REAR_LEFT_TURNING_MOTOR_ID = 23;
     public static final int REAR_RIGHT_TURNING_MOTOR_ID = 24;
@@ -51,10 +51,10 @@ public abstract class RobotMap {
     public static final int REEF_RIGHT_SENSOR_ID = 52;
 
     //Elevator
-    public static final int ELEVATOR_ID = 44;
+    public static final int ELEVATOR_MOTOR_ID = 44;
 
     //Climber
-    public static final int CLIMBER_ID = 43;
+    public static final int CLIMBER_MOTOR_ID = 43;
     public static final int CLIMBER_SOLENOID_IN_PORT = 5;
     public static final int CLIMBER_SOLENOID_OUT_PORT = 4;
 
@@ -66,6 +66,5 @@ public abstract class RobotMap {
     }
 
     //Compressers
-        public static final int COMPRESSER = 1;
-
+    public static final int COMPRESSER = 1;
 }
