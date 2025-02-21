@@ -10,14 +10,22 @@ import com.playingwithfusion.TimeOfFlight.RangingMode;
 
 public class ToFSensor extends SubsystemBase {
     public TimeOfFlight sensor;
-    /** Creates a new ExampleSubsystem. */
+
     public ToFSensor(int id) {
         sensor = new TimeOfFlight(id);
         sensor.setRangingMode(RangingMode.Short, 25);
+        sensor.setRangeOfInterest(6,0,10,15);
+    }
+
+    public double getSigma() {
+        return sensor.getRangeSigma();
     }
 
     public double getDistance() {
-        return sensor.getRange();
+        if (sensor.getRangeSigma()< 10) {
+            return sensor.getRange();
+        } else {
+            return 2000.0;
+       }
     }
-
 }
