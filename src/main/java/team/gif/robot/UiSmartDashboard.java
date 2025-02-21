@@ -58,14 +58,11 @@ public class UiSmartDashboard {
         // Update Main Dashboard
         SmartDashboard.putBoolean("Motor Temp", Robot.diagnostics.getAnyMotorTempHotFlash());
 
-        // Update Developer Tab
-        SmartDashboard.putString("Selected Shooter %", String.format("%11.2f", SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0)));
         SmartDashboard.putString("Elevator", String.format("%11.2f", Robot.elevator.getPosition()));
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
         SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
-
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
