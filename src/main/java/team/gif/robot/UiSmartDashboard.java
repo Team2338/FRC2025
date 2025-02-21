@@ -59,10 +59,13 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Motor Temp", Robot.diagnostics.getAnyMotorTempHotFlash());
 
         SmartDashboard.putString("Elevator", String.format("%11.2f", Robot.elevator.getPosition()));
+        SmartDashboard.putString("Climber", String.format("%11.2f", Robot.climber.getPosition()));
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
         SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
+        SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
+
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());

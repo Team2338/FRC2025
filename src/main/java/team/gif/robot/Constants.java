@@ -250,6 +250,14 @@ public final class Constants {
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.15; //Meters per Second
     }
 
+    public static final class Climber {
+        public static final double DEPLOY_PERCENT = 1.00;
+        public static final double CLIMB_PERCENT = 0.75;
+        public static final double FORWARD_SOFT_LIMIT = 330;
+        public static final double REVERSE_SOFT_LIMIT = 145;
+        public static final double PISTON_DEPLOY_POS = 290;
+    }
+
     public static final class Elevator{
         public static final double PID_HOLD_FF = 0.033 ; // percent motor controller for simple FF pid, roughly 0.4 volts
         public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned

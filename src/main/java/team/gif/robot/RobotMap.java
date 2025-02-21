@@ -53,10 +53,19 @@ public abstract class RobotMap {
     //Elevator
     public static final int ELEVATOR_ID = 44;
 
+    //Climber
+    public static final int CLIMBER_ID = 43;
+    public static final int CLIMBER_SOLENOID_IN_PORT = 5;
+    public static final int CLIMBER_SOLENOID_OUT_PORT = 4;
+
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";
         public static final String INDEXER_PERC = "Indexer Speed";
         public static final String STAGE_PERC = "Stage %";
     }
+
+    //Compressers
+        public static final int COMPRESSER = 1;
+
 }

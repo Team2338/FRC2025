@@ -4,17 +4,23 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.lib.RobotMode;
+import team.gif.robot.commands.climber.ClimberManualControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
+//import team.gif.robot.commands.StageCoral;
+//import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
+import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
@@ -37,13 +43,15 @@ public class Robot extends TimedRobot {
     public static UiSmartDashboard uiSmartDashboard;
     private Command autonomousCommand;
 
+
     // Devices
     public static Pigeon2_0 pigeon;
-//    public static SwerveDrivetrainMk3 swerveDrive;
+    public static Compressor compressor;
     public static SwerveDrivetrainMk4 swerveDrive;
     public static Limelight limelightCollector;
     public static Limelight limelightShooter;
     public static Shooter shooter;
+    public static Climber climber;
     public static Elevator elevator;
 
     // custom fields
@@ -66,11 +74,13 @@ public class Robot extends TimedRobot {
         swerveDrive = new SwerveDrivetrainMk4();
         swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
+        climber = new Climber();
         elevator = new Elevator();
         elevator.setDefaultCommand(new ElevatorPIDControl());
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
+        compressor = new Compressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
@@ -79,6 +89,8 @@ public class Robot extends TimedRobot {
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
         addPeriodic(this::secondPeriodic, 0.5, 0.05);
+
+        climber.setPistonIn();
 
         elapsedTime = new Timer();
 
@@ -112,8 +124,11 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        climber.setPistonIn();
+
         autonomousCommand = robotContainer.getAutonomousCommand();
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
+        compressor.disable();
 
         // run scheduler immediately if no delay is selected
         if (chosenDelay.getValue() == 0) {
@@ -127,6 +142,7 @@ public class Robot extends TimedRobot {
             elapsedTime.start();
             autoSchedulerOnHold = true;
         }
+
     }
 
     /** This function is called periodically during autonomous. */
@@ -151,6 +167,9 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        //-compressor.enableDigital();
+        compressor.disable();
+        climber.setPistonIn();
     }
 
     /** This function is called periodically during operator control. */
@@ -200,13 +219,12 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeManual() {
         robotMode = RobotMode.MANUAL;
 
+        new ClimberManualControl().schedule();
         new ElevatorManualControl().schedule();
     }
 
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
-
-        elevator.setElevatorManualMode(false);
     }
 
     /**
