@@ -256,4 +256,30 @@ public final class Constants {
         public static final double FORWARD_SOFT_LIMIT = -140;
         public static final double REVERSE_SOFT_LIMIT = -345;
     }
+
+    public static final class Elevator{
+        public static final double PID_HOLD_FF = 0.033 ; // percent motor controller for simple FF pid, roughly 0.4 volts
+        public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
+        public static final double ELEVATOR_KI = 0;
+        public static final double ELEVATOR_KD = 0;
+        public static final double ELEVATOR_KS = 1.0; // in volts (just enough to get it moving)
+        public static final double ELEVATOR_KP_HOLD = 0;
+        public static final double ELEVATOR_KI_HOLD = 0;
+        public static final double ELEVATOR_KD_HOLD = 0;
+        public static final double TICKS_PER_INCH = 1;
+        public static final double ZERO_OFFSET_TICKS = 1;
+        public static final double MAX_POS = 61;
+        public static final double MIN_POS = 0;
+        public static final int MAX_VELOCITY = 40; //40
+        public static final double PID_TOLERANCE = 0.1;
+        public static final double MAX_ACCELERATION = 80; // 40
+        public static final int REV_MAX_VELOCITY = 1;
+        public static final double MIN_PERCENT_MANUAL = -.15;
+        public static final double MAX_PERCENT_MANUAL = .15;
+
+        public static final double LEVEL_4_POSITION = 60.0 ;
+        public static final double LEVEL_3_POSITION = 37.5;
+        public static final double LEVEL_2_POSITION = 21.2;
+        public static final double COLLECTOR_POSITION = 0;
+    }
 }

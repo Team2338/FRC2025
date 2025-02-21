@@ -12,12 +12,16 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
+import team.gif.lib.RobotMode;
+import team.gif.robot.commands.elevator.ElevatorManualControl;
+import team.gif.robot.commands.elevator.ElevatorPIDControl;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 //import team.gif.robot.commands.StageCoral;
 //import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -29,6 +33,7 @@ import team.gif.robot.subsystems.drivers.Pigeon2_0;
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
+
 
     // Framework objects
     private static RobotContainer robotContainer;
@@ -46,12 +51,14 @@ public class Robot extends TimedRobot {
     public static Limelight limelightShooter;
     public static Shooter shooter;
     public static Climber climber;
+    public static Elevator elevator;
 
     // custom fields
     private boolean autoSchedulerOnHold;
     private static delay chosenDelay;
     public static final boolean fullDashboard = true;
-    private Timer elapsedTime;
+    private final Timer elapsedTime;
+    private static RobotMode robotMode;
 
     /**
     * This function is run when the robot is first started up and should be used for any
@@ -67,6 +74,9 @@ public class Robot extends TimedRobot {
         swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
         climber = new Climber();
+        elevator = new Elevator();
+        elevator.setDefaultCommand(new ElevatorPIDControl());
+
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
         compressor = new Compressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
@@ -82,6 +92,9 @@ public class Robot extends TimedRobot {
         climber.setPistonIn();
 
         elapsedTime = new Timer();
+
+        robotMode = RobotMode.STANDARD_OP;
+
     }
 
     /**
@@ -196,4 +209,31 @@ public class Robot extends TimedRobot {
     /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {}
+
+    public static RobotMode getRobotMode() {
+        return robotMode;
+    }
+
+    static public void enableRobotModeManual() {
+        robotMode = RobotMode.MANUAL;
+
+        new ElevatorManualControl().schedule();
+    }
+
+    static public void enableRobotModeStandardOp() {
+        robotMode = RobotMode.STANDARD_OP;
+
+        elevator.setElevatorManualMode(false);
+    }
+
+    /**
+     * returns true if robot is in manual mode
+     * Needed for dashboard functionality
+     *
+     * @return true if robot is in manual mode, false if in StandardOp mode
+     */
+    public static boolean getRobotModeManual() {
+        return robotMode == RobotMode.MANUAL;
+    }
+
 }
