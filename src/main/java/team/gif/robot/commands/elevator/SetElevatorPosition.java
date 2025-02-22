@@ -22,7 +22,8 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.elevator.setElevatorTargetPos(desiredPosition);
+        //Only need this if PIDHold uses PID
+//        Robot.elevator.setElevatorTargetPos(desiredPosition);
 
         if (desiredPosition > Robot.elevator.getPosition()) {
             Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
@@ -44,7 +45,7 @@ public class SetElevatorPosition extends Command {
     public boolean isFinished() {
         // need to keep this command running until elevator is at target position
         // so it doesn't let PIDHold take over
-        return Robot.elevator.isMotionMagicFinished();
+        return Robot.elevator.isMotionMagicFinished() || Robot.elevator.isStalled();
     }
 
     // Called when the command ends or is interrupted.
