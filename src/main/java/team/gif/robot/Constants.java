@@ -80,7 +80,7 @@ public final class Constants {
 
         public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 3;
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 8 * Math.PI;
+        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 6 * Math.PI;
 
         public static final double TURNING_MOTOR_GEAR_RATIO = 1.0 / 18.0;
 
@@ -253,9 +253,9 @@ public final class Constants {
     public static final class Climber {
         public static final double DEPLOY_PERCENT = 1.00;
         public static final double CLIMB_PERCENT = 0.75;
-        public static final double FORWARD_SOFT_LIMIT = 330;
-        public static final double REVERSE_SOFT_LIMIT = 145;
-        public static final double PISTON_DEPLOY_POS = 290;
+        public static final double FORWARD_SOFT_LIMIT = 354; //332;
+        public static final double REVERSE_SOFT_LIMIT = 135;
+        public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
     }
 
     public static final class Elevator{
