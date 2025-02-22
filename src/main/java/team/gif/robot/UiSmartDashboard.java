@@ -39,6 +39,8 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Reset180", new Reset180());
 
+        SmartDashboard.putBoolean("ElevatorStalled", Robot.elevator.isStalled());
+
 //        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
 
