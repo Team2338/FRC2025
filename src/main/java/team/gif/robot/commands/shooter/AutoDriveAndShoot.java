@@ -1,9 +1,11 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutoDriveAndShoot extends Command {
 
@@ -58,7 +60,11 @@ public class AutoDriveAndShoot extends Command {
 
         // only shoot if the robot found the target during the command
         if (hasTarget) {
-            new Shoot().schedule(); // run the shooter using the standard shoot command
+//            new Shoot().schedule(); // run the shooter using the standard shoot command
+            new SequentialCommandGroup(
+                    new Shoot(),
+                    new SetElevatorPosition(0)
+            );
         }
     }
 }
