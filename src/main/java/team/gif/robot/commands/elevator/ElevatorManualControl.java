@@ -32,9 +32,9 @@ public class ElevatorManualControl extends Command {
             }
         }
 
-        if(Robot.elevator.isStalled()) {
-            percent = 0;
-        }
+//        if(Robot.elevator.isStalled()) {
+//            percent = 0;
+//        }
 
         Robot.elevator.move(percent);
 

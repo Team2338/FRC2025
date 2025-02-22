@@ -220,16 +220,20 @@ public class Elevator extends SubsystemBase {
         //since the last cycle, increment the stall count
         //Don't detect a stall if outputting less than feedforward
         //This prevents detection during PIDHold
-        if (Math.abs(getPosition() - stallLastPosition) < 1 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
+//        System.out.println(Math.abs(getPosition()) - stallLastPosition);
+        if (Math.abs(getPosition()) - stallLastPosition < 0.4 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
             //don't reset stall last position here
             //because it could just be moving slowly
             stallCount++;
+//            System.out.println("stalling");
         } else {
             stallLastPosition = getPosition();
             stallCount = 0;
         }
 
-        return stallCount >= 4;
+//        if( stallCount >= 10)
+//            System.out.println("       stalled");
+        return stallCount >= 10;
     }
 
     /**
