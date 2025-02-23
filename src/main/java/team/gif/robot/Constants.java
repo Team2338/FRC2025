@@ -163,8 +163,10 @@ public final class Constants {
         public static final double SLOW_DRIVE_RPM = 3500;
 
         public static final double COAST_SPEED_METERS_PER_SECOND = 0.60 * ModuleConstantsMK3.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
-
-        public static final double BOOST_SPEED_METERS_PER_SECOND = ModuleConstantsMK3.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
+        
+        public static final double BOOST_SPEED_METERS_PER_SECOND = BOOST_DRIVE_RPM *
+                (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
+                (60.0 * ModuleConstantsMK3.GEAR_RATIO);
 
         public static final double SLOW_SPEED_METERS_PER_SECOND = SLOW_DRIVE_RPM *
                 (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
