@@ -1,21 +1,24 @@
-package team.gif.robot.commands.driveModes;
+package team.gif.robot.commands.toggleManualControl;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 
-public class EnableBoost extends Command {
-    private drivePace drivePace;
-    public EnableBoost() {
+/**
+ * ToggleManualControl is designed so that each time the button
+ * is pressed, it toggles between manual mode and standard mode
+ *
+ * Call using ToggleOnTrue which toggles between calling initialize() and end()
+ */
+public class ToggleManualControl extends Command {
+
+    public ToggleManualControl() {
         super();
-        //addRequirements(Robot.climber); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivePace = Robot.swerveDrive.getDrivePace();
-        Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
+        Robot.enableRobotModeManual();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -31,6 +34,6 @@ public class EnableBoost extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrive.setDrivePace(drivePace);
+        Robot.enableRobotModeStandardOp();
     }
 }

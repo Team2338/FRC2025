@@ -1,26 +1,25 @@
-package team.gif.robot.commands.driveModes;
+package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 
-public class EnableBoost extends Command {
-    private drivePace drivePace;
-    public EnableBoost() {
+public class ElevatorPIDControl extends Command {
+
+    public ElevatorPIDControl() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.elevator);
     }
+
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        drivePace = Robot.swerveDrive.getDrivePace();
-        Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        Robot.elevator.PIDHold(); // Use PID to hold the position of the elevator
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
@@ -30,7 +29,6 @@ public class EnableBoost extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        Robot.swerveDrive.setDrivePace(drivePace);
-    }
+    public void end(boolean interrupted) {}
 }
+

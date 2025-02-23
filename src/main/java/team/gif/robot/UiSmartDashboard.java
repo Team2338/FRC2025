@@ -3,7 +3,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.lib.delay;
-import team.gif.robot.commands.drivetrainPbot.Reset180;
+import team.gif.robot.commands.drivetrain.Reset180;
 
 public class UiSmartDashboard {
     public SendableChooser<delay> delayChooser = new SendableChooser<>();
@@ -38,6 +38,8 @@ public class UiSmartDashboard {
         SmartDashboard.putData("Delay", delayChooser);
 
         SmartDashboard.putData("Reset180", new Reset180());
+
+//        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
 
     //adds autos to select
@@ -52,13 +54,24 @@ public class UiSmartDashboard {
         // Update Main Dashboard
         SmartDashboard.putBoolean("Motor Temp", Robot.diagnostics.getAnyMotorTempHotFlash());
 
-        // Update Developer Tab
-        SmartDashboard.putString("Selected Shooter %", String.format("%11.2f", SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0)));
+        SmartDashboard.putString("Elevator", String.format("%11.2f", Robot.elevator.getPosition()));
+        SmartDashboard.putString("Climber", String.format("%11.2f", Robot.climber.getPosition()));
+
+        SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
+        SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
+        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
+        SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
 
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
+
+        SmartDashboard.putBoolean("Shooter/Shooter", Robot.shooter.getExitSensorState());
+        SmartDashboard.putBoolean("Shooter/Index", Robot.shooter.getIndexerSensorState());
+        SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());
+        SmartDashboard.putBoolean("Shooter/Reef R", Robot.shooter.sensorRightActive());
     }
+
 }

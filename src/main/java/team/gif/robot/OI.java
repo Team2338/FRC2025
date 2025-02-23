@@ -6,11 +6,16 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.Shoot;
-import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.climber.ClimberDeploy;
+import team.gif.robot.commands.climber.ClimberClimb;
+import team.gif.robot.commands.climber.PistonToggleState;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
+import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableBoost;
-import team.gif.robot.commands.AutoDriveAndShoot;
-import team.gif.robot.commands.drivetrainPbot.Reset0;
+import team.gif.robot.commands.shooter.AutoDriveAndShoot;
+import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
+
 
 public class OI {
     /*
@@ -106,12 +111,33 @@ public class OI {
 
         // driver controls
         dBack.and(dDPadDown).onTrue(new Reset0());
+        dBack.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        //dRBump.whileTrue(new EnableRobotOrientedMode());
         dLStickBtn.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
+
+        aBack.and(aDPadDown).onTrue(new Reset0());
+        aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        aY.whileTrue(new ClimberClimb());
+        aA.whileTrue(new ClimberDeploy());
+        aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
+        aRBump.onTrue(new PistonToggleState());
+        aDPadUp.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        aDPadLeft.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+        aDPadDown.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
+
+        //test sys id for elevator, delete later
+        //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        //dRBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        //dX.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        //dY.whileTrue(Robot.elevator.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+
     }
 
     public void setRumble(boolean rumble) {

@@ -1,36 +1,42 @@
-package team.gif.robot.commands.driveModes;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 
-public class EnableBoost extends Command {
-    private drivePace drivePace;
-    public EnableBoost() {
+public class Shoot extends Command {
+    private int counter;
+
+    /**
+     * Runs the shooter motor and ends after a predefined set of seconds (self-ending). <br>
+     * No prerequisites (i.e. regardless of game piece or reef branch sensors)
+     */
+    public Shoot() {
         super();
-        //addRequirements(Robot.climber); // uncomment
+        addRequirements(Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivePace = Robot.swerveDrive.getDrivePace();
-        Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
+        counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        Robot.shooter.runShooterMotor();
+        counter++;
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return counter > 12;
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrive.setDrivePace(drivePace);
+        Robot.shooter.stopShooterMotor();
     }
 }
