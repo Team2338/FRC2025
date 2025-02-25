@@ -45,7 +45,7 @@ public class SetElevatorPosition extends Command {
     public boolean isFinished() {
         // need to keep this command running until elevator is at target position
         // so it doesn't let PIDHold take over
-        return Robot.elevator.isMotionMagicFinished() || Robot.elevator.isStalled();
+        return Robot.elevator.isMotionMagicFinished();
     }
 
     // Called when the command ends or is interrupted.
