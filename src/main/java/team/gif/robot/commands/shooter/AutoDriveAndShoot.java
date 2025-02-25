@@ -65,9 +65,11 @@ public class AutoDriveAndShoot extends Command {
             //new Shoot().schedule(); // run the shooter using the standard shoot command
             new SequentialCommandGroup(
                     new Shoot(),
-                    new ShortDriveAway(),
-                    new SafeToLower(),
-                    new SetElevatorPosition(0)
+                    new ShortDriveAway()
+            ).schedule();
+            new SequentialCommandGroup(
+                new SafeToLower(),
+                new SetElevatorPosition(0)
             ).schedule();
         }
     }
