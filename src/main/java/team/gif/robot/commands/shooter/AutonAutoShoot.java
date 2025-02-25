@@ -12,7 +12,7 @@ public class AutonAutoShoot extends Command {
     private boolean hasTarget;
     public AutonAutoShoot() {
         super();
-        addRequirements(Robot.shooter, Robot.swerveDrive);
+        addRequirements(Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.
@@ -25,16 +25,26 @@ public class AutonAutoShoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (!Robot.shooter.sensorLeftActive() && !Robot.shooter.sensorRightActive()) {
+        boolean leftSensor = Robot.shooter.sensorLeftActive();
+        boolean rightSensor = Robot.shooter.sensorRightActive();
+
+        // if neither sensor is active, default to moving left
+        if (!leftSensor && !rightSensor) {
             Robot.swerveDrive.drive(0.0, -0.15, 0.0);
         }
-        if (!Robot.shooter.sensorLeftActive() && Robot.shooter.sensorRightActive()) {
+
+        // if only the right sensor is active, move right
+        if (!leftSensor && rightSensor) {
             Robot.swerveDrive.drive(0.0, -0.15, 0.0);
         }
-        if (!Robot.shooter.sensorLeftActive() && !Robot.shooter.sensorRightActive()) {
+
+        // if only the left sensor is active, move left
+        if (leftSensor && !rightSensor) {
             Robot.swerveDrive.drive(0.0, 0.15, 0.0);
         }
-        if (!Robot.shooter.sensorLeftActive() && Robot.shooter.sensorRightActive()) {
+
+        // if both sensors are active, the robot has the target
+        if (leftSensor && rightSensor) {
             hasTarget = true;
         }
     }
