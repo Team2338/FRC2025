@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.drivetrain.MoveModulesIn;
+import team.gif.robot.commands.shooter.AutonAutoShoot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Shoot", new Shoot());
         NamedCommands.registerCommand("MoveModulesIn", new MoveModulesIn());
         NamedCommands.registerCommand("AutoDriveAndShoot", new AutoDriveAndShoot(true).withTimeout(5));
+        NamedCommands.registerCommand("AutonAutoShoot", new AutonAutoShoot());
 
 
         // Configure the trigger bindings
