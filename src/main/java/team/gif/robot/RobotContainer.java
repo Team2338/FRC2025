@@ -77,6 +77,7 @@ public class RobotContainer {
         autoNames.add("Mobility");
         autoNames.add("Straight Line");
         autoNames.add("First Auto");
+        autoNames.add("Center Auto");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();
