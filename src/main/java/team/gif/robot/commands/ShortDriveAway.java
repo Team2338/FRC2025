@@ -16,21 +16,20 @@ public class ShortDriveAway extends Command {
     @Override
     public void initialize() {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (counter <= 15) {
-            Robot.swerveDrive.drive(0, -.15, 0.0);
-        }
+        Robot.swerveDrive.drive(0, -.15, 0.0);
         counter++;
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return counter >= 15;
     }
 
     // Called when the command ends or is interrupted.
