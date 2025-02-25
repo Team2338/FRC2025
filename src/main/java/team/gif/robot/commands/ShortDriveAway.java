@@ -22,7 +22,7 @@ public class ShortDriveAway extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.swerveDrive.drive(0.0, -.15, 0.0);
+        Robot.swerveDrive.drive(-0.15, 0.0, 0.0);
         counter++;
     }
 
