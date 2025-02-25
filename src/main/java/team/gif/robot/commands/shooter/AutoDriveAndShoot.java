@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.drivetrain.ShortDriveAway;
 import team.gif.robot.commands.elevator.SafeToLower;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 
@@ -64,6 +65,7 @@ public class AutoDriveAndShoot extends Command {
             //new Shoot().schedule(); // run the shooter using the standard shoot command
             new SequentialCommandGroup(
                     new Shoot(),
+                    new ShortDriveAway(),
                     new SafeToLower(),
                     new SetElevatorPosition(0)
             ).schedule();
