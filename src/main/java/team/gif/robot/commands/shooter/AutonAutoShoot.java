@@ -8,7 +8,9 @@ import team.gif.robot.commands.elevator.SafeToLower;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutonAutoShoot extends Command {
+
     private boolean hasTarget;
+
     public AutonAutoShoot() {
         super();
         addRequirements(Robot.swerveDrive);
@@ -29,7 +31,7 @@ public class AutonAutoShoot extends Command {
 
         // if neither sensor is active, default to moving left
         if (!leftSensor && !rightSensor) {
-            Robot.swerveDrive.drive(0.0, -0.15, 0.0);
+            Robot.swerveDrive.drive(0.0, 0.15, 0.0);
         }
 
         // if only the right sensor is active, move right
