@@ -76,11 +76,10 @@ public class RobotContainer {
 
         // create list manually to control sort order
         List<String> autoNames = new ArrayList<>();
-        autoNames.add("u-turn");
         autoNames.add("Mobility");
-        autoNames.add("Straight Line");
-        autoNames.add("First Auto");
-        autoNames.add("Center Auto");
+        autoNames.add("L-J4-L4");
+        autoNames.add("C-H4");
+        autoNames.add("LC-J4-L4");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();
