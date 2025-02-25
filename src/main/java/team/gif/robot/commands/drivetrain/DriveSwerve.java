@@ -2,6 +2,7 @@ package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
@@ -31,6 +32,13 @@ public class DriveSwerve extends Command {
             double strafe = -Robot.oi.driver.getLeftX(); // need to invert because -X is left, +X is right
             strafe = (Math.abs(strafe) > Constants.Joystick.DEADBAND) ? strafe : 0.0;
 
+            if(Robot.swerveDrive.getDrivePace() == drivePace.COAST_RR) {
+                double forwardStore = forward;
+                double strafeStore = strafe;
+                forward = -strafeStore;
+                strafe = forwardStore;
+            }
+
             double rot = -Robot.oi.driver.getRightX(); // need to invert because left is negative, right is positive
             rot = (Math.abs(rot) > Constants.Joystick.DEADBAND) ? rot : 0.0;
 
@@ -52,9 +60,16 @@ public class DriveSwerve extends Command {
             if( Double.isNaN(strafe) )
                 strafe = strafeSign;
 
+
             //Forward speed, Sideways speed, Rotation Speed
             forward = forwardLimiter.calculate(forward) * Robot.swerveDrive.getDrivePace().getValue();
             strafe = strafeLimiter.calculate(strafe) * Robot.swerveDrive.getDrivePace().getValue();
+
+            if (rot < 0 ) {
+                rot = rot * -rot;
+            } else {
+                rot = rot * rot;
+            }
 
              rot = turnLimiter.calculate(rot) * Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 

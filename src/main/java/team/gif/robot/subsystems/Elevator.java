@@ -26,10 +26,15 @@ public class Elevator extends SubsystemBase {
     private double elevatorTargetPos;
     private boolean softLimitEnabled;
 
+    private double stallLastPosition = 0;
+    private int stallCount = 0;
+
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
         configElevatorTalon();
         zeroEncoder();
+
+        stallLastPosition = getPosition();
     }
 
     /**
@@ -208,6 +213,27 @@ public class Elevator extends SubsystemBase {
      */
     public boolean isElevatorMotorHot(){
         return elevatorMotor.getDeviceTemp().getValueAsDouble() >= Constants.MotorTemps.ELEVATOR_WARNING_MOTOR_TEMP;
+    }
+
+    public boolean isStalled() {
+        //If the elevator has moved less than 1 rotation
+        //since the last cycle, increment the stall count
+        //Don't detect a stall if outputting less than feedforward
+        //This prevents detection during PIDHold
+//        System.out.println(Math.abs(getPosition()) - stallLastPosition);
+        if (Math.abs(getPosition()) - stallLastPosition < 0.4 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
+            //don't reset stall last position here
+            //because it could just be moving slowly
+            stallCount++;
+//            System.out.println("stalling");
+        } else {
+            stallLastPosition = getPosition();
+            stallCount = 0;
+        }
+
+//        if( stallCount >= 10)
+//            System.out.println("       stalled");
+        return stallCount >= 10;
     }
 
     /**
