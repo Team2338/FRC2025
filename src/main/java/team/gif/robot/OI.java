@@ -122,9 +122,9 @@ public class OI {
         dB.whileTrue(new AutoDriveAndShoot(true));
         dRBump.whileTrue(new EnableRobotOrientedMode());
 
-//        aBack.and(aDPadDown).onTrue(new Reset0());
-//        aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
-//        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        aBack.and(aDPadDown).onTrue(new Reset0());
+        aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());

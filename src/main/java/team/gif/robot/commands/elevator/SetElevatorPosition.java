@@ -24,7 +24,7 @@ public class SetElevatorPosition extends Command {
     public void initialize() {
         //Only need this if PIDHold uses PID
 //        Robot.elevator.setElevatorTargetPos(desiredPosition);
-        System.out.println("target: " + desiredPosition);
+//        System.out.println("target: " + desiredPosition);
 
         if (desiredPosition > Robot.elevator.getPosition()) {
             Robot.elevator.configMotionMagicUp();
@@ -43,9 +43,7 @@ public class SetElevatorPosition extends Command {
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {
-        System.out.println("Voltage: " + Robot.elevator.getOutputVoltage());
-    }
+    public void execute() {}
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
