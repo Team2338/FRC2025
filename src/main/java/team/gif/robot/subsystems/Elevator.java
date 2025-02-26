@@ -31,8 +31,9 @@ public class Elevator extends SubsystemBase {
     private double currVelocity;
     private double currAcceleration;
 
-    private double stallLastPosition = 0;
-    private int stallCount = 0;
+    // used for determining if elevator motor is stalled
+    private double stallLastPosition;
+    private int stallCount;
 
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
@@ -44,6 +45,7 @@ public class Elevator extends SubsystemBase {
         currAcceleration = Constants.Elevator.MAX_ACCELERATION;
 
         stallLastPosition = getPosition();
+        stallCount = 0;
     }
 
     /**
@@ -128,9 +130,7 @@ public class Elevator extends SubsystemBase {
      * @return the PID error on the elevator position
      */
     public double PIDError() {
-        double position = getPosition();
-//        System.out.println("PIDError Target: " + elevatorTargetPos + " Pos: " + position);
-        return Math.abs(position - elevatorTargetPos);
+        return Math.abs(getPosition() - elevatorTargetPos);
     }
 
     /**
@@ -147,6 +147,14 @@ public class Elevator extends SubsystemBase {
         elevatorMotor.setControl(elevatorMotionMagic);
     }
 
+    /**
+     * Update the motor configuration for Motion Magic
+     * All parameters must be set, no default
+     * Typically used when we want to use different configuratinos for going up vs going down
+     *
+     * @param velocity max velocity to use for motion magic config
+     * @param acceleration max acceleration to use for motion magic config
+     */
     public void updateMotionMagicParms(double velocity, double acceleration) {
         // changing the config of the talon is very expensive, causes loop overruns
         // only update the talon config if it has changed since the last setting
@@ -155,27 +163,52 @@ public class Elevator extends SubsystemBase {
             config.MotionMagicCruiseVelocity = velocity;
             config.MotionMagicAcceleration = acceleration;
             elevatorMotor.getConfigurator().apply(config);
+
+            // update the current values for future comparison
             currVelocity = velocity;
             currAcceleration = acceleration;
         }
     }
 
+    /**
+     * Confgure the elevator motor for motion magic going up
+     */
     public void configMotionMagicUp() {
         updateMotionMagicParms(Constants.Elevator.MAX_VELOCITY, Constants.Elevator.MAX_ACCELERATION);
     }
 
+    /**
+     * Confgure the elevator motor for motion magic going down
+     */
     public void configMotionMagicDown() {
         updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
     }
 
+    /**
+     * sets the class local elevator target position
+     * Used for comparing current position to target position to
+     * determine if the elevator has reached its desired position
+     *
+     * @param pos target position of the elevator
+     */
     public void setElevatorTargetPos(double pos) {
         elevatorTargetPos = pos;
     }
 
+    /**
+     * Determines if Motion Magic has reached its desired position within tolerance
+     *
+     * @return true Motion Magic has reached its desired position within tolerance, false if not
+     */
     public boolean isMotionMagicFinished() {
         return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
     }
 
+    /**
+     * gets the motor output voltage
+     *
+     * @return voltage (in units of volts)
+     */
     public double getOutputVoltage() {
         return elevatorMotor.getMotorVoltage().getValueAsDouble();
     }
@@ -220,12 +253,8 @@ public class Elevator extends SubsystemBase {
         }
     }
 
-    public double getValue() {
-        return elevatorMotor.getMotorVoltage().getValueAsDouble();
-    }
-
     /**
-     * Zeroes the elevator encoder
+     * Zeros the elevator encoder
      */
     public void zeroEncoder() {
         elevatorMotor.setPosition(0);
@@ -246,19 +275,18 @@ public class Elevator extends SubsystemBase {
         //Don't detect a stall if outputting less than feedforward
         //This prevents detection during PIDHold
 //        System.out.println(Math.abs(getPosition()) - stallLastPosition);
-        if (Math.abs(getPosition()) - stallLastPosition < 0.4 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
-            //don't reset stall last position here
-            //because it could just be moving slowly
-            stallCount++;
-//            System.out.println("stalling");
-        } else {
-            stallLastPosition = getPosition();
-            stallCount = 0;
-        }
+//        if (Math.abs(getPosition()) - stallLastPosition < 0.4 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
+//            //don't reset stall last position here
+//            //because it could just be moving slowly
+//            stallCount++;
+//        } else {
+//            stallLastPosition = getPosition();
+//            stallCount = 0;
+//        }
 
 //        if( stallCount >= 10)
-//            System.out.println("       stalled");
-        return stallCount >= 10;
+//          return stallCount >= 10;
+        return false;
     }
 
     /**

@@ -62,10 +62,10 @@ public class AutoDriveAndShoot extends Command {
 
         // only shoot if the robot found the target during the command
         if (hasTarget) {
-            // run the shooter using the standard shoot command
+            // run the shooter using the standard shoot command and return the elevator
             new SequentialCommandGroup(
                     new Shoot(),
-                    new ParallelCommandGroup( // running these in parallel is plenty of time to clear
+                    new ParallelCommandGroup( // running these in parallel provides plenty of time to clear
                             new ShortDriveAway(),
                             new SetElevatorPosition(0))
             ).schedule();

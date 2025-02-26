@@ -22,21 +22,11 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //Only need this if PIDHold uses PID
-//        Robot.elevator.setElevatorTargetPos(desiredPosition);
-//        System.out.println("target: " + desiredPosition);
-
         if (desiredPosition > Robot.elevator.getPosition()) {
             Robot.elevator.configMotionMagicUp();
-//            Robot.elevator.updateMotionMagicParms(Constants.Elevator.MAX_VELOCITY, Constants.Elevator.MAX_ACCELERATION);
-//            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
-//            Robot.elevator.setAcceleration(Constants.Elevator.MAX_ACCELERATION);
             Robot.elevator.setMotionMagic(desiredPosition);
         } else {
             Robot.elevator.configMotionMagicDown();
-//            Robot.elevator.updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
-//            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
-//            Robot.elevator.setAcceleration(Constants.Elevator.REV_MAX_ACCELERATION);
             Robot.elevator.setMotionMagic(desiredPosition);
         }
     }
