@@ -1,12 +1,12 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.ShortDriveAway;
-import team.gif.robot.commands.elevator.SafeToLower;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutoDriveAndShoot extends Command {
@@ -62,14 +62,12 @@ public class AutoDriveAndShoot extends Command {
 
         // only shoot if the robot found the target during the command
         if (hasTarget) {
-            //new Shoot().schedule(); // run the shooter using the standard shoot command
+            // run the shooter using the standard shoot command
             new SequentialCommandGroup(
                     new Shoot(),
-                    new ShortDriveAway()
-            ).schedule();
-            new SequentialCommandGroup(
-                new SafeToLower(),
-                new SetElevatorPosition(0)
+                    new ParallelCommandGroup( // running these in parallel is plenty of time to clear
+                            new ShortDriveAway(),
+                            new SetElevatorPosition(0))
             ).schedule();
         }
     }

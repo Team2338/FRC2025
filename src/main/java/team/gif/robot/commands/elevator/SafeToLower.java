@@ -23,7 +23,7 @@ public class SafeToLower extends Command {
     @Override
     public boolean isFinished() {
 //        System.out.println(Robot.shooter.getLeftD());
-        return Robot.shooter.getLeftD() > 180 && Robot.shooter.getRightD() > 180;
+        return Robot.shooter.getLeftD() > 160 && Robot.shooter.getRightD() > 160;
     }
 
     // Called when the command ends or is interrupted.

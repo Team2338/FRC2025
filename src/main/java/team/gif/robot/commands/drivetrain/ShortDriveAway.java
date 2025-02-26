@@ -10,7 +10,7 @@ public class ShortDriveAway extends Command {
 
     public ShortDriveAway() {
         super();
-//        addRequirements(Robot.swerveDrive); // uncomment
+        addRequirements(Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ public class ShortDriveAway extends Command {
     public void execute() {
         // only move if elevator target is level 4
         // otherwise, end the command by setting the counter very high
-        if( Robot.elevator.getTargetPosition() == Constants.Elevator.LEVEL_4_POSITION) {
+        if (Robot.elevator.getPosition() > Constants.Elevator.LEVEL_4_POSITION - 10) {
             Robot.swerveDrive.drive(-0.30, 0.0, 0.0);
             counter++;
         } else {
@@ -36,7 +36,7 @@ public class ShortDriveAway extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter >= 20;
+        return counter >= 10;
     }
 
     // Called when the command ends or is interrupted.
