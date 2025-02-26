@@ -74,6 +74,8 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Shooter/Index", Robot.shooter.getIndexerSensorState());
         SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());
         SmartDashboard.putBoolean("Shooter/Reef R", Robot.shooter.sensorRightActive());
-    }
 
+        SmartDashboard.putNumber("Elevator/El Voltage", Robot.elevator.getOutputVoltage());
+        SmartDashboard.putNumber("Elevator/El Percent", Robot.elevator.getOutputPercent());
+    }
 }

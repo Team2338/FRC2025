@@ -24,21 +24,28 @@ public class SetElevatorPosition extends Command {
     public void initialize() {
         //Only need this if PIDHold uses PID
 //        Robot.elevator.setElevatorTargetPos(desiredPosition);
+        System.out.println("target: " + desiredPosition);
 
         if (desiredPosition > Robot.elevator.getPosition()) {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.F);
+            Robot.elevator.configMotionMagicUp();
+//            Robot.elevator.updateMotionMagicParms(Constants.Elevator.MAX_VELOCITY, Constants.Elevator.MAX_ACCELERATION);
+//            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
+//            Robot.elevator.setAcceleration(Constants.Elevator.MAX_ACCELERATION);
             Robot.elevator.setMotionMagic(desiredPosition);
         } else {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.REV_F);
+            Robot.elevator.configMotionMagicDown();
+//            Robot.elevator.updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
+//            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
+//            Robot.elevator.setAcceleration(Constants.Elevator.REV_MAX_ACCELERATION);
             Robot.elevator.setMotionMagic(desiredPosition);
         }
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        System.out.println("Voltage: " + Robot.elevator.getOutputVoltage());
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override

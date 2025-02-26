@@ -22,8 +22,8 @@ public class SafeToLower extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        System.out.println(Robot.shooter.getLeftD());
-        return Robot.shooter.getLeftD() > 180 && Robot.shooter.getLeftD() > 180;
+//        System.out.println(Robot.shooter.getLeftD());
+        return Robot.shooter.getLeftD() > 180 && Robot.shooter.getRightD() > 180;
     }
 
     // Called when the command ends or is interrupted.

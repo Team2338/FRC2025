@@ -1,5 +1,7 @@
 package team.gif.robot.subsystems;
 
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
@@ -24,7 +26,11 @@ public class Elevator extends SubsystemBase {
 
     private boolean elevatorManualMode = false;
     private double elevatorTargetPos;
+
+    // changing config is very time expensive. Store last config values to compare
     private boolean softLimitEnabled;
+    private double currVelocity;
+    private double currAcceleration;
 
     private double stallLastPosition = 0;
     private int stallCount = 0;
@@ -33,6 +39,10 @@ public class Elevator extends SubsystemBase {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
         configElevatorTalon();
         zeroEncoder();
+
+        softLimitEnabled = true;
+        currVelocity = Constants.Elevator.MAX_VELOCITY;
+        currAcceleration = Constants.Elevator.MAX_ACCELERATION;
 
         stallLastPosition = getPosition();
     }
@@ -119,7 +129,9 @@ public class Elevator extends SubsystemBase {
      * @return the PID error on the elevator position
      */
     public double PIDError() {
-        return Math.abs(getPosition() - elevatorTargetPos);
+        double position = getPosition();
+//        System.out.println("PIDError Target: " + elevatorTargetPos + " Pos: " + position);
+        return Math.abs(position - elevatorTargetPos);
     }
 
     /**
@@ -128,19 +140,33 @@ public class Elevator extends SubsystemBase {
      * @param position the position to set the elevator to
      */
     public void setMotionMagic(double position) {
+
+        // Need to set this for PIDError result
+        setElevatorTargetPos(position);
+
         final MotionMagicVoltage elevatorMotionMagic = new MotionMagicVoltage(position);
         elevatorMotor.setControl(elevatorMotionMagic);
     }
 
-    /**
-     * Sets the cruise velocity of the elevator in ticks per 100ms
-     *
-     * @param rotationsPersecond the cruise velocity of the elevator in Rotations Per second
-     */
-    public void setCruiseVelocity(int rotationsPersecond) {
-        // new unit (rot/sec)
-        final VelocityDutyCycle elevatorVelocity = new VelocityDutyCycle(0);
-        elevatorMotor.setControl(elevatorVelocity);
+    public void updateMotionMagicParms(double velocity, double acceleration) {
+        // changing the config of the talon is very expensive, causes loop overruns
+        // only update the talon config if it has changed since the last setting
+        if (currVelocity != velocity || currAcceleration != acceleration) {
+            MotionMagicConfigs config = new MotionMagicConfigs();
+            config.MotionMagicCruiseVelocity = velocity;
+            config.MotionMagicAcceleration = acceleration;
+            elevatorMotor.getConfigurator().apply(config);
+            currVelocity = velocity;
+            currAcceleration = acceleration;
+        }
+    }
+
+    public void configMotionMagicUp() {
+        updateMotionMagicParms(Constants.Elevator.MAX_VELOCITY, Constants.Elevator.MAX_ACCELERATION);
+    }
+
+    public void configMotionMagicDown() {
+        updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
     }
 
     public void setElevatorTargetPos(double pos) {
@@ -187,9 +213,9 @@ public class Elevator extends SubsystemBase {
         // changing the config of the talon is very expensive, causes loop overruns
         // only update the talon config if it has changed since the last setting
         if (softLimitEnabled != state) {
-            TalonFXConfiguration config = new TalonFXConfiguration();
+            SoftwareLimitSwitchConfigs config = new SoftwareLimitSwitchConfigs();
 
-            config.SoftwareLimitSwitch.ReverseSoftLimitEnable = state;
+            config.ReverseSoftLimitEnable = state;
             elevatorMotor.getConfigurator().apply(config);
             softLimitEnabled = state;
         }
@@ -258,7 +284,7 @@ public class Elevator extends SubsystemBase {
         config.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
         config.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Constants.Elevator.MIN_POS;
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Constants.Elevator.MAX_POS;
-        softLimitEnabled = true;
+
 
         /*   Motion Magic configuration  */
         // Motion magic config values
