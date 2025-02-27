@@ -32,7 +32,9 @@ public class DriveSwerve extends Command {
             double strafe = -Robot.oi.driver.getLeftX(); // need to invert because -X is left, +X is right
             strafe = (Math.abs(strafe) > Constants.Joystick.DEADBAND) ? strafe : 0.0;
 
-            if(Robot.swerveDrive.getDrivePace() == drivePace.COAST_RR) {
+            // During robot oriented mode (_RR), make climber the front of the bot (rotate forward and strafe 90 degrees)
+            // This only occurs when using joysticks since DriveSwerve is for joystick response
+            if (Robot.swerveDrive.getDrivePace() == drivePace.COAST_RR) {
                 double forwardStore = forward;
                 double strafeStore = strafe;
                 forward = -strafeStore;
@@ -60,11 +62,11 @@ public class DriveSwerve extends Command {
             if( Double.isNaN(strafe) )
                 strafe = strafeSign;
 
-
             //Forward speed, Sideways speed, Rotation Speed
             forward = forwardLimiter.calculate(forward) * Robot.swerveDrive.getDrivePace().getValue();
             strafe = strafeLimiter.calculate(strafe) * Robot.swerveDrive.getDrivePace().getValue();
 
+            // slow dpwn the rotation by converting the linear response to a curve
             if (rot < 0 ) {
                 rot = rot * -rot;
             } else {

@@ -39,12 +39,10 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Reset180", new Reset180());
 
-        SmartDashboard.putBoolean("ElevatorStalled", Robot.elevator.isStalled());
+        SmartDashboard.putBoolean("Elevator Stall", Robot.elevator.isStalled());
 
 //        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
-
-    //adds autos to select
 
     /**
      * Widgets which are updated periodically should be placed here
@@ -75,5 +73,4 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());
         SmartDashboard.putBoolean("Shooter/Reef R", Robot.shooter.sensorRightActive());
     }
-
 }
