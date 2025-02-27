@@ -267,7 +267,7 @@ public final class Constants {
         public static final double ZERO_OFFSET_TICKS = 1;
         public static final double MAX_POS = 61;
         public static final double MIN_POS = 0;
-
+        public static final double ELEVATOR_POS_SHOOT_REQ = 10;
         // Motion Magic
         public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
         public static final double ELEVATOR_KI = 0;
