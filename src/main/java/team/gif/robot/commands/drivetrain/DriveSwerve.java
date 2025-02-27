@@ -1,7 +1,7 @@
 package team.gif.robot.commands.drivetrain;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.SlewRateLimiter;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
@@ -62,12 +62,13 @@ public class DriveSwerve extends Command {
             Robot.swerveDrive.drive(forward, strafe, rot);
     }
 
-    @Override
-    public void end(boolean interrupted) {}
 
     @Override
     public boolean isFinished() {
         return false;
     }
+    
+    @Override
+    public void end(boolean interrupted) {}
 
 }
