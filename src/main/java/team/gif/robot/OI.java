@@ -10,6 +10,7 @@ import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
 import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -111,7 +112,8 @@ public class OI {
          */
 
         // driver controls
-        dBack.and(dDPadDown).onTrue(new Reset0());
+        dBack.and(dDPadUp).onTrue(new Reset0());
+        dBack.and(dDPadDown).onTrue(new Reset180());
         dBack.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
         dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
@@ -122,7 +124,8 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
 
         // aux controls
-        aBack.and(aDPadDown).onTrue(new Reset0());
+        aBack.and(aDPadUp).onTrue(new Reset0());
+        dBack.and(dDPadDown).onTrue(new Reset180());
         aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
         aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
