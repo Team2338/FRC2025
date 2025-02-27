@@ -1,6 +1,7 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class Shoot extends Command {
@@ -31,7 +32,7 @@ public class Shoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return counter > 12;
+        return counter > Constants.Shooter.SHOOT_CYCLES;
     }
 
     // Called when the command ends or is interrupted.
