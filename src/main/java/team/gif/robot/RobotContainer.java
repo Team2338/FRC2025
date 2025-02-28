@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.AutonShootReset;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.shooter.AutonAutoTarget;
+import team.gif.robot.commands.shooter.AutonStrafeToTarget;
 import team.gif.robot.commands.shooter.StageCoral;
 
 import java.util.ArrayList;
@@ -41,8 +41,9 @@ public class RobotContainer {
 
         // register commands used in PathPlanner
         NamedCommands.registerCommand("Shoot", new Shoot());
-        NamedCommands.registerCommand("AutoElevatorLvl4", new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        NamedCommands.registerCommand("AutonAutoShoot", new AutonAutoTarget());
+        NamedCommands.registerCommand("AutonElevatorL4", new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        NamedCommands.registerCommand("AutonElevatorL0", new SetElevatorPosition(0));
+        NamedCommands.registerCommand("AutonAutoShoot", new AutonStrafeToTarget());
         NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));

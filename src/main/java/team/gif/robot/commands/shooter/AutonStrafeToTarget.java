@@ -5,12 +5,12 @@ import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
-public class AutonAutoTarget extends Command {
+public class AutonStrafeToTarget extends Command {
 
     private boolean hasTarget;
     private int counter;
 
-    public AutonAutoTarget() {
+    public AutonStrafeToTarget() {
         super();
         addRequirements(Robot.swerveDrive);
     }

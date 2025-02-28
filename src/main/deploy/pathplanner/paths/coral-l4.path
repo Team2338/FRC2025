@@ -33,24 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "AutoElevatorLvl4",
+      "name": "AutonElevatorL4",
       "waypointRelativePos": 0.686868686868689,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "AutoElevatorLvl4"
-        }
-      }
-    },
-    {
-      "name": "StopDrive",
-      "waypointRelativePos": 0.9803296119085532,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "StopDrive"
+          "name": "AutonElevatorL4"
         }
       }
     }
