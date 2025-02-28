@@ -112,10 +112,10 @@ public class OI {
          */
 
         // driver controls
-        dBack.and(dDPadUp).onTrue(new Reset0());
-        dBack.and(dDPadDown).onTrue(new Reset180());
-        dBack.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
-        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        dStart.and(dDPadUp).onTrue(new Reset0());
+        dStart.and(dDPadDown).onTrue(new Reset180());
+        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
         dLBump.whileTrue(new EnableBoost());
@@ -124,17 +124,17 @@ public class OI {
         dRBump.whileTrue(new EnableRobotOrientedMode());
 
         // aux controls
-        aBack.and(aDPadUp).onTrue(new Reset0());
-        dBack.and(dDPadDown).onTrue(new Reset180());
-        aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
-        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        aStart.and(aDPadUp).onTrue(new Reset0());
+        aStart.and(aDPadDown).onTrue(new Reset180());
+        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aDPadUp.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadLeft.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadDown.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
         aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
 
         //test sys id for elevator, delete later
