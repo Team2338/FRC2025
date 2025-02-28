@@ -46,6 +46,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
+        NamedCommands.registerCommand("StopDrive", new InstantCommand(Robot.swerveDrive::stopDrive));
+
 
         // Configure the trigger bindings
         configureBindings();

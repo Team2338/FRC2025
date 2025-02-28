@@ -16,15 +16,15 @@
     },
     {
       "anchor": {
-        "x": 5.031,
-        "y": 5.22425
+        "x": 4.963,
+        "y": 5.115881147540984
       },
       "prevControl": {
-        "x": 5.512177418393925,
-        "y": 6.055292988406718
+        "x": 5.4441774183939255,
+        "y": 5.946924135947702
       },
       "nextControl": null,
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     }
   ],
@@ -34,12 +34,23 @@
   "eventMarkers": [
     {
       "name": "AutoElevatorLvl4",
-      "waypointRelativePos": 0.6911217437533325,
+      "waypointRelativePos": 0.5103668261563119,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
           "name": "AutoElevatorLvl4"
+        }
+      }
+    },
+    {
+      "name": "StopDrive",
+      "waypointRelativePos": 0.9824561403508817,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "StopDrive"
         }
       }
     }

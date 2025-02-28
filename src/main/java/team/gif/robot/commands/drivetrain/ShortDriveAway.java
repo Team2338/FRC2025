@@ -32,7 +32,8 @@ public class ShortDriveAway extends Command {
     public void execute() {
         // only move if elevator target is level 4
         // otherwise end the command by setting the counter very high
-        if (Robot.elevator.getPosition() > Constants.Elevator.LEVEL_4_POSITION - 10) {
+//        if (Robot.elevator.getPosition() > Constants.Elevator.LEVEL_4_POSITION - 10) {
+        if (true) {
             Robot.swerveDrive.drive(-0.30, 0.0, 0.0);
             counter++;
         } else {
@@ -50,7 +51,7 @@ public class ShortDriveAway extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
-//        Robot.swerveDrive.drive(0.0,0.0,0.0);
+        Robot.swerveDrive.drive(0.0,0.0,0.0);
         System.out.println("Ending short drive");
     }
 }

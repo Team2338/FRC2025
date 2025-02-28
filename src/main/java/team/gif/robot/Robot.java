@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
         shooter.setDefaultCommand(new StageCoral());
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
-        addPeriodic(this::secondPeriodic, 0.5, 0.05);
+        addPeriodic(this::secondPeriodic, 0.080, 0.05);
 
         climber.setPistonIn();
 

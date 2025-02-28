@@ -202,6 +202,10 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         rRDriveMotor.set(1);
     }
 
+    public void stopDrive() {
+        drive(0,0,0);
+    }
+
     /**
      * Set the desired states for each of the 4 swerve modules using a SwerveModuleState array
      *

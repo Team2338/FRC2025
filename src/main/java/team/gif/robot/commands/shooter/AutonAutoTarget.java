@@ -2,11 +2,13 @@ package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.lib.drivePace;
+import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class AutonAutoTarget extends Command {
 
     private boolean hasTarget;
+    private int counter;
 
     public AutonAutoTarget() {
         super();
@@ -18,11 +20,17 @@ public class AutonAutoTarget extends Command {
     public void initialize() {
         hasTarget = false;
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
+        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - 1 ) {
+            System.out.println("counter " + counter++);
+            return;
+        }
+
         boolean leftSensor = Robot.shooter.sensorLeftActive();
         boolean rightSensor = Robot.shooter.sensorRightActive();
 
@@ -58,8 +66,6 @@ public class AutonAutoTarget extends Command {
     public void end(boolean interrupted) {
         Robot.swerveDrive.drive(0.0, 0.0, 0.0);
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
-
-
     }
 }
 
