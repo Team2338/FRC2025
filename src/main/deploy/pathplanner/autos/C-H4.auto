@@ -13,12 +13,6 @@
         {
           "type": "named",
           "data": {
-            "name": "MoveModulesIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "AutonAutoShoot"
           }
         }
