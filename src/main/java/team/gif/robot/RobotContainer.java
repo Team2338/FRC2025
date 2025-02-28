@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.drivetrain.MoveModulesIn;
+import team.gif.robot.commands.shooter.AutonAutoShoot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("Shoot", new Shoot());
         NamedCommands.registerCommand("MoveModulesIn", new MoveModulesIn());
         NamedCommands.registerCommand("AutoDriveAndShoot", new AutoDriveAndShoot(true).withTimeout(5));
-
+        NamedCommands.registerCommand("AutoElevatorLvl4", new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        NamedCommands.registerCommand("AutonAutoShoot", new AutonAutoShoot());
 
         // Configure the trigger bindings
         configureBindings();
@@ -73,10 +76,10 @@ public class RobotContainer {
 
         // create list manually to control sort order
         List<String> autoNames = new ArrayList<>();
-        autoNames.add("u-turn");
         autoNames.add("Mobility");
-        autoNames.add("Straight Line");
-        autoNames.add("First Auto");
+        autoNames.add("L-J4-L4");
+        autoNames.add("C-H4");
+        autoNames.add("LC-J4-L4");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();

@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "U-Turn Away"
+            "pathName": "c-h4"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "U-Turn Return"
+            "name": "AutonAutoShoot"
           }
         }
       ]

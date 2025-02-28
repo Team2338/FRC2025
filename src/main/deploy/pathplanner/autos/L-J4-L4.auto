@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "l-j4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveModulesIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveAndShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "j-coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral-l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "MoveModulesIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveAndShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "l-coral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
