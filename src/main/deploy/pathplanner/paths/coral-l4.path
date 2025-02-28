@@ -34,9 +34,14 @@
   "eventMarkers": [
     {
       "name": "AutoElevatorLvl4",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.686868686868689,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutoElevatorLvl4"
+        }
+      }
     }
   ],
   "globalConstraints": {

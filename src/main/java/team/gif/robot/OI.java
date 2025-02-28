@@ -116,7 +116,6 @@ public class OI {
         dStart.and(dDPadDown).onTrue(new Reset180());
         dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
         dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
-        dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
         dRTrigger.whileTrue(new Shoot());
         dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));

@@ -249,6 +249,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
      * This set moves all the modules to 90 degrees. It turns the modules inward to prevent the robot from moving
      */
     public void modulesTo90() {
+        System.out.println("moving Modules in");
         SwerveModuleState state90 = new SwerveModuleState(0, Rotation2d.fromDegrees(90));
         fL.setDesiredState(state90, true);
         fR.setDesiredState(state90, false);

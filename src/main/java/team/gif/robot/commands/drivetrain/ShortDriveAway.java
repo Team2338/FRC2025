@@ -50,6 +50,7 @@ public class ShortDriveAway extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
-        Robot.swerveDrive.drive(0.0,0.0,0.0);
+//        Robot.swerveDrive.drive(0.0,0.0,0.0);
+        System.out.println("Ending short drive");
     }
 }

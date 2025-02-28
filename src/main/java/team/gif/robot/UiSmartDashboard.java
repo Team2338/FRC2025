@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -41,7 +42,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putBoolean("Elevator Stall", Robot.elevator.isStalled());
 
-//        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
 
     /**

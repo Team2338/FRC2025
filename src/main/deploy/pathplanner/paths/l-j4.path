@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.575749999996025,
+        "x": 7.15,
         "y": 7.534999999999599
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.627589150839528,
-        "y": 7.301312324418517
+        "x": 6.382505716821357,
+        "y": 6.910923122592814
       },
       "isLocked": true,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.22425
       },
       "prevControl": {
-        "x": 5.45728197154537,
-        "y": 5.997878462008847
+        "x": 5.512177418393925,
+        "y": 6.055292988406718
       },
       "nextControl": null,
       "isLocked": true,
@@ -34,9 +34,14 @@
   "eventMarkers": [
     {
       "name": "AutoElevatorLvl4",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.6911217437533325,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutoElevatorLvl4"
+        }
+      }
     }
   ],
   "globalConstraints": {
