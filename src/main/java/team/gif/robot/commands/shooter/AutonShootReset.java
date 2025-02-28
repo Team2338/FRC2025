@@ -14,11 +14,11 @@ public class AutonShootReset extends SequentialCommandGroup {
                 new ParallelRaceGroup( // ends when any command ends // if robot does not have a target, don't shoot
                         new AutonHasNoTarget(),
                         new Shoot()
+                ),
+                new ParallelCommandGroup(
+                        new ShortDriveAway(),
+                        new SetElevatorPosition(0)
                 )
-//                new ParallelCommandGroup(
-//                        new ShortDriveAway(),
-//                        new SetElevatorPosition(0)
-//                )
         );
     }
 }

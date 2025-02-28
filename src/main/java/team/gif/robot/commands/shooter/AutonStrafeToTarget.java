@@ -8,7 +8,6 @@ import team.gif.robot.Robot;
 public class AutonStrafeToTarget extends Command {
 
     private boolean hasTarget;
-    private int counter;
 
     public AutonStrafeToTarget() {
         super();
@@ -20,14 +19,16 @@ public class AutonStrafeToTarget extends Command {
     public void initialize() {
         hasTarget = false;
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
-        counter = 0;
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - 1 ) {
-            System.out.println("counter " + counter++);
+        // Ensure elevator is at level 4 before checking reef sensors to move
+        // This makes sure the sensors don't trip if the robot lined up
+        // correctly and is still raising the elevator
+        // Since this only runs in auto, safe to just chcek height of level 4
+        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - 0.3 ) {
             return;
         }
 
@@ -68,4 +69,3 @@ public class AutonStrafeToTarget extends Command {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }
-

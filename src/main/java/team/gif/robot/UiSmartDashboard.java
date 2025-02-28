@@ -3,6 +3,7 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.RobotMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -60,7 +61,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
-        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
+        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotMode() == RobotMode.STANDARD_OP);
         SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
 
         // Update Diagnostics tab

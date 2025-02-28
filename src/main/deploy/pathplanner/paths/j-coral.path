@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.963,
-        "y": 5.116
+        "x": 5.058811475409836,
+        "y": 5.05594262295082
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.169062603458528,
-        "y": 5.598460073639451
+        "x": 4.255971727872007,
+        "y": 5.503157799248037
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "J Branch"
     },
     {
       "anchor": {
@@ -20,30 +20,18 @@
         "y": 7.3302499999999995
       },
       "prevControl": {
-        "x": 2.137493718110874,
-        "y": 6.894665148750694
+        "x": 2.069016228179425,
+        "y": 6.937346410238761
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Coral Left"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "ElevatorL0",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "AutonElevatorL0"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
