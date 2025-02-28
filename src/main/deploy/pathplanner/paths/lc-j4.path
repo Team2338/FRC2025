@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.576651982378854,
-        "y": 6.526620516047829
+        "x": 7.0785,
+        "y": 5.75
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.628491133222357,
-        "y": 6.292932840466747
+        "x": 6.023530843811992,
+        "y": 5.764836992244173
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.031,
-        "y": 5.22425
+        "x": 5.058811475409836,
+        "y": 5.05594262295082
       },
       "prevControl": {
-        "x": 5.45728197154537,
-        "y": 5.997878462008847
+        "x": 6.088605083462005,
+        "y": 5.7183726815571205
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": null
+      "linkedName": "J Branch"
     }
   ],
   "rotationTargets": [],
@@ -33,10 +33,15 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "AutoElevatorLvl4",
-      "waypointRelativePos": 0.85,
+      "name": "AutonElevatorL4",
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutonElevatorL4"
+        }
+      }
     }
   ],
   "globalConstraints": {

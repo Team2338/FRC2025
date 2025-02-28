@@ -15,6 +15,12 @@
           "data": {
             "name": "AutonShootReset"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopDrive"
+          }
         }
       ]
     }

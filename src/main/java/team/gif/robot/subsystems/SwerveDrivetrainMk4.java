@@ -469,6 +469,12 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         SmartDashboard.putNumber(shuffleboardTabName + "/RL Drive Encoder", rLDriveMotor.getPosition());
         SmartDashboard.putNumber(shuffleboardTabName + "/RR Drive Encoder", rRDriveMotor.getPosition());
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Rot Output", fLTurnMotor.getOutput());
+
+
         //TODO: Add target to shuffleboard
     }
 

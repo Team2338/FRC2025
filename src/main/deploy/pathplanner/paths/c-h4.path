@@ -34,19 +34,19 @@
   "eventMarkers": [
     {
       "name": "AutoElevatorLvl4",
-      "waypointRelativePos": 0.1277691911385971,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "AutoElevatorLvl4"
+          "name": "AutonElevatorL4"
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.75,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

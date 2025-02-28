@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.AutonShootReset;
 import team.gif.robot.commands.shooter.Shoot;
@@ -47,7 +48,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
-        NamedCommands.registerCommand("StopDrive", new InstantCommand(Robot.swerveDrive::stopDrive));
+        NamedCommands.registerCommand("StopDrive", new StopModules());
 
 
         // Configure the trigger bindings

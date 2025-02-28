@@ -1,32 +1,27 @@
-package team.gif.robot.commands.shooter;
+package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Robot;
 
-public class AutonHasNoTarget extends Command {
-
-    private boolean hasTarget = false;
-
-    public AutonHasNoTarget() {
-        super();
-        //addRequirements(Robot.climber); // uncomment
+public class StopModules extends Command {
+    public StopModules() {
+        addRequirements(Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        hasTarget = Robot.shooter.sensorRightActive() && Robot.shooter.sensorLeftActive();
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        Robot.swerveDrive.stopDrive();
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        //keep running as long as there is no target initially
-        return !(hasTarget);
+        return false;
     }
 
     // Called when the command ends or is interrupted.
