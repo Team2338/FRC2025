@@ -13,7 +13,7 @@ public class DropFlapper extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.flapper.setHorizontal();
+        Robot.flapper.setDown();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

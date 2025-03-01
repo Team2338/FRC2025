@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
-        flapper = new Flapper(0);
+        flapper = new Flapper(RobotMap.SERVO_PORT_ID);
         shooter.setDefaultCommand(new StageCoral());
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
@@ -90,6 +90,8 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+
+        System.out.println("flapper " + flapper.getServoPosition());
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -118,6 +120,10 @@ public class Robot extends TimedRobot {
             elapsedTime.start();
             autoSchedulerOnHold = true;
         }
+
+        //drops servo at start of match
+        flapper.setDown();
+
     }
 
     /** This function is called periodically during autonomous. */

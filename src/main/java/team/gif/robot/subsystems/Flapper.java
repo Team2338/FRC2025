@@ -9,11 +9,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Flapper extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
-        public static Servo servo;
+    private static Servo servo;
 
-        public Flapper(int port) {servo = new Servo(port);}
+    public Flapper(int port) {
+        servo = new Servo(port);
+    }
 
-        public void setHorizontal() {
-            servo.set(0.0);
-        }
+    public void setDown() {
+        servo.set(0.0);
+    }
+
+    public double getServoPosition() {
+        return servo.getPosition();
+    }
 }

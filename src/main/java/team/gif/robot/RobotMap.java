@@ -44,6 +44,7 @@ public abstract class RobotMap {
     //Shooter
     public static final int SHOOTER_MOTOR_ID = 41;
     public static final int INDEXER_MOTOR_ID = 42;
+    public static final int SERVO_PORT_ID = 0;
 
     public static final int INDEXER_GP_SENSOR_PORT = 0;
     public static final int EXIT_GP_SENSOR_PORT = 1;
