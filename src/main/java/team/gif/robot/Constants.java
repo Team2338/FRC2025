@@ -255,7 +255,7 @@ public final class Constants {
         public static final double DEPLOY_PERCENT = 1.00;
         public static final double CLIMB_PERCENT = 0.75;
         public static final double FORWARD_SOFT_LIMIT = 354; //332;
-        public static final double REVERSE_SOFT_LIMIT = 135;
+        public static final double REVERSE_SOFT_LIMIT = 175;
         public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
     }
 
