@@ -13,7 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonAutoShoot"
+            "name": "AutonShootReset"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopDrive"
           }
         }
       ]

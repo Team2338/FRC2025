@@ -13,37 +13,64 @@
         {
           "type": "named",
           "data": {
-            "name": "MoveModulesIn"
+            "name": "AutonShootReset"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StageCoral"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "j-coral"
+                      }
+                    },
+                    {
+                      "type": "race",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.5
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "StopDrive"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "coral-l4"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoDriveAndShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "j-coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral-l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "MoveModulesIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoDriveAndShoot"
+            "name": "AutonShootReset"
           }
         },
         {

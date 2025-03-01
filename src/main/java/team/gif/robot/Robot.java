@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
         shooter.setDefaultCommand(new StageCoral());
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
-        addPeriodic(this::secondPeriodic, 0.5, 0.05);
+        addPeriodic(this::secondPeriodic, 0.080, 0.05);
 
         climber.setPistonIn();
 
@@ -156,6 +156,8 @@ public class Robot extends TimedRobot {
             autoSchedulerOnHold = false;
             elapsedTime.stop();
         }
+
+        Robot.shooter.runIndexerMotor();
     }
 
     @Override
@@ -226,15 +228,4 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
     }
-
-    /**
-     * returns true if robot is in manual mode
-     * Needed for dashboard functionality
-     *
-     * @return true if robot is in manual mode, false if in StandardOp mode
-     */
-    public static boolean getRobotModeManual() {
-        return robotMode == RobotMode.MANUAL;
-    }
-
 }
