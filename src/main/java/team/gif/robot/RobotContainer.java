@@ -18,7 +18,6 @@ import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.AutonShootReset;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
-import team.gif.robot.commands.DropFlapper;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.AutonStrafeToTarget;
 import team.gif.robot.commands.shooter.StageCoral;

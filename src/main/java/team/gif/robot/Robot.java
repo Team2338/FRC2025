@@ -149,7 +149,7 @@ public class Robot extends TimedRobot {
         }
 
         //drops servo at start of match
-        flapper.setDown();
+        //flapper.setDown();
 
     }
 
@@ -180,6 +180,8 @@ public class Robot extends TimedRobot {
         //-compressor.enableDigital();
         compressor.disable();
         climber.setPistonIn();
+
+        flapper.setDown();
     }
 
     /** This function is called periodically during operator control. */
