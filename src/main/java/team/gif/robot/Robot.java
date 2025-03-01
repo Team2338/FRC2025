@@ -72,6 +72,7 @@ public class Robot extends TimedRobot {
         limelightShooter = new Limelight("limelight-shooter");
 //        swerveDrive = new SwerveDrivetrainMk3();
         swerveDrive = new SwerveDrivetrainMk4();
+        swerveDrive.setDefaultCommand(new DriveSwerve());
         shooter = new Shooter();
         climber = new Climber();
         elevator = new Elevator();
@@ -171,8 +172,6 @@ public class Robot extends TimedRobot {
         //-compressor.enableDigital();
         compressor.disable();
         climber.setPistonIn();
-        swerveDrive.setDefaultCommand(new DriveSwerve());
-
     }
 
     /** This function is called periodically during operator control. */
