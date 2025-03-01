@@ -24,6 +24,9 @@ public class ClimberClimb extends Command {
         if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
             Robot.climber.setPistonOut();
         }
+
+        //cancels all commands from elevator while this command runs
+        Robot.elevator.getCurrentCommand().cancel();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

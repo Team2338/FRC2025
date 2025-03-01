@@ -20,6 +20,9 @@ public class ClimberDeploy extends Command {
     @Override
     public void execute() {
         Robot.climber.move(Constants.Climber.DEPLOY_PERCENT);
+
+        //cancels all commands from elevator while this command runs
+        Robot.elevator.getCurrentCommand().cancel();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
