@@ -63,12 +63,16 @@ public class SlewRateLimiter {
         //The abs value is here because we want the negative rate limit to be when it gets closer
         //to 0, not when it gets smaller (an issues for negative inputs)
         double abs = Math.abs(input - m_prevVal);
+        System.out.println("input " + input + "clamp " + MathUtil.clamp(
+                abs,
+                m_negativeRateLimit * elapsedTime,
+                m_positiveRateLimit * elapsedTime));
         m_prevVal +=
-                MathUtil.clamp(
+                (MathUtil.clamp(
                         abs,
                         m_negativeRateLimit * elapsedTime,
                         m_positiveRateLimit * elapsedTime) *
-                        input < 0 ? -1 : 1; //Add back in the sign
+                        input < 0 ? -1 : 1); //Add back in the sign
         m_prevTime = currentTime;
         return m_prevVal;
     }

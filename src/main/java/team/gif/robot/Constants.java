@@ -78,9 +78,12 @@ public final class Constants {
 
         public static final double TELE_DRIVE_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND; //TODO
 
-        public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 3;
+        public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 1;
+        public static final double TELE_DRIVE_MAX_DECELERATION_UNITS_PER_SECOND = -3;
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 6 * Math.PI;
+        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 3 * Math.PI;
+        public static final double TELE_DRIVE_MAX_ANGULAR_DECELERATION_UNITS_PER_SECOND = -6 * Math.PI;
+
 
         public static final double TURNING_MOTOR_GEAR_RATIO = 1.0 / 18.0;
 

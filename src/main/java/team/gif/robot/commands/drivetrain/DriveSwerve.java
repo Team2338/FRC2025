@@ -1,20 +1,21 @@
 package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import team.gif.lib.drivePace;
-import team.gif.lib.SlewRateLimiter;
+//import team.gif.lib.SlewRateLimiter;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
 public class DriveSwerve extends Command {
-    private final SlewRateLimiter forwardLimiter;
+    private final team.gif.lib.SlewRateLimiter forwardLimiter;
     private final SlewRateLimiter strafeLimiter;
     private final SlewRateLimiter turnLimiter;
 
     public DriveSwerve() {
-        this.forwardLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
-        this.strafeLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND);
-        this.turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND);
+        this.forwardLimiter = new team.gif.lib.SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND, Constants.ModuleConstants.TELE_DRIVE_MAX_DECELERATION_UNITS_PER_SECOND, 0);
+        this.strafeLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND, Constants.ModuleConstants.TELE_DRIVE_MAX_DECELERATION_UNITS_PER_SECOND, 0);
+        this.turnLimiter = new SlewRateLimiter(Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND, Constants.ModuleConstants.TELE_DRIVE_MAX_ANGULAR_DECELERATION_UNITS_PER_SECOND, 0);
         addRequirements(Robot.swerveDrive);
     }
 
@@ -82,10 +83,12 @@ public class DriveSwerve extends Command {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
     
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        Robot.swerveDrive.stopDrive();
+    }
 
 }
