@@ -1,15 +1,27 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.drivetrain.ShortDriveAway;
+import team.gif.robot.commands.drivetrain.StopModules;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutoDriveAndShoot extends Command {
 
     private boolean hasTarget;
     private final boolean moveRight;
 
+    /**
+    * Drive right (or left) until robot finds target with both sensors,
+     * then shoot the Coral (by scheduling shoot command) <br>
+     * Do not shoot if the reef was never detected by both sensors. <br>
+     *
+     * @param moveRight set to true of the robot should move right (based on field relative)
+    */
     public AutoDriveAndShoot(boolean moveRight) {
         super();
         this.moveRight = moveRight;
@@ -27,31 +39,40 @@ public class AutoDriveAndShoot extends Command {
     @Override
     public void execute() {
         if (Robot.shooter.isShooterAligned() && !hasTarget) {
-            Robot.shooter.runShooterMotor();
-            Robot.swerveDrive.drive(0.0, 0.0, 0.0);
             hasTarget = true;
-        } else if (!hasTarget) {
-                boolean inverted = moveRight;
-                //If we are facing the alliance wall, invert
-                inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
-                double speed = Constants.Shooter.ALIGN_STRAFE_SPEED_MPS * (inverted ? -1 : 1);
-                Robot.swerveDrive.drive(0, speed, 0.0);
-            }
+        } else {
+            boolean inverted = moveRight;
+            //If we are facing the alliance wall, invert
+            inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
+            double speed = Constants.Shooter.ALIGN_STRAFE_SPEED_MPS * (inverted ? -1 : 1);
+            Robot.swerveDrive.drive(0, speed, 0.0);
         }
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return Robot.shooter.isShooterAligned();
-        //TODO: This needs to be based off of the gamepiece sensors, not the ToF sensors
+        return hasTarget;
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("finished auto drive shoot");
-
-        Robot.shooter.stopShooterMotor();
+        Robot.swerveDrive.stopDrive();
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
+
+        // only shoot if the robot found the target during the command
+        if (hasTarget) {
+            // run the shooter using the standard shoot command and return the elevator
+            new SequentialCommandGroup(
+                    new Shoot(),
+                    new ParallelRaceGroup( // running these in parallel provides plenty of time to clear
+                            new SequentialCommandGroup(
+                                new ShortDriveAway(),
+                                new StopModules()
+                            ),
+                            new SetElevatorPosition(0))
+            ).schedule();
+        }
     }
 }

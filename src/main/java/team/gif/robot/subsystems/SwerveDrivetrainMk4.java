@@ -84,7 +84,6 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
             .getStructTopic("ChassisSpeeds", ChassisSpeeds.struct).publish();
 
 
-
     /**
      * Constructor for swerve drivetrain using 4 swerve modules using Kraken x60s to drive and Falcon500 to turn
      */
@@ -149,6 +148,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Reset the odometry to a given pose
+     *
      * @param pose the pose to reset to
      */
     public void resetOdometry(Pose2d pose) {
@@ -176,8 +176,9 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Drive the bot with given params - always field relative
-     * @param x dForward
-     * @param y dLeft
+     *
+     * @param x   dForward
+     * @param y   dLeft
      * @param rot dRot
      */
     public void drive(double x, double y, double rot) {
@@ -201,8 +202,13 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         rRDriveMotor.set(1);
     }
 
+    public void stopDrive() {
+        drive(0,0,0);
+    }
+
     /**
      * Set the desired states for each of the 4 swerve modules using a SwerveModuleState array
+     *
      * @param desiredStates SwerveModuleState array of desired states for each of the modules
      * @implNote Only for use in the SwerveDrivetrain class and the RobotTrajectory Singleton, for any general use {@link SwerveDrivetrainMk4#drive(double, double, double)}
      */
@@ -257,6 +263,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current pose of the robot
+     *
      * @return The current pose of the robot (Pose2D)
      */
     public Pose2d getPose() {
@@ -275,11 +282,12 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current position of each of the swerve modules
+     *
      * @return An array in form fL -> fR -> rL -> rR of each of the module positions
      */
     public SwerveModulePosition[] getPosition() {
 
-        return new SwerveModulePosition[] {fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()};
+        return new SwerveModulePosition[]{fL.getPosition(), fR.getPosition(), rL.getPosition(), rR.getPosition()};
     }
 
     /**
@@ -294,6 +302,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * set the drivePace settings for the drivebase
+     *
      * @param drivePace the drivePace to set
      */
     public void setDrivePace(drivePace drivePace) {
@@ -302,6 +311,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
     /**
      * Get the current drivePace settings
+     *
      * @return the current drivePace settings
      */
     public drivePace getDrivePace() {
@@ -458,6 +468,12 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         SmartDashboard.putNumber(shuffleboardTabName + "/RL Drive Encoder", rLDriveMotor.getPosition());
         SmartDashboard.putNumber(shuffleboardTabName + "/RR Drive Encoder", rRDriveMotor.getPosition());
 
+        SmartDashboard.putNumber(shuffleboardTabName + "/FL Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/FR Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RL Rot Output", fLTurnMotor.getOutput());
+        SmartDashboard.putNumber(shuffleboardTabName + "/RR Rot Output", fLTurnMotor.getOutput());
+
+
         //TODO: Add target to shuffleboard
     }
 
@@ -553,3 +569,7 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         return getSysIdRoutine(motor).dynamic(direction);
     }
 }
+
+
+
+
