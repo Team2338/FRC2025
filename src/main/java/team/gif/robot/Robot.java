@@ -22,6 +22,7 @@ import team.gif.robot.commands.drivetrain.DriveSwerve;
 //import team.gif.robot.commands.drivetrainPbot.DrivePracticeSwerve;
 import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
+import team.gif.robot.subsystems.Flapper;
 import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
     public static Shooter shooter;
     public static Climber climber;
     public static Elevator elevator;
+    public static Flapper flapper;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -84,11 +86,11 @@ public class Robot extends TimedRobot {
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
-
+        flapper = new Flapper(RobotMap.SERVO_PORT_ID);
         shooter.setDefaultCommand(new StageCoral());
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
-        addPeriodic(this::secondPeriodic, 0.5, 0.05);
+        addPeriodic(this::secondPeriodic, 0.080, 0.05);
 
         climber.setPistonIn();
 
@@ -143,6 +145,9 @@ public class Robot extends TimedRobot {
             autoSchedulerOnHold = true;
         }
 
+        //drops servo at start of match
+        flapper.setDown();
+
     }
 
     /** This function is called periodically during autonomous. */
@@ -156,6 +161,8 @@ public class Robot extends TimedRobot {
             autoSchedulerOnHold = false;
             elapsedTime.stop();
         }
+
+        Robot.shooter.runIndexerMotor();
     }
 
     @Override
@@ -170,6 +177,8 @@ public class Robot extends TimedRobot {
         //-compressor.enableDigital();
         compressor.disable();
         climber.setPistonIn();
+
+        flapper.setDown();
     }
 
     /** This function is called periodically during operator control. */
@@ -226,15 +235,4 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
     }
-
-    /**
-     * returns true if robot is in manual mode
-     * Needed for dashboard functionality
-     *
-     * @return true if robot is in manual mode, false if in StandardOp mode
-     */
-    public static boolean getRobotModeManual() {
-        return robotMode == RobotMode.MANUAL;
-    }
-
 }

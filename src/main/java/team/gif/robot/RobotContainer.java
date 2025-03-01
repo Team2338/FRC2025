@@ -11,11 +11,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import team.gif.robot.commands.shooter.AutoDriveAndShoot;
+import team.gif.robot.commands.drivetrain.StopModules;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
+import team.gif.robot.commands.shooter.AutonShootReset;
 import team.gif.robot.commands.shooter.Shoot;
-import team.gif.robot.commands.drivetrain.MoveModulesIn;
+import team.gif.robot.commands.shooter.AutonStrafeToTarget;
+import team.gif.robot.commands.shooter.StageCoral;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +42,13 @@ public class RobotContainer {
 
         // register commands used in PathPlanner
         NamedCommands.registerCommand("Shoot", new Shoot());
-        NamedCommands.registerCommand("MoveModulesIn", new MoveModulesIn());
-        NamedCommands.registerCommand("AutoDriveAndShoot", new AutoDriveAndShoot(true).withTimeout(5));
+        NamedCommands.registerCommand("AutonElevatorL4", new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        NamedCommands.registerCommand("AutonElevatorL0", new SetElevatorPosition(0));
+        NamedCommands.registerCommand("AutonAutoShoot", new AutonStrafeToTarget());
+        NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
+        NamedCommands.registerCommand("StageCoral", new StageCoral());
+        NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
+        NamedCommands.registerCommand("StopDrive", new StopModules());
 
 
         // Configure the trigger bindings
@@ -73,10 +82,10 @@ public class RobotContainer {
 
         // create list manually to control sort order
         List<String> autoNames = new ArrayList<>();
-        autoNames.add("u-turn");
         autoNames.add("Mobility");
-        autoNames.add("Straight Line");
-        autoNames.add("First Auto");
+        autoNames.add("L-J4-L4");
+        autoNames.add("C-H4");
+        autoNames.add("LC-J4-L4");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();

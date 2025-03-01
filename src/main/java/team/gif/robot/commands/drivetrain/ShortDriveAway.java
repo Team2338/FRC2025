@@ -14,6 +14,7 @@ import team.gif.robot.Robot;
  */
 public class ShortDriveAway extends Command {
     private int counter;
+    private boolean elevatorL4;
 
     public ShortDriveAway() {
         super();
@@ -23,6 +24,8 @@ public class ShortDriveAway extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        //put this in initialize so that it doesn't stop the command as the elevator lowers
+        elevatorL4 = Robot.elevator.getPosition() > Constants.Elevator.LEVEL_4_POSITION - 10;
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
         counter = 0;
     }
@@ -32,7 +35,7 @@ public class ShortDriveAway extends Command {
     public void execute() {
         // only move if elevator target is level 4
         // otherwise end the command by setting the counter very high
-        if (Robot.elevator.getPosition() > Constants.Elevator.LEVEL_4_POSITION - 10) {
+        if (elevatorL4) {
             Robot.swerveDrive.drive(-0.30, 0.0, 0.0);
             counter++;
         } else {
@@ -50,6 +53,6 @@ public class ShortDriveAway extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
-        Robot.swerveDrive.drive(0.0,0.0,0.0);
+        Robot.swerveDrive.stopDrive();
     }
 }

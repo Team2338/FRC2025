@@ -1,12 +1,14 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.ShortDriveAway;
+import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutoDriveAndShoot extends Command {
@@ -57,7 +59,7 @@ public class AutoDriveAndShoot extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrive.drive(0.0, 0.0, 0.0);
+        Robot.swerveDrive.stopDrive();
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
 
         // only shoot if the robot found the target during the command
@@ -69,7 +71,11 @@ public class AutoDriveAndShoot extends Command {
             // Effectively, this executes the drive away and moving of the elevator at the same time
             new SequentialCommandGroup(
                     new Shoot(),
-                    new ShortDriveAway()
+                    new ParallelRaceGroup( // running these in parallel provides plenty of time to clear
+                            new SequentialCommandGroup(
+                                new ShortDriveAway(),
+                                new StopModules()
+                            ),
             ).schedule();
             new SequentialCommandGroup(
                     new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms

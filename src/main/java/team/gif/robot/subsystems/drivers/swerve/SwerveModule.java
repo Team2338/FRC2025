@@ -196,7 +196,6 @@ public class SwerveModule {
     }
 
     public void turnHoldZero() {
-
         double error = getTurningHeading();
         final double ff = turnFF * Math.abs(error) / error;
         final double turnOutput = ff + (P * error);
