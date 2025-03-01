@@ -257,6 +257,7 @@ public final class Constants {
         public static final double FORWARD_SOFT_LIMIT = 354; //332;
         public static final double REVERSE_SOFT_LIMIT = 175;
         public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
+        public static final double DRIVE_SPEED_MPS = 0.1; //Speed to drive while climbing in meters per second
     }
 
     public static final class Elevator{
