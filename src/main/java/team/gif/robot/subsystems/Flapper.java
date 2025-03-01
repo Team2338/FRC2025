@@ -13,14 +13,14 @@ public class Flapper extends SubsystemBase {
     private static Servo servo;
 
     public Flapper(int port) {
-        servo = new Servo(RobotMap.SERVO_PORT_ID);
+        servo = new Servo(port);
     }
 
     public void setDown() {
-        servo.set(0.5);
+        servo.set(1.0);
     }
 
     public double getServoPosition() {
-        return servo.getPosition();
+        return servo.getAngle();
     }
 }
