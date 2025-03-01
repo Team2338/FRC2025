@@ -114,8 +114,6 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-
-        System.out.println("flapper " + flapper.getServoPosition());
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -134,7 +132,6 @@ public class Robot extends TimedRobot {
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
         compressor.disable();
 
-
         // run scheduler immediately if no delay is selected
         if (chosenDelay.getValue() == 0) {
             if (autonomousCommand != null) {
@@ -149,7 +146,7 @@ public class Robot extends TimedRobot {
         }
 
         //drops servo at start of match
-        //flapper.setDown();
+        flapper.setDown();
 
     }
 
