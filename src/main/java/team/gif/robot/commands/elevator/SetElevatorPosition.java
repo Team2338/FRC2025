@@ -22,15 +22,11 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.elevator.setElevatorTargetPos(desiredPosition);
-
         if (desiredPosition > Robot.elevator.getPosition()) {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.F);
+            Robot.elevator.configMotionMagicUp();
             Robot.elevator.setMotionMagic(desiredPosition);
         } else {
-            Robot.elevator.setCruiseVelocity(Constants.Elevator.REV_MAX_VELOCITY);
-           // Robot.elevator.configF(Constants.Elevator.REV_F);
+            Robot.elevator.configMotionMagicDown();
             Robot.elevator.setMotionMagic(desiredPosition);
         }
     }

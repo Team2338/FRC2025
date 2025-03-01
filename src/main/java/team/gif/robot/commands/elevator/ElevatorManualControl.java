@@ -32,6 +32,10 @@ public class ElevatorManualControl extends Command {
             }
         }
 
+        if (Robot.elevator.isStalled()) { // ToDo - stall feature needs testing/reworking
+            percent = Constants.Elevator.PID_HOLD_FF;
+        }
+
         Robot.elevator.move(percent);
 
         // Allows user to run past 0 set point if pressing the right stick

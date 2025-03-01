@@ -1,8 +1,9 @@
 package team.gif.robot.subsystems;
 
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.MutDistance;
@@ -24,12 +25,27 @@ public class Elevator extends SubsystemBase {
 
     private boolean elevatorManualMode = false;
     private double elevatorTargetPos;
+
+    // changing config is very time expensive. Store last config values to compare
     private boolean softLimitEnabled;
+    private double currVelocity;
+    private double currAcceleration;
+
+    // used for determining if elevator motor is stalled
+    private double stallLastPosition;
+    private int stallCount;
 
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
         configElevatorTalon();
         zeroEncoder();
+
+        softLimitEnabled = true;
+        currVelocity = Constants.Elevator.MAX_VELOCITY;
+        currAcceleration = Constants.Elevator.MAX_ACCELERATION;
+
+        stallLastPosition = getPosition();
+        stallCount = 0;
     }
 
     /**
@@ -123,29 +139,76 @@ public class Elevator extends SubsystemBase {
      * @param position the position to set the elevator to
      */
     public void setMotionMagic(double position) {
+
+        // Need to set this for PIDError result
+        setElevatorTargetPos(position);
+
         final MotionMagicVoltage elevatorMotionMagic = new MotionMagicVoltage(position);
         elevatorMotor.setControl(elevatorMotionMagic);
     }
 
     /**
-     * Sets the cruise velocity of the elevator in ticks per 100ms
+     * Update the motor configuration for Motion Magic
+     * All parameters must be set, no default
+     * Typically used when we want to use different configuratinos for going up vs going down
      *
-     * @param rotationsPersecond the cruise velocity of the elevator in Rotations Per second
+     * @param velocity max velocity to use for motion magic config
+     * @param acceleration max acceleration to use for motion magic config
      */
-    public void setCruiseVelocity(int rotationsPersecond) {
-        // new unit (rot/sec)
-        final VelocityDutyCycle elevatorVelocity = new VelocityDutyCycle(0);
-        elevatorMotor.setControl(elevatorVelocity);
+    public void updateMotionMagicParms(double velocity, double acceleration) {
+        // changing the config of the talon is very expensive, causes loop overruns
+        // only update the talon config if it has changed since the last setting
+        if (currVelocity != velocity || currAcceleration != acceleration) {
+            MotionMagicConfigs config = new MotionMagicConfigs();
+            config.MotionMagicCruiseVelocity = velocity;
+            config.MotionMagicAcceleration = acceleration;
+            elevatorMotor.getConfigurator().apply(config);
+
+            // update the current values for future comparison
+            currVelocity = velocity;
+            currAcceleration = acceleration;
+        }
     }
 
+    /**
+     * Confgure the elevator motor for motion magic going up
+     */
+    public void configMotionMagicUp() {
+        updateMotionMagicParms(Constants.Elevator.MAX_VELOCITY, Constants.Elevator.MAX_ACCELERATION);
+    }
+
+    /**
+     * Confgure the elevator motor for motion magic going down
+     */
+    public void configMotionMagicDown() {
+        updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
+    }
+
+    /**
+     * sets the class local elevator target position
+     * Used for comparing current position to target position to
+     * determine if the elevator has reached its desired position
+     *
+     * @param pos target position of the elevator
+     */
     public void setElevatorTargetPos(double pos) {
         elevatorTargetPos = pos;
     }
 
+    /**
+     * Determines if Motion Magic has reached its desired position within tolerance
+     *
+     * @return true Motion Magic has reached its desired position within tolerance, false if not
+     */
     public boolean isMotionMagicFinished() {
         return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
     }
 
+    /**
+     * gets the motor output voltage
+     *
+     * @return voltage (in units of volts)
+     */
     public double getOutputVoltage() {
         return elevatorMotor.getMotorVoltage().getValueAsDouble();
     }
@@ -182,20 +245,16 @@ public class Elevator extends SubsystemBase {
         // changing the config of the talon is very expensive, causes loop overruns
         // only update the talon config if it has changed since the last setting
         if (softLimitEnabled != state) {
-            TalonFXConfiguration config = new TalonFXConfiguration();
+            SoftwareLimitSwitchConfigs config = new SoftwareLimitSwitchConfigs();
 
-            config.SoftwareLimitSwitch.ReverseSoftLimitEnable = state;
+            config.ReverseSoftLimitEnable = state;
             elevatorMotor.getConfigurator().apply(config);
             softLimitEnabled = state;
         }
     }
 
-    public double getValue() {
-        return elevatorMotor.getMotorVoltage().getValueAsDouble();
-    }
-
     /**
-     * Zeroes the elevator encoder
+     * Zeros the elevator encoder
      */
     public void zeroEncoder() {
         elevatorMotor.setPosition(0);
@@ -208,6 +267,26 @@ public class Elevator extends SubsystemBase {
      */
     public boolean isElevatorMotorHot(){
         return elevatorMotor.getDeviceTemp().getValueAsDouble() >= Constants.MotorTemps.ELEVATOR_WARNING_MOTOR_TEMP;
+    }
+
+    public boolean isStalled() {
+        //If the elevator has moved less than 1 rotation
+        //since the last cycle, increment the stall count
+        //Don't detect a stall if outputting less than feedforward
+        //This prevents detection during PIDHold
+//        System.out.println(Math.abs(getPosition()) - stallLastPosition);
+//        if (Math.abs(getPosition()) - stallLastPosition < 0.4 && getOutputPercent() > Constants.Elevator.PID_HOLD_FF * 1.25) {
+//            //don't reset stall last position here
+//            //because it could just be moving slowly
+//            stallCount++;
+//        } else {
+//            stallLastPosition = getPosition();
+//            stallCount = 0;
+//        }
+
+//        if( stallCount >= 10)
+//          return stallCount >= 10;
+        return false;
     }
 
     /**
@@ -232,7 +311,7 @@ public class Elevator extends SubsystemBase {
         config.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
         config.SoftwareLimitSwitch.ReverseSoftLimitThreshold = Constants.Elevator.MIN_POS;
         config.SoftwareLimitSwitch.ForwardSoftLimitThreshold = Constants.Elevator.MAX_POS;
-        softLimitEnabled = true;
+
 
         /*   Motion Magic configuration  */
         // Motion magic config values

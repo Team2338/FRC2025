@@ -2,6 +2,8 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.RobotMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset180;
 
@@ -39,10 +41,10 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Reset180", new Reset180());
 
-//        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
-    }
+        SmartDashboard.putBoolean("Elevator Stall", Robot.elevator.isStalled());
 
-    //adds autos to select
+        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+    }
 
     /**
      * Widgets which are updated periodically should be placed here
@@ -59,7 +61,7 @@ public class UiSmartDashboard {
 
         SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
         SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
-        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotModeManual());
+        SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotMode() == RobotMode.STANDARD_OP);
         SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
 
         // Update Diagnostics tab
@@ -73,5 +75,4 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());
         SmartDashboard.putBoolean("Shooter/Reef R", Robot.shooter.sensorRightActive());
     }
-
 }

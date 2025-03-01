@@ -80,7 +80,7 @@ public final class Constants {
 
         public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SECOND = 3;
 
-        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 8 * Math.PI;
+        public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION_UNITS_PER_SECOND = 6 * Math.PI;
 
         public static final double TURNING_MOTOR_GEAR_RATIO = 1.0 / 18.0;
 
@@ -163,7 +163,7 @@ public final class Constants {
         public static final double SLOW_DRIVE_RPM = 3500;
 
         public static final double COAST_SPEED_METERS_PER_SECOND = 0.60 * ModuleConstantsMK3.PHYSICAL_MAX_SPEED_METERS_PER_SECOND;
-
+        
         public static final double BOOST_SPEED_METERS_PER_SECOND = BOOST_DRIVE_RPM *
                 (Math.PI * ModuleConstantsMK3.WHEEL_DIAMETER_METERS) /
                 (60.0 * ModuleConstantsMK3.GEAR_RATIO);
@@ -253,17 +253,13 @@ public final class Constants {
     public static final class Climber {
         public static final double DEPLOY_PERCENT = 1.00;
         public static final double CLIMB_PERCENT = 0.75;
-        public static final double FORWARD_SOFT_LIMIT = 330;
-        public static final double REVERSE_SOFT_LIMIT = 145;
-        public static final double PISTON_DEPLOY_POS = 290;
+        public static final double FORWARD_SOFT_LIMIT = 354; //332;
+        public static final double REVERSE_SOFT_LIMIT = 135;
+        public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
     }
 
     public static final class Elevator{
         public static final double PID_HOLD_FF = 0.033 ; // percent motor controller for simple FF PID, roughly (12*0.033) = 0.4 volts
-        public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
-        public static final double ELEVATOR_KI = 0;
-        public static final double ELEVATOR_KD = 0;
-        public static final double ELEVATOR_KS = 1.0; // in volts (just enough to get it moving)
         public static final double ELEVATOR_KP_HOLD = 0;
         public static final double ELEVATOR_KI_HOLD = 0;
         public static final double ELEVATOR_KD_HOLD = 0;
@@ -271,10 +267,18 @@ public final class Constants {
         public static final double ZERO_OFFSET_TICKS = 1;
         public static final double MAX_POS = 61;
         public static final double MIN_POS = 0;
-        public static final int MAX_VELOCITY = 40;
+
+        // Motion Magic
+        public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
+        public static final double ELEVATOR_KI = 0;
+        public static final double ELEVATOR_KD = 0;
+        public static final double ELEVATOR_KS = 1.0; // in volts (just enough to get it moving)
+        public static final int MAX_VELOCITY = 65;
+        public static final int REV_MAX_VELOCITY = 50;
+        public static final double MAX_ACCELERATION = 130;
+        public static final double REV_MAX_ACCELERATION = 80;
+
         public static final double PID_TOLERANCE = 0.1;
-        public static final double MAX_ACCELERATION = 80;
-        public static final int REV_MAX_VELOCITY = 1;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 

@@ -202,6 +202,23 @@
               "true_icon": "None",
               "false_icon": "None"
             }
+          },
+          {
+            "title": "ElevatorStalled",
+            "x": 384.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/ElevatorStalled",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4294901764,
+              "false_color": 4279762688,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
           }
         ]
       }

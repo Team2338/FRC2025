@@ -3,12 +3,13 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
+import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableBoost;
@@ -110,26 +111,28 @@ public class OI {
          */
 
         // driver controls
-        dBack.and(dDPadDown).onTrue(new Reset0());
-        dBack.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
-        dBack.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
-        dA.whileTrue(new RepeatCommand(new InstantCommand(Robot.swerveDrive::modulesTo90)));
+        dStart.and(dDPadUp).onTrue(new Reset0());
+        dStart.and(dDPadDown).onTrue(new Reset180());
+        dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dRTrigger.whileTrue(new Shoot());
-        //dRBump.whileTrue(new EnableRobotOrientedMode());
-        dLStickBtn.whileTrue(new EnableBoost());
+        dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
+        dRBump.whileTrue(new EnableRobotOrientedMode());
 
-        aBack.and(aDPadDown).onTrue(new Reset0());
-        aBack.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
-        aBack.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        // aux controls
+        aStart.and(aDPadUp).onTrue(new Reset0());
+        aStart.and(aDPadDown).onTrue(new Reset180());
+        aStart.and(aDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
+        aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aDPadUp.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadLeft.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadDown.and(aBack.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
         aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
 
         //test sys id for elevator, delete later
