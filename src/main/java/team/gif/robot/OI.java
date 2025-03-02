@@ -134,6 +134,8 @@ public class OI {
         aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
         aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
         aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
+        aLTrigger.onTrue(new InstantCommand(Robot.grabber::deploy));
+        aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));
 
         //test sys id for elevator, delete later
         //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));
