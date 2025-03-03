@@ -25,8 +25,6 @@ public class ClimberClimb extends Command {
             Robot.climber.setPistonOut();
         }
 
-        //cancels all commands from elevator while this command runs
-        Robot.elevator.getCurrentCommand().cancel();
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
