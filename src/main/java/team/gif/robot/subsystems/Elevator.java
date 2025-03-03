@@ -201,7 +201,7 @@ public class Elevator extends SubsystemBase {
      * @return true Motion Magic has reached its desired position within tolerance, false if not
      */
     public boolean isMotionMagicFinished() {
-        return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
+        return Math.abs(PIDError()) < Constants.Elevator.MOTION_MAGIC_TOLERANCE;
     }
 
     /**
@@ -215,7 +215,7 @@ public class Elevator extends SubsystemBase {
             return false;
         }
 
-        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.PID_TOLERANCE;
+        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.SHOOT_TOLERANCE;
     }
 
     /**
