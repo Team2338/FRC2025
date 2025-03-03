@@ -278,7 +278,7 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 130;
         public static final double REV_MAX_ACCELERATION = 80;
 
-        public static final double PID_TOLERANCE = 0.1;
+        public static final double PID_TOLERANCE = 0.3;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 

@@ -205,6 +205,20 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
+     * Determines if the elevator is up and at its target position. Will return false if
+     * the elevator is all the way down at the collector position
+     *
+     * @return true if the elevator is up ready to shoot, false if not
+     */
+    public boolean isReadyToShoot() {
+        if(getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
+            return false;
+        }
+
+        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.PID_TOLERANCE;
+    }
+
+    /**
      * gets the motor output voltage
      *
      * @return voltage (in units of volts)

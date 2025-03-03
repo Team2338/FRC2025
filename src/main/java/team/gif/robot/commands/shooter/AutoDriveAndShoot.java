@@ -52,7 +52,7 @@ public class AutoDriveAndShoot extends Command {
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return hasTarget;
+        return Robot.elevator.isReadyToShoot() && hasTarget;
     }
 
     // Called when the command ends or is interrupted.
@@ -62,7 +62,7 @@ public class AutoDriveAndShoot extends Command {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
 
         // only shoot if the robot found the target during the command
-        if (hasTarget) {
+        if (Robot.elevator.isReadyToShoot() && hasTarget) {
             // run the shooter using the standard shoot command and return the elevator
             new SequentialCommandGroup(
                     new Shoot(),
