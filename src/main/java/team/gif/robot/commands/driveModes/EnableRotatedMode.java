@@ -5,18 +5,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 
-public class EnableRobotOrientedMode extends Command {
+public class EnableRotatedMode extends Command {
 
-    public EnableRobotOrientedMode() {
+    public EnableRotatedMode() {
         super();
-        //addRequirements(Robot.climber); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("Robot Oriented Enabled w/ " + DriverStation.getMatchTime() + " remaining");
-        Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        System.out.println("Robot Rotated Mode Enabled w/ " + DriverStation.getMatchTime() + " remaining");
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_ROT);
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -32,7 +31,7 @@ public class EnableRobotOrientedMode extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Robot Oriented Disabled w/" +  DriverStation.getMatchTime() + " remaining");
+        System.out.println("Robot Rotated Mode Disabled w/" +  DriverStation.getMatchTime() + " remaining");
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }

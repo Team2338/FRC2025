@@ -11,7 +11,7 @@ import team.gif.robot.commands.Rumble;
 import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
-import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.driveModes.EnableRotatedMode;
 import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
@@ -123,7 +123,7 @@ public class OI {
         dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dRBump.whileTrue(new EnableRotatedMode());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());
