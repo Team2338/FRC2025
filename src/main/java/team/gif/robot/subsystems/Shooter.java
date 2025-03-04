@@ -7,6 +7,7 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,14 +20,16 @@ public class Shooter extends SubsystemBase {
     private static VictorSPX indexer;
     private DigitalInput indexerSensor;
     private DigitalInput exitSensor;
-    private static ToFSensor sensorLeft;
-    private static ToFSensor sensorRight;
+    private static ToFSensor reefSensorLeft;
+    private static ToFSensor reefSensorRight;
 
+    private Debouncer reefSensorLeftDebouncer;
+    private Debouncer reefSensorRightDebouncer;
 
     public Shooter() {
         shooter = new VictorSPX(RobotMap.SHOOTER_MOTOR_ID);
-        sensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
-        sensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
+        reefSensorLeft = new ToFSensor(RobotMap.REEF_LEFT_SENSOR_ID);
+        reefSensorRight = new ToFSensor(RobotMap.REEF_RIGHT_SENSOR_ID);
         shooter.configFactoryDefault();
         shooter.setNeutralMode(NeutralMode.Coast);
         shooter.setInverted(true);
@@ -38,6 +41,9 @@ public class Shooter extends SubsystemBase {
 
         indexerSensor = new DigitalInput(RobotMap.INDEXER_GP_SENSOR_PORT);
         exitSensor = new DigitalInput(RobotMap.EXIT_GP_SENSOR_PORT);
+
+        reefSensorLeftDebouncer = new Debouncer(Constants.Shooter.REEF_SENSOR_DEBOUNCE_SECS, Debouncer.DebounceType.kRising);
+        reefSensorRightDebouncer = new Debouncer(Constants.Shooter.REEF_SENSOR_DEBOUNCE_SECS, Debouncer.DebounceType.kRising);
 
         // todo: remove once specific values are determined
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, Constants.Shooter.SHOOT_PERCENT);
@@ -79,11 +85,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getLeftD() {
-        return sensorLeft.getDistance();
+        return reefSensorLeft.getDistance();
     }
 
     public double getRightD() {
-        return sensorRight.getDistance();
+        return reefSensorRight.getDistance();
     }
 
     /**
@@ -95,13 +101,13 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean sensorLeftActive() {
-        double sensorDistance = sensorLeft.getDistance();
-        return sensorDistance < Constants.Shooter.REEF_SENSOR_TARGET_DISTANCE_MM && sensorDistance > 0;
+        double sensorDistance = reefSensorLeft.getDistance();
+        return reefSensorLeftDebouncer.calculate(sensorDistance < Constants.Shooter.REEF_SENSOR_TARGET_DISTANCE_MM && sensorDistance > 0);
     }
 
     public boolean sensorRightActive() {
-        double sensorDistance = sensorRight.getDistance();
-        return sensorDistance < Constants.Shooter.REEF_SENSOR_TARGET_DISTANCE_MM && sensorDistance > 0;
+        double sensorDistance = reefSensorRight.getDistance();
+        return reefSensorRightDebouncer.calculate(sensorDistance < Constants.Shooter.REEF_SENSOR_TARGET_DISTANCE_MM && sensorDistance > 0);
     }
 
     /**

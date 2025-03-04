@@ -9,13 +9,18 @@ public class ClimberClimb extends Command {
 
     public ClimberClimb() {
         super();
+
         addRequirements(Robot.climber, Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        // Disable the elevator when climbing preventing the aux from accidentally raising the elevator
+        // Do not re-enable at the end of the command. Want to keep elevator disabled until
+        // aux toggles manaul mode. Although Deploy called this, it is possible aux toggled manual
+        // control after deploying so make sure the elevator continues to be disabled
+        Robot.elevator.disableElevator();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
@@ -24,10 +29,12 @@ public class ClimberClimb extends Command {
         Robot.climber.move(-Constants.Climber.CLIMB_PERCENT);
 
         // deploy the piston when the climber reaches a predetermined set point
+        // and only call it once
 //        if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
-//        if (!Robot.climber.getPistonStateOut()) {
-            Robot.climber.setPistonOut();
-//        }
+        Robot.climber.setPistonOut();
+
+        // Drive forward at a slow speed to assist in the climb
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_ROT);
         Robot.swerveDrive.drive(0, Constants.Climber.DRIVE_SPEED_MPS, 0);
     }
 

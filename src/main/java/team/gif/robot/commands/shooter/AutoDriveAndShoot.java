@@ -30,14 +30,15 @@ public class AutoDriveAndShoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hasTarget = false;
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        hasTarget = Robot.shooter.isShooterAligned();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.isShooterAligned() && !hasTarget) {
+        if (hasTarget) {
+            Robot.swerveDrive.stopDrive();
             hasTarget = true;
         } else {
             boolean inverted = moveRight;
@@ -45,13 +46,15 @@ public class AutoDriveAndShoot extends Command {
             inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
             double speed = Constants.Shooter.ALIGN_STRAFE_SPEED_MPS * (inverted ? -1 : 1);
             Robot.swerveDrive.drive(0, speed, 0.0);
+
+            hasTarget = Robot.shooter.isShooterAligned();
         }
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return hasTarget;
+        return Robot.elevator.isReadyToShoot() && hasTarget;
     }
 
     // Called when the command ends or is interrupted.
@@ -61,7 +64,7 @@ public class AutoDriveAndShoot extends Command {
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
 
         // only shoot if the robot found the target during the command
-        if (hasTarget) {
+        if (Robot.elevator.isReadyToShoot() && hasTarget) {
             // Run the shooter using the standard shoot command and return the elevator
             // The "drive away" and "move the elevator" need to be in separate schedulers
             // or the driver won't be able to move the robot until the move elevator command
@@ -69,9 +72,7 @@ public class AutoDriveAndShoot extends Command {
             // Effectively, this executes the drive away and moving of the elevator at the same time
             new SequentialCommandGroup(
                     new Shoot(),
-//                    new ParallelDeadlineGroup( // running these in parallel provides plenty of time to clear
-                            new ShortDriveAway()
-//                            new StopModules())
+                    new ShortDriveAway()
             ).schedule();
             new SequentialCommandGroup(
                     new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms

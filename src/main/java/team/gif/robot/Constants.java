@@ -248,8 +248,10 @@ public final class Constants {
 
         public static final int SHOOT_CYCLES = 12;
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
-        public static final double ALIGN_STRAFE_SPEED_MPS = 0.3; //Meters per Second
+        public static final double ALIGN_STRAFE_SPEED_MPS = 0.30; //Meters per Second
         public static final double AUTON_STRAFE_SPEED_MPS = 0.15; //Meters per Second
+
+        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.040;
     }
 
     public static final class Climber {
@@ -281,7 +283,8 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 130;
         public static final double REV_MAX_ACCELERATION = 80;
 
-        public static final double PID_TOLERANCE = 0.1;
+        public static final double SHOOT_TOLERANCE = 0.3;
+        public static final double MOTION_MAGIC_TOLERANCE = 0.1;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 

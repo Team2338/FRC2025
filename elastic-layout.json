@@ -9,7 +9,7 @@
         "containers": [
           {
             "title": "Delay",
-            "x": 0.0,
+            "x": 512.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -52,7 +52,7 @@
           },
           {
             "title": "Auto",
-            "x": 128.0,
+            "x": 640.0,
             "y": 384.0,
             "width": 256.0,
             "height": 128.0,
@@ -115,7 +115,7 @@
               "topic": "/SmartDashboard/Mode(Std)",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4279537940,
+              "true_color": 4283215696,
               "false_color": 4294901760,
               "true_icon": "None",
               "false_icon": "None"
@@ -137,7 +137,7 @@
           },
           {
             "title": "Index",
-            "x": 640.0,
+            "x": 768.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -147,14 +147,14 @@
               "period": 0.06,
               "data_type": "boolean",
               "true_color": 4283215696,
-              "false_color": 4289280827,
+              "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
             }
           },
           {
             "title": "Shooter",
-            "x": 640.0,
+            "x": 768.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
@@ -213,20 +213,6 @@
               "false_color": 4289280827,
               "true_icon": "None",
               "false_icon": "None"
-            }
-          },
-          {
-            "title": "FL Rot Output",
-            "x": 768.0,
-            "y": 256.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve/FL Rot Output",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
             }
           }
         ]
@@ -582,66 +568,6 @@
               "topic": "/SmartDashboard/Swerve/FL Heading",
               "period": 0.06,
               "counter_clockwise_positive": false
-            }
-          },
-          {
-            "title": "FL Rot Output",
-            "x": 1024.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Graph",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve/FL Rot Output",
-              "period": 0.033,
-              "data_type": "double",
-              "time_displayed": 5.0,
-              "color": 4278238420,
-              "line_width": 2.0
-            }
-          },
-          {
-            "title": "FR Rot Output",
-            "x": 1280.0,
-            "y": 0.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve/FR Rot Output",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
-            "title": "RL Rot Output",
-            "x": 1024.0,
-            "y": 256.0,
-            "width": 384.0,
-            "height": 256.0,
-            "type": "Graph",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve/RL Rot Output",
-              "period": 0.033,
-              "data_type": "double",
-              "time_displayed": 5.0,
-              "color": 4278238420,
-              "line_width": 2.0
-            }
-          },
-          {
-            "title": "RR Rot Output",
-            "x": 1408.0,
-            "y": 0.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve/RR Rot Output",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
             }
           }
         ]

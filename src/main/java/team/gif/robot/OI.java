@@ -2,6 +2,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -10,7 +11,7 @@ import team.gif.robot.commands.Rumble;
 import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
-import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.driveModes.EnableRotatedMode;
 import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
@@ -18,7 +19,6 @@ import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
-
 
 public class OI {
     /*
@@ -123,7 +123,7 @@ public class OI {
         dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dRBump.whileTrue(new EnableRotatedMode());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());
@@ -134,11 +134,13 @@ public class OI {
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
-        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
-
+        // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns
+        // to elevator defalt command which is PID mode, so need to restart ElevatorManualMode
+        aLBump.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
 
         //test sys id for elevator, delete later

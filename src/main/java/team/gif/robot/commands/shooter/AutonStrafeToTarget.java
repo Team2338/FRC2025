@@ -28,7 +28,7 @@ public class AutonStrafeToTarget extends Command {
         // This makes sure the sensors don't trip if the robot lined up
         // correctly and is still raising the elevator
         // Since this only runs in auto, safe to just chcek height of level 4
-        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - 0.3 ) {
+        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - Constants.Elevator.SHOOT_TOLERANCE) {
             return;
         }
 

@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -185,6 +186,34 @@ public class Elevator extends SubsystemBase {
     }
 
     /**
+     * Disable the elevator (by setting all the motion magic pid values to 0)
+     */
+    public void disableElevator() {
+        // Slot 0 (Motion Magic) PID values
+        Slot0Configs config = new Slot0Configs();
+
+        config.kP = 0;
+        config.kI = 0;
+        config.kD = 0;
+        config.kS = 0;
+        elevatorMotor.getConfigurator().apply(config);
+    }
+
+    /**
+     * Enables the elevator after the disableElevator function was called
+     */
+    public void enableElevator() {
+        // Slot 0 (Motion Magic) PID values
+        Slot0Configs config = new Slot0Configs();
+
+        config.kP = Constants.Elevator.ELEVATOR_KP;
+        config.kI = Constants.Elevator.ELEVATOR_KI;
+        config.kD = Constants.Elevator.ELEVATOR_KD;
+        config.kS = Constants.Elevator.ELEVATOR_KS;
+        elevatorMotor.getConfigurator().apply(config);
+    }
+
+    /**
      * sets the class local elevator target position
      * Used for comparing current position to target position to
      * determine if the elevator has reached its desired position
@@ -201,7 +230,21 @@ public class Elevator extends SubsystemBase {
      * @return true Motion Magic has reached its desired position within tolerance, false if not
      */
     public boolean isMotionMagicFinished() {
-        return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
+        return Math.abs(PIDError()) < Constants.Elevator.MOTION_MAGIC_TOLERANCE;
+    }
+
+    /**
+     * Determines if the elevator is up and at its target position. Will return false if
+     * the elevator is all the way down at the collector position
+     *
+     * @return true if the elevator is up ready to shoot, false if not
+     */
+    public boolean isReadyToShoot() {
+        if (getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
+            return false;
+        }
+
+        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.SHOOT_TOLERANCE;
     }
 
     /**
