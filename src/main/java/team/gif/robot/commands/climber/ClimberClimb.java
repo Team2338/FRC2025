@@ -9,6 +9,7 @@ public class ClimberClimb extends Command {
 
     public ClimberClimb() {
         super();
+
         addRequirements(Robot.climber, Robot.swerveDrive);
     }
 
@@ -29,11 +30,11 @@ public class ClimberClimb extends Command {
 
         // deploy the piston when the climber reaches a predetermined set point
         // and only call it once
-        if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
-            Robot.climber.setPistonOut();
-        }
+//        if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
+        Robot.climber.setPistonOut();
 
         // Drive forward at a slow speed to assist in the climb
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_ROT);
         Robot.swerveDrive.drive(0, Constants.Climber.DRIVE_SPEED_MPS, 0);
     }
 
