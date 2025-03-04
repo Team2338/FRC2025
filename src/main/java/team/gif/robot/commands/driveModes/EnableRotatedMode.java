@@ -9,13 +9,12 @@ public class EnableRotatedMode extends Command {
 
     public EnableRotatedMode() {
         super();
-        //addRequirements(Robot.climber); // uncomment
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("Robot Oriented Enabled w/ " + DriverStation.getMatchTime() + " remaining");
+        System.out.println("Robot Rotated Mode Enabled w/ " + DriverStation.getMatchTime() + " remaining");
         Robot.swerveDrive.setDrivePace(drivePace.COAST_ROT);
     }
 
@@ -32,7 +31,7 @@ public class EnableRotatedMode extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Robot Oriented Disabled w/" +  DriverStation.getMatchTime() + " remaining");
+        System.out.println("Robot Rotated Mode Disabled w/" +  DriverStation.getMatchTime() + " remaining");
         Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }
