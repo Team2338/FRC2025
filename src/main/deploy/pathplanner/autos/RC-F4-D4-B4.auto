@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rc-e4"
+            "pathName": "rc-e4-LL"
           }
         },
         {
@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "e-coral"
+                        "pathName": "f-coral-LL"
                       }
                     },
                     {
@@ -58,7 +58,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-c4"
+                        "pathName": "coral-d4-LL"
                       }
                     }
                   ]
@@ -90,7 +90,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "c-coral"
+                        "pathName": "d-coral-LL"
                       }
                     },
                     {
@@ -115,7 +115,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-b4"
+                        "pathName": "coral-b4-LL"
                       }
                     }
                   ]
@@ -127,7 +127,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "b-coral"
+            "pathName": "b-coral-LL"
           }
         }
       ]

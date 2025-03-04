@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5307499999999998,
-        "y": 0.6514999999999997
+        "x": 1.608112831745756,
+        "y": 0.7422664011205427
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9926435370128173,
-        "y": 1.1647286594448933
+        "x": 2.24499957110956,
+        "y": 1.433271392470599
       },
       "isLocked": false,
-      "linkedName": "Coral Right"
+      "linkedName": "Coral Right LL"
     },
     {
       "anchor": {
-        "x": 3.6802254098360656,
-        "y": 2.959
+        "x": 3.7419074833937644,
+        "y": 2.9098447741068196
       },
       "prevControl": {
-        "x": 3.2812195650689597,
-        "y": 2.514291348391102
+        "x": 3.533325483264292,
+        "y": 2.669145145246355
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "C Branch"
+      "linkedName": "D Branch LL"
     }
   ],
   "rotationTargets": [],
