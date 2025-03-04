@@ -37,17 +37,17 @@ public class AutonStrafeToTarget extends Command {
 
         // if neither sensor is active, default to moving left
         if (!leftSensor && !rightSensor) {
-            Robot.swerveDrive.drive(0.0, Constants.Shooter.ALIGN_STRAFE_SPEED_MPS, 0.0);
+            Robot.swerveDrive.drive(0.0, Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if only the right sensor is active, move right
         if (!leftSensor && rightSensor) {
-            Robot.swerveDrive.drive(0.0, -Constants.Shooter.ALIGN_STRAFE_SPEED_MPS, 0.0);
+            Robot.swerveDrive.drive(0.0, -Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if only the left sensor is active, move left
         if (leftSensor && !rightSensor) {
-            Robot.swerveDrive.drive(0.0, Constants.Shooter.ALIGN_STRAFE_SPEED_MPS, 0.0);
+            Robot.swerveDrive.drive(0.0, Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if both sensors are active, the robot has the target
