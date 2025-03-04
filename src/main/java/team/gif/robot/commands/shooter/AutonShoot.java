@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.robot.commands.drivetrain.ShortDriveAway;
 import team.gif.robot.commands.drivetrain.StopModules;
-import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class AutonShoot extends SequentialCommandGroup {
     public AutonShoot() {
