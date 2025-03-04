@@ -1,8 +1,10 @@
 package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
@@ -63,15 +65,20 @@ public class AutoDriveAndShoot extends Command {
 
         // only shoot if the robot found the target during the command
         if (hasTarget) {
-            // run the shooter using the standard shoot command and return the elevator
+            // Run the shooter using the standard shoot command and return the elevator
+            // The "drive away" and "move the elevator" need to be in separate schedulers
+            // or the driver won't be able to move the robot until the move elevator command
+            // has completed. Need to delay the elevator until the shooter times out.
+            // Effectively, this executes the drive away and moving of the elevator at the same time
             new SequentialCommandGroup(
                     new Shoot(),
-                    new ParallelRaceGroup( // running these in parallel provides plenty of time to clear
-                            new SequentialCommandGroup(
-                                new ShortDriveAway(),
-                                new StopModules()
-                            ),
-                            new SetElevatorPosition(0))
+//                    new ParallelDeadlineGroup( // running these in parallel provides plenty of time to clear
+                            new ShortDriveAway()
+//                            new StopModules())
+            ).schedule();
+            new SequentialCommandGroup(
+                    new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
+                    new SetElevatorPosition(0)
             ).schedule();
         }
     }

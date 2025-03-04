@@ -1,6 +1,7 @@
 package team.gif.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
@@ -8,12 +9,14 @@ public class ClimberClimb extends Command {
 
     public ClimberClimb() {
         super();
-        addRequirements(Robot.climber);
+        addRequirements(Robot.climber, Robot.swerveDrive);
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
@@ -21,9 +24,11 @@ public class ClimberClimb extends Command {
         Robot.climber.move(-Constants.Climber.CLIMB_PERCENT);
 
         // deploy the piston when the climber reaches a predetermined set point
-        if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
+//        if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
+//        if (!Robot.climber.getPistonStateOut()) {
             Robot.climber.setPistonOut();
-        }
+//        }
+        Robot.swerveDrive.drive(0, Constants.Climber.DRIVE_SPEED_MPS, 0);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -36,5 +41,7 @@ public class ClimberClimb extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.climber.move(0);
+        Robot.swerveDrive.stopDrive();
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }
