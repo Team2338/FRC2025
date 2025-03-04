@@ -247,7 +247,7 @@ public final class Constants {
         public static final double STAGE_PERCENT = 0.50; // todo: initial good - needs testing and final number
 
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
-        public static final double ALIGN_STRAFE_SPEED_MPS = 0.15; //Meters per Second
+        public static final double ALIGN_STRAFE_SPEED_MPS = 0.3; //Meters per Second
     }
 
     public static final class Climber {
