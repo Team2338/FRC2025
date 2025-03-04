@@ -34,7 +34,7 @@ public class DriveSwerve extends Command {
 
             // During robot oriented mode (_RR), make climber the front of the bot (rotate forward and strafe 90 degrees)
             // This only occurs when using joysticks since DriveSwerve is for joystick response
-            if (Robot.swerveDrive.getDrivePace() == drivePace.COAST_RR) {
+            if (Robot.swerveDrive.getDrivePace() == drivePace.COAST_ROT) {
                 double forwardStore = forward;
                 double strafeStore = strafe;
                 forward = -strafeStore;

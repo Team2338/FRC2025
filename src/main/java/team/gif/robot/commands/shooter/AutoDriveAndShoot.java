@@ -72,9 +72,7 @@ public class AutoDriveAndShoot extends Command {
             // Effectively, this executes the drive away and moving of the elevator at the same time
             new SequentialCommandGroup(
                     new Shoot(),
-//                    new ParallelDeadlineGroup( // running these in parallel provides plenty of time to clear
-                            new ShortDriveAway()
-//                            new StopModules())
+                    new ShortDriveAway()
             ).schedule();
             new SequentialCommandGroup(
                     new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
