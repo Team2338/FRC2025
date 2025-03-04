@@ -239,6 +239,6 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
 
-        elevator.enabElevator();
+        elevator.enableElevator();
     }
 }

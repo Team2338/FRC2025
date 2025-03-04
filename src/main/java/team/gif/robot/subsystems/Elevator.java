@@ -202,7 +202,7 @@ public class Elevator extends SubsystemBase {
     /**
      * Enables the elevator after the disableElevator function was called
      */
-    public void enabElevator() {
+    public void enableElevator() {
         // Slot 0 (Motion Magic) PID values
         Slot0Configs config = new Slot0Configs();
 
