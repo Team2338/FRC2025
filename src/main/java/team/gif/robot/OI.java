@@ -130,6 +130,8 @@ public class OI {
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
+        // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns
+        // to elevator defalt command which is PID mode, so need to restart ElevatorManualMode
         aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
