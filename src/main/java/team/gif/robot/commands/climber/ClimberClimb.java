@@ -13,7 +13,13 @@ public class ClimberClimb extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        // Disable the elevator when climbing preventing the aux from accidentally raising the elevator
+        // Do not re-enable at the end of the command. Want to keep elevator disabled until
+        // aux toggles manaul mode. Although Deploy called this, it is possible aux toggled manual
+        // control after deploying so make sure the elevator continues to be disabled
+        Robot.elevator.disableElevator();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
