@@ -134,10 +134,10 @@ public class OI {
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
-        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
+        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
 
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
 
