@@ -249,6 +249,8 @@ public final class Constants {
         public static final int SHOOT_CYCLES = 12;
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.30; //Meters per Second
+
+        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.040;
     }
 
     public static final class Climber {

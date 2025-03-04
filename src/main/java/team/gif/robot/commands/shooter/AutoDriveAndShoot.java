@@ -30,14 +30,15 @@ public class AutoDriveAndShoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hasTarget = false;
         Robot.swerveDrive.setDrivePace(drivePace.COAST_RR);
+        hasTarget = Robot.shooter.isShooterAligned();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        if (Robot.shooter.isShooterAligned() && !hasTarget) {
+        if (hasTarget) {
+            Robot.swerveDrive.stopDrive();
             hasTarget = true;
         } else {
             boolean inverted = moveRight;
@@ -45,6 +46,8 @@ public class AutoDriveAndShoot extends Command {
             inverted = Robot.pigeon.get360Heading() > 90 && Robot.pigeon.get360Heading() < 270 ? !inverted : inverted;
             double speed = Constants.Shooter.ALIGN_STRAFE_SPEED_MPS * (inverted ? -1 : 1);
             Robot.swerveDrive.drive(0, speed, 0.0);
+
+            hasTarget = Robot.shooter.isShooterAligned();
         }
     }
 

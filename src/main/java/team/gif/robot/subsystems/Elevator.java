@@ -240,7 +240,7 @@ public class Elevator extends SubsystemBase {
      * @return true if the elevator is up ready to shoot, false if not
      */
     public boolean isReadyToShoot() {
-        if(getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
+        if (getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
             return false;
         }
 
