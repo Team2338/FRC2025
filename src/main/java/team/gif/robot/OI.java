@@ -2,9 +2,11 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.lib.RobotMode;
 import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
@@ -16,6 +18,8 @@ import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
+
+import java.util.function.BooleanSupplier;
 
 
 public class OI {
@@ -130,10 +134,14 @@ public class OI {
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
-        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
+//        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+//        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
+//        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+//        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
+        aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aLBump.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
 
         //test sys id for elevator, delete later
         //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));

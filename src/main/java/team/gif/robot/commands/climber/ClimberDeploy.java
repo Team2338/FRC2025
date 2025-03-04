@@ -15,17 +15,14 @@ public class ClimberDeploy extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //cancels all commands from elevator when this command is called
-        Robot.elevator.getCurrentCommand().cancel();
-        Robot.elevator.removeDefaultCommand();
+        //disable the elevator when climbing preventing the aux from accidentally raising the elevator
+        Robot.elevator.disableElevator();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
         Robot.climber.move(Constants.Climber.DEPLOY_PERCENT);
-
-
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

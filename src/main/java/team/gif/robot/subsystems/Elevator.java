@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -182,6 +183,34 @@ public class Elevator extends SubsystemBase {
      */
     public void configMotionMagicDown() {
         updateMotionMagicParms(Constants.Elevator.REV_MAX_VELOCITY, Constants.Elevator.REV_MAX_ACCELERATION);
+    }
+
+    /**
+     * Disable the elevator (by setting all the motion magic pid values to 0)
+     */
+    public void disableElevator() {
+        // Slot 0 (Motion Magic) PID values
+        Slot0Configs config = new Slot0Configs();
+
+        config.kP = 0;
+        config.kI = 0;
+        config.kD = 0;
+        config.kS = 0;
+        elevatorMotor.getConfigurator().apply(config);
+    }
+
+    /**
+     * Enables the elevator after the disableElevator function was called
+     */
+    public void enabElevator() {
+        // Slot 0 (Motion Magic) PID values
+        Slot0Configs config = new Slot0Configs();
+
+        config.kP = Constants.Elevator.ELEVATOR_KP;
+        config.kI = Constants.Elevator.ELEVATOR_KI;
+        config.kD = Constants.Elevator.ELEVATOR_KD;
+        config.kS = Constants.Elevator.ELEVATOR_KS;
+        elevatorMotor.getConfigurator().apply(config);
     }
 
     /**

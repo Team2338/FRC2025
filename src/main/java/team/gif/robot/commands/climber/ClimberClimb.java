@@ -13,7 +13,10 @@ public class ClimberClimb extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        //disable the elevator when climbing preventing the aux from accidentally raising the elevator
+        Robot.elevator.disableElevator();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
@@ -24,7 +27,6 @@ public class ClimberClimb extends Command {
         if (Robot.climber.getPosition() < Constants.Climber.PISTON_DEPLOY_POS && !Robot.climber.getPistonStateOut()) {
             Robot.climber.setPistonOut();
         }
-
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.

@@ -225,6 +225,10 @@ public class Robot extends TimedRobot {
         return robotMode;
     }
 
+    public static boolean isRobotInStandardOpMode() {
+        return robotMode == RobotMode.STANDARD_OP;
+    }
+
     static public void enableRobotModeManual() {
         robotMode = RobotMode.MANUAL;
 
@@ -235,8 +239,6 @@ public class Robot extends TimedRobot {
     static public void enableRobotModeStandardOp() {
         robotMode = RobotMode.STANDARD_OP;
 
-        if (elevator.getDefaultCommand() == null) {
-            elevator.setDefaultCommand(new ElevatorPIDControl());
-        }
+        elevator.enabElevator();
     }
 }
