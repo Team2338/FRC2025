@@ -49,7 +49,6 @@ public class Elevator extends SubsystemBase {
         stallLastPosition = getPosition();
         stallCount = 0;
 
-        //determines if elevator is disabled
         elevatorEnabled = true;
     }
 
@@ -221,7 +220,11 @@ public class Elevator extends SubsystemBase {
         elevatorEnabled = true;
     }
 
-    public boolean elevatorState(){
+    /**
+     *
+     * @return returns true if elevator is unlocked
+     */
+    public boolean getElevatorUnlocked(){
         return elevatorEnabled;
     }
 
