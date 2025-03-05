@@ -64,7 +64,7 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotMode() == RobotMode.STANDARD_OP);
         SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
 
-        SmartDashboard.putBoolean("Disabled", Robot.elevator.elevatorDisabled);
+        SmartDashboard.putBoolean("Enabled", Robot.elevator.elevatorState());
 
         // Update Diagnostics tab
         SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
