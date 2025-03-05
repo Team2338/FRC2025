@@ -83,9 +83,9 @@ public class RobotContainer {
         // create list manually to control sort order
         List<String> autoNames = new ArrayList<>();
         autoNames.add("Mobility");
-        autoNames.add("L-J4-L4");
+        autoNames.add("L-J4-L4-LL");
         autoNames.add("C-H4");
-        autoNames.add("LC-J4-L4");
+        autoNames.add("LC-J4-L4-LL");
         autoNames.add("R-E4-C4");
         autoNames.add("RC-E4-C4");
         autoNames.add("R-F4-D4-LL");
