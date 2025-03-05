@@ -29,6 +29,7 @@ public class AutonStrafeToTarget extends Command {
         // correctly and is still raising the elevator
         // Since this only runs in auto, safe to just chcek height of level 4
         if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - Constants.Elevator.SHOOT_TOLERANCE) {
+            Robot.swerveDrive.stopDrive();
             return;
         }
 
