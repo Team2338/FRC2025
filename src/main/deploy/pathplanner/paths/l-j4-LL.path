@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.15,
-        "y": 7.534999999999599
+        "x": 7.107750000000001,
+        "y": 7.554499999999999
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.5735589411869535,
-        "y": 6.736568065392607
+        "x": 6.4155,
+        "y": 6.735499999999999
       },
       "isLocked": true,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.1365
       },
       "prevControl": {
-        "x": 5.668473554240399,
-        "y": 5.969183468105656
+        "x": 5.546605382259459,
+        "y": 5.829118637157012
       },
       "nextControl": null,
       "isLocked": true,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.5103668261563119,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -53,7 +53,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": -119.99999999999999
   },
   "reversed": false,
