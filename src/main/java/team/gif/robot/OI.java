@@ -125,7 +125,7 @@ public class OI {
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
         dRBump.whileTrue(new EnableRotatedMode());
-        dLTrigger.onTrue(new ShooterReverse());
+        dLTrigger.whileTrue(new ShooterReverse());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());

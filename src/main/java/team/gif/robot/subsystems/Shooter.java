@@ -53,10 +53,6 @@ public class Shooter extends SubsystemBase {
         shooter.set(VictorSPXControlMode.PercentOutput, percent);
     }
 
-    public void reverseShooterMotor(double percent) {
-        shooter.set(VictorSPXControlMode.PercentOutput, percent);
-    }
-
     /**
      * runs the shooter motor at a power percentage determined by value on dashboard
      **/

@@ -13,12 +13,14 @@ public class ShooterReverse extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        Robot.shooter.setShooterBrakeMode();
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.reverseShooterMotor(Constants.Shooter.REINDEX_PERCENT);
+        Robot.shooter.runShooterMotor(-Constants.Shooter.REINDEX_PERCENT);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
@@ -29,5 +31,9 @@ public class ShooterReverse extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {Robot.shooter.stopShooterMotor();}
+    public void end(boolean interrupted) {
+        Robot.shooter.stopShooterMotor();
+        Robot.shooter.stopIndexerMotor();
+        Robot.shooter.setShooterCoastMode();
+    }
 }
