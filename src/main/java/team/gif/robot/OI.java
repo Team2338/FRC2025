@@ -18,6 +18,7 @@ import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.shooter.ShooterReverse;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -124,6 +125,7 @@ public class OI {
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
         dRBump.whileTrue(new EnableRotatedMode());
+        dLTrigger.whileTrue(new ShooterReverse());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());

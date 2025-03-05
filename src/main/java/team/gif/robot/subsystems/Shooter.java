@@ -68,6 +68,8 @@ public class Shooter extends SubsystemBase {
         runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
     }
 
+
+
     /**
      * runs the shooter motor at a power percentage determined by value on dashboard
      **/

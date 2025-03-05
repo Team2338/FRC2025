@@ -244,7 +244,8 @@ public final class Constants {
     public static final class Shooter {
         public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
         public static final double SHOOT_PERCENT = 0.85; // todo: initial good - needs testing and final number
-        public static final double STAGE_PERCENT = 0.50; // todo: initial good - needs testing and final number
+        public static final double STAGE_PERCENT = 0.50;// todo: initial good - needs testing and final number
+        public static final double REINDEX_PERCENT = 0.5;
 
         public static final int SHOOT_CYCLES = 12;
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
