@@ -49,8 +49,9 @@ public class Robot extends TimedRobot {
     public static Pigeon2_0 pigeon;
     public static Compressor compressor;
     public static SwerveDrivetrainMk4 swerveDrive;
-    public static Limelight limelightCollector;
-    public static Limelight limelightShooter;
+    public static Limelight limelightFront;
+    public static Limelight limelightRight;
+    public static Limelight limelightRear;
     public static Shooter shooter;
     public static Climber climber;
     public static Elevator elevator;
@@ -70,8 +71,9 @@ public class Robot extends TimedRobot {
     public Robot() {
         // Instantiate all the framework and device objects
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
-        limelightCollector = new Limelight("limelight-collect");
-        limelightShooter = new Limelight("limelight-shooter");
+        limelightFront = new Limelight("limelight-front");
+        limelightRight = new Limelight("limelight-right");
+        limelightRear = new Limelight("limelight-rear");
 //        swerveDrive = new SwerveDrivetrainMk3();
         swerveDrive = new SwerveDrivetrainMk4();
         swerveDrive.setDefaultCommand(new DriveSwerve());
@@ -195,12 +197,14 @@ public class Robot extends TimedRobot {
 //        System.out.println(++counter);
         uiSmartDashboard.updateUI();
         double heading = pigeon.get360Heading();
+        double yawRate = pigeon.getYawRate();
         var alliance = DriverStation.getAlliance();
         if( alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red ){
             heading = heading - 180;
         }
-        limelightCollector.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
-        limelightShooter.setRobotOrientation(heading, pigeon.getYawRate(), 0, 0, 0, 0);
+        limelightFront.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
+        limelightRight.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
+        limelightRear.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
     }
 
     @Override

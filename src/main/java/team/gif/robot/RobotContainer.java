@@ -86,6 +86,14 @@ public class RobotContainer {
         autoNames.add("L-J4-L4");
         autoNames.add("C-H4");
         autoNames.add("LC-J4-L4");
+        autoNames.add("R-E4-C4");
+        autoNames.add("RC-E4-C4");
+        autoNames.add("R-F4-D4-LL");
+        autoNames.add("RC-F4-D4-LL");
+        autoNames.add("R-F4-D4-B4");
+        autoNames.add("RC-F4-D4-B4");
+
+
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();
