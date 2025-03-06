@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "r-e4-LL"
+            "pathName": "lc-j4-LL"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonShootReset"
           }
         },
         {
@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "f-coral-LL"
+                        "pathName": "j-coral-LL"
                       }
                     },
                     {
@@ -58,19 +58,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-d4-LL"
+                        "pathName": "coral-l4-LL"
                       }
                     }
                   ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
           }
         },
         {
@@ -90,7 +84,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "d-coral-LL"
+                        "pathName": "l-coral-LL"
                       }
                     },
                     {
@@ -115,7 +109,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-b4-LL"
+                        "pathName": "coral-a4-LL"
                       }
                     }
                   ]
@@ -127,13 +121,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonShootReset"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "b-coral-LL"
+            "pathName": "a-coral-LL"
           }
         }
       ]

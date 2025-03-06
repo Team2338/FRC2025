@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.89025,
-        "y": 5.204749999999999
+        "x": 3.1527887456021033,
+        "y": 4.443383228753304
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.337203375345098,
-        "y": 4.890977993457248
+        "x": 3.5149345941450103,
+        "y": 4.023162190904922
       },
       "isLocked": false,
-      "linkedName": "L Branch"
+      "linkedName": "A Branch LL"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.0865
       },
       "prevControl": {
-        "x": 1.0716791062490791,
-        "y": 7.254719498592919
+        "x": 1.187239624046747,
+        "y": 7.326728645508812
       },
       "nextControl": null,
       "isLocked": false,
@@ -60,7 +60,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -59.99999999999999
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
