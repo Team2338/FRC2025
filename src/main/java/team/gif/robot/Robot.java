@@ -24,6 +24,7 @@ import team.gif.robot.subsystems.Climber;
 import team.gif.robot.subsystems.Diagnostics;
 import team.gif.robot.subsystems.Flapper;
 import team.gif.robot.subsystems.Elevator;
+import team.gif.robot.subsystems.Grabber;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.drivers.Limelight;
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     public static Elevator elevator;
     public static Flapper flapper;
+    public static Grabber grabber;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -81,6 +83,8 @@ public class Robot extends TimedRobot {
         climber = new Climber();
         elevator = new Elevator();
         elevator.setDefaultCommand(new ElevatorPIDControl());
+
+        grabber = new Grabber();
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
