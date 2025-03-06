@@ -144,6 +144,8 @@ public class OI {
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
+        aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));
+        aLTrigger.onTrue(new InstantCommand(Robot.grabber::deploy));
 
         //test sys id for elevator, delete later
         //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));

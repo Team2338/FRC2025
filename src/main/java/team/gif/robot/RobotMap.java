@@ -59,6 +59,9 @@ public abstract class RobotMap {
     public static final int CLIMBER_SOLENOID_IN_PORT = 5;
     public static final int CLIMBER_SOLENOID_OUT_PORT = 4;
 
+    //Grabber
+    public static final int GRABBER_SOLENOID_PORT = 6;
+
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";
