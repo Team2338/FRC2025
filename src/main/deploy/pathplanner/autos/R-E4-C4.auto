@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "l-j4"
+            "pathName": "r-e4"
           }
         },
         {
@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "j-coral-LL"
+                        "pathName": "e-coral"
                       }
                     },
                     {
@@ -58,7 +58,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-l4-LL"
+                        "pathName": "coral-c4"
                       }
                     }
                   ]
@@ -76,7 +76,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "l-coral-LL"
+            "pathName": "c-coral"
           }
         }
       ]

@@ -113,29 +113,39 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         );
 
 
-        LimelightHelpers.PoseEstimate collectEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-collect");
-        LimelightHelpers.PoseEstimate shooterEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-shooter");
-        boolean ignoreCollectEstimate = true;
-        boolean ignoreShooterEstimate = true;
+        LimelightHelpers.PoseEstimate frontEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
+        LimelightHelpers.PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
+        LimelightHelpers.PoseEstimate rearEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-rear");
+        boolean ignoreFrontEstimate = true;
+        boolean ignoreRightEstimate = true;
+        boolean ignoreRearEstimate = true;
         double yawRate = Robot.pigeon.getYawRate();
 
-        if(collectEstimate != null && collectEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreCollectEstimate = false;
+        if(frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
+            ignoreFrontEstimate = false;
         }
-        if(shooterEstimate != null && shooterEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreShooterEstimate = false;
+        if(rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
+            ignoreRightEstimate = false;
         }
-        if(!ignoreCollectEstimate) {
+        if(rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
+            ignoreRearEstimate = false;
+        }
+        if(!ignoreFrontEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
             poseEstimator.addVisionMeasurement(
-                    collectEstimate.pose,
-                    collectEstimate.timestampSeconds);
+                    frontEstimate.pose,
+                    frontEstimate.timestampSeconds);
         }
-        if(!ignoreShooterEstimate) {
+        if(!ignoreRightEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
             poseEstimator.addVisionMeasurement(
-                    shooterEstimate.pose,
-                    shooterEstimate.timestampSeconds);
+                    rightEstimate.pose,
+                    rightEstimate.timestampSeconds);
+        }
+        if(!ignoreRearEstimate) {
+            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
+            poseEstimator.addVisionMeasurement(rearEstimate.pose,
+                    rearEstimate.timestampSeconds);
         }
 
 

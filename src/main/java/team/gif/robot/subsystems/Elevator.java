@@ -246,7 +246,21 @@ public class Elevator extends SubsystemBase {
      * @return true Motion Magic has reached its desired position within tolerance, false if not
      */
     public boolean isMotionMagicFinished() {
-        return Math.abs(PIDError()) < Constants.Elevator.PID_TOLERANCE;
+        return Math.abs(PIDError()) < Constants.Elevator.MOTION_MAGIC_TOLERANCE;
+    }
+
+    /**
+     * Determines if the elevator is up and at its target position. Will return false if
+     * the elevator is all the way down at the collector position
+     *
+     * @return true if the elevator is up ready to shoot, false if not
+     */
+    public boolean isReadyToShoot() {
+        if (getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
+            return false;
+        }
+
+        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.SHOOT_TOLERANCE;
     }
 
     /**

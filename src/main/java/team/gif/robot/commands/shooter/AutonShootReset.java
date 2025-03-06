@@ -13,7 +13,8 @@ public class AutonShootReset extends SequentialCommandGroup {
                 new AutonStrafeToTarget(),
                 new ParallelRaceGroup( // ends when any command ends // if robot does not have a target, don't shoot
                         new Shoot(),
-                        new AutonHasNoTarget()
+                        new AutonHasNoTarget(),
+                        new StopModules()
                 ),
                 new ParallelRaceGroup(
                         new SequentialCommandGroup(
