@@ -72,6 +72,8 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
     public SwerveDrivePoseEstimator poseEstimator;
     private drivePace drivePace;
 
+    public boolean limelightEnabled = true;
+
     // Network Table publishers for the swerve
     // states so that we can use them in advantage scope
     private static final StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
@@ -116,9 +118,9 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         LimelightHelpers.PoseEstimate frontEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
         LimelightHelpers.PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
         LimelightHelpers.PoseEstimate rearEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-rear");
-        boolean ignoreFrontEstimate = true;
-        boolean ignoreRightEstimate = true;
-        boolean ignoreRearEstimate = true;
+        boolean ignoreFrontEstimate = limelightEnabled;
+        boolean ignoreRightEstimate = limelightEnabled;
+        boolean ignoreRearEstimate = limelightEnabled;
         double yawRate = Robot.pigeon.getYawRate();
 
         if(frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
@@ -154,6 +156,14 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
             posePublisher.set(poseEstimator.getEstimatedPosition());
             updateShuffleboardDebug("Swerve");
         }
+    }
+
+    /**
+     * Set the limelight enabled status
+     * @param enabled
+     */
+    public void setLimelightEnabled(boolean enabled) {
+        limelightEnabled = enabled;
     }
 
     /**

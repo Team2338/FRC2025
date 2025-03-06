@@ -49,6 +49,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
         NamedCommands.registerCommand("StopDrive", new StopModules());
+        NamedCommands.registerCommand("DisableLimelights", new InstantCommand(() -> Robot.swerveDrive.setLimelightEnabled(false)));
 
 
         // Configure the trigger bindings

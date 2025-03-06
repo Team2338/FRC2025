@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "DisableLimelights"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "l-j4"
