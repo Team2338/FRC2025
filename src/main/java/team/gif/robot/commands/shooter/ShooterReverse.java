@@ -1,41 +1,39 @@
-package team.gif.robot.commands.climber;
+package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
 
+public class ShooterReverse extends Command {
 
-public class ClimberDeploy extends Command {
-
-    public ClimberDeploy() {
+    public ShooterReverse() {
         super();
-        addRequirements(Robot.climber);
+        addRequirements(Robot.shooter);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        // Disable the elevator when climbing preventing the aux from accidentally raising the elevator
-        // Do not re-enable at the end of the command. Want to keep elevator disabled until
-        // aux toggles manaul mode.
-        Robot.elevator.disableElevator();
+        Robot.shooter.setShooterBrakeMode();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.climber.move(Constants.Climber.DEPLOY_PERCENT);
+        Robot.shooter.runShooterMotor(-Constants.Shooter.REINDEX_PERCENT);
     }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
     public boolean isFinished() {
-        return false;
+        return Robot.shooter.getExitSensorState() && Robot.shooter.getIndexerSensorState();
     }
 
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.climber.move(0);
+        Robot.shooter.stopShooterMotor();
+        Robot.shooter.stopIndexerMotor();
+        Robot.shooter.setShooterCoastMode();
     }
 }

@@ -5,6 +5,7 @@ import team.gif.robot.Constants;
 public enum drivePace {
     COAST_FR(Constants.Drivetrain.COAST_SPEED_METERS_PER_SECOND, true),
     COAST_RR(Constants.Drivetrain.COAST_SPEED_METERS_PER_SECOND, false),
+    COAST_ROT(Constants.Drivetrain.COAST_SPEED_METERS_PER_SECOND, false),
     SLOW_FR(Constants.Drivetrain.SLOW_SPEED_METERS_PER_SECOND, true),
     SLOW_RR(Constants.Drivetrain.SLOW_SPEED_METERS_PER_SECOND, false),
     BOOST_FR(Constants.Drivetrain.BOOST_SPEED_METERS_PER_SECOND, true),

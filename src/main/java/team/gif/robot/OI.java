@@ -2,21 +2,24 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.Rumble;
 import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
-import team.gif.robot.commands.driveModes.EnableRobotOrientedMode;
+import team.gif.robot.commands.driveModes.EnableRotatedMode;
 import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
+import team.gif.robot.commands.shooter.ShooterReverse;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
-
 
 public class OI {
     /*
@@ -85,6 +88,8 @@ public class OI {
 //    public final Trigger tDPadDown = test.povDown();
 //    public final Trigger tDPadLeft = test.povLeft();
 
+    public final Trigger shooterSensor = new Trigger(Robot.shooter::getExitSensorState);
+
 
     public OI() {
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -119,7 +124,8 @@ public class OI {
         dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
-        dRBump.whileTrue(new EnableRobotOrientedMode());
+        dRBump.whileTrue(new EnableRotatedMode());
+        dLTrigger.whileTrue(new ShooterReverse());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());
@@ -130,12 +136,16 @@ public class OI {
         aA.whileTrue(new ClimberDeploy());
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
-        aDPadUp.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
-        aDPadLeft.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION));
-        aDPadDown.and(aStart.negate()).onTrue(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
-        aLBump.onTrue(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION));
-        aLTrigger.onTrue(new InstantCommand(Robot.grabber::deploy));
+        // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns
+        // to elevator defalt command which is PID mode, so need to restart ElevatorManualMode
+        aLBump.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        
+        shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
         aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));
+        aLTrigger.onTrue(new InstantCommand(Robot.grabber::deploy));
 
         //test sys id for elevator, delete later
         //dLBump.whileTrue(Robot.elevator.sysIdDynamic(SysIdRoutine.Direction.kForward));

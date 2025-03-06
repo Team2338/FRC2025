@@ -28,7 +28,8 @@ public class AutonStrafeToTarget extends Command {
         // This makes sure the sensors don't trip if the robot lined up
         // correctly and is still raising the elevator
         // Since this only runs in auto, safe to just chcek height of level 4
-        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - 0.3 ) {
+        if (Robot.elevator.getPosition() < Constants.Elevator.LEVEL_4_POSITION - Constants.Elevator.SHOOT_TOLERANCE) {
+            Robot.swerveDrive.stopDrive();
             return;
         }
 
@@ -37,17 +38,17 @@ public class AutonStrafeToTarget extends Command {
 
         // if neither sensor is active, default to moving left
         if (!leftSensor && !rightSensor) {
-            Robot.swerveDrive.drive(0.0, 0.15, 0.0);
+            Robot.swerveDrive.drive(0.0, Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if only the right sensor is active, move right
         if (!leftSensor && rightSensor) {
-            Robot.swerveDrive.drive(0.0, -0.15, 0.0);
+            Robot.swerveDrive.drive(0.0, -Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if only the left sensor is active, move left
         if (leftSensor && !rightSensor) {
-            Robot.swerveDrive.drive(0.0, 0.15, 0.0);
+            Robot.swerveDrive.drive(0.0, Constants.Shooter.AUTON_STRAFE_SPEED_MPS, 0.0);
         }
 
         // if both sensors are active, the robot has the target

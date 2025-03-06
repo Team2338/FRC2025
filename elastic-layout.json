@@ -9,7 +9,7 @@
         "containers": [
           {
             "title": "Delay",
-            "x": 0.0,
+            "x": 512.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -52,7 +52,7 @@
           },
           {
             "title": "Auto",
-            "x": 128.0,
+            "x": 640.0,
             "y": 384.0,
             "width": 256.0,
             "height": 128.0,
@@ -115,8 +115,8 @@
               "topic": "/SmartDashboard/Mode(Std)",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4294901760,
-              "false_color": 4279537940,
+              "true_color": 4283215696,
+              "false_color": 4294901760,
               "true_icon": "None",
               "false_icon": "None"
             }
@@ -137,7 +137,7 @@
           },
           {
             "title": "Index",
-            "x": 640.0,
+            "x": 768.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -154,30 +154,13 @@
           },
           {
             "title": "Shooter",
-            "x": 640.0,
+            "x": 768.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/Shooter/Shooter",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
-            }
-          },
-          {
-            "title": "Reef L",
-            "x": 512.0,
-            "y": 0.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/SmartDashboard/Shooter/Reef L",
               "period": 0.06,
               "data_type": "boolean",
               "true_color": 4283215696,
@@ -204,18 +187,30 @@
             }
           },
           {
-            "title": "ElevatorStalled",
-            "x": 384.0,
+            "title": "Commands",
+            "x": 256.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 384.0,
+            "type": "Scheduler",
+            "properties": {
+              "topic": "/SmartDashboard/Commands",
+              "period": 0.06
+            }
+          },
+          {
+            "title": "Reef L",
+            "x": 512.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
-              "topic": "/SmartDashboard/ElevatorStalled",
+              "topic": "/SmartDashboard/Shooter/Reef L",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4294901764,
-              "false_color": 4279762688,
+              "true_color": 4283215696,
+              "false_color": 4289280827,
               "true_icon": "None",
               "false_icon": "None"
             }
