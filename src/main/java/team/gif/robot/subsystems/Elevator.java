@@ -35,6 +35,7 @@ public class Elevator extends SubsystemBase {
     // used for determining if elevator motor is stalled
     private double stallLastPosition;
     private int stallCount;
+    private boolean elevatorEnabled;
 
     public Elevator() {
         elevatorMotor = new TalonFX(RobotMap.ELEVATOR_MOTOR_ID);
@@ -47,6 +48,8 @@ public class Elevator extends SubsystemBase {
 
         stallLastPosition = getPosition();
         stallCount = 0;
+
+        elevatorEnabled = true;
     }
 
     /**
@@ -197,6 +200,8 @@ public class Elevator extends SubsystemBase {
         config.kD = 0;
         config.kS = 0;
         elevatorMotor.getConfigurator().apply(config);
+
+        elevatorEnabled = false;
     }
 
     /**
@@ -211,7 +216,18 @@ public class Elevator extends SubsystemBase {
         config.kD = Constants.Elevator.ELEVATOR_KD;
         config.kS = Constants.Elevator.ELEVATOR_KS;
         elevatorMotor.getConfigurator().apply(config);
+
+        elevatorEnabled = true;
     }
+
+    /**
+     *
+     * @return returns true if elevator is unlocked
+     */
+    public boolean getElevatorUnlocked(){
+        return elevatorEnabled;
+    }
+
 
     /**
      * sets the class local elevator target position
