@@ -74,5 +74,7 @@ public class UiSmartDashboard {
         SmartDashboard.putBoolean("Shooter/Index", Robot.shooter.getIndexerSensorState());
         SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());
         SmartDashboard.putBoolean("Shooter/Reef R", Robot.shooter.sensorRightActive());
+
+        SmartDashboard.putBoolean("LimelightsEnabled", Robot.swerveDrive.getLimelightEnabled());
     }
 }

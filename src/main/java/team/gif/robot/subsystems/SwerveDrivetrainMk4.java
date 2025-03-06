@@ -118,33 +118,33 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         LimelightHelpers.PoseEstimate frontEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
         LimelightHelpers.PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
         LimelightHelpers.PoseEstimate rearEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-rear");
-        boolean ignoreFrontEstimate = limelightEnabled;
-        boolean ignoreRightEstimate = limelightEnabled;
-        boolean ignoreRearEstimate = limelightEnabled;
+        boolean useFrontEstimate = limelightEnabled;
+        boolean useRightEstimate = limelightEnabled;
+        boolean useRearEstimate = limelightEnabled;
         double yawRate = Robot.pigeon.getYawRate();
 
         if(frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreFrontEstimate = false;
+            useFrontEstimate = false;
         }
         if(rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreRightEstimate = false;
+            useRightEstimate = false;
         }
         if(rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreRearEstimate = false;
+            useRearEstimate = false;
         }
-        if(!ignoreFrontEstimate) {
+        if(!useFrontEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
             poseEstimator.addVisionMeasurement(
                     frontEstimate.pose,
                     frontEstimate.timestampSeconds);
         }
-        if(!ignoreRightEstimate) {
+        if(!useRightEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
             poseEstimator.addVisionMeasurement(
                     rightEstimate.pose,
                     rightEstimate.timestampSeconds);
         }
-        if(!ignoreRearEstimate) {
+        if(!useRearEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
             poseEstimator.addVisionMeasurement(rearEstimate.pose,
                     rearEstimate.timestampSeconds);
@@ -164,6 +164,14 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
      */
     public void setLimelightEnabled(boolean enabled) {
         limelightEnabled = enabled;
+    }
+
+    /**
+     * Get the limelight enabled status
+     * @return boolean for the current limelight enabled status
+     */
+    public boolean getLimelightEnabled() {
+        return limelightEnabled;
     }
 
     /**
