@@ -74,12 +74,12 @@ public class AutoDriveAndShoot extends Command {
                     new Shoot(),
                     new ShortDriveAway()
             ).schedule();
-        }
-        if (!Robot.grabber.isOut()) {
-            new SequentialCommandGroup(
-                    new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
-                    new SetElevatorPosition(0)
-            ).schedule();
+            if (!Robot.grabber.isOut()) {
+                new SequentialCommandGroup(
+                        new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
+                        new SetElevatorPosition(0)
+                ).schedule();
+            }
         }
     }
 }
