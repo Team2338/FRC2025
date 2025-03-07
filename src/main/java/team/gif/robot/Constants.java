@@ -293,6 +293,6 @@ public final class Constants {
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double COLLECTOR_POSITION = 0.0;
-        public static final double GRABBER_POSITION = 28.0;
+        public static final double GRABBER_POSITION = 11.0;
     }
 }
