@@ -2,7 +2,6 @@ package team.gif.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import team.gif.robot.commands.drivetrain.ShortDriveAway;
 import team.gif.robot.commands.drivetrain.StopModules;
 
 public class AutonShoot extends SequentialCommandGroup {
@@ -15,10 +14,6 @@ public class AutonShoot extends SequentialCommandGroup {
                         new AutonHasNoTarget(), //Will abort shot if no target is detected
                         new StopModules()
                 )
-//                new SequentialCommandGroup(
-//                        new ShortDriveAway(),
-//                        new StopModules()
-//                )
         );
     }
 }
