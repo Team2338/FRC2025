@@ -41,7 +41,6 @@ public class Shooter extends SubsystemBase {
 
         indexerSensor = new DigitalInput(RobotMap.INDEXER_GP_SENSOR_PORT);
         exitSensor = new DigitalInput(RobotMap.EXIT_GP_SENSOR_PORT);
-
         
         reefSensorLeftDebouncer = new Debouncer(Constants.Shooter.REEF_SENSOR_DEBOUNCE_SECS, Debouncer.DebounceType.kRising);
         reefSensorRightDebouncer = new Debouncer(Constants.Shooter.REEF_SENSOR_DEBOUNCE_SECS, Debouncer.DebounceType.kRising);
