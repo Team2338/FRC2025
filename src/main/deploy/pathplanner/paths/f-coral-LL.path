@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.314600093408866,
-        "y": 2.3177690625318004
+        "x": 4.306643887613991,
+        "y": 2.346167915222782
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "F Branch LL"
     },
     {
       "anchor": {
-        "x": 1.2480000000000002,
-        "y": 1.0025
+        "x": 1.3665983606557375,
+        "y": 0.6204918032786884
       },
       "prevControl": {
-        "x": 2.228360807495772,
-        "y": 1.5545321565826162
+        "x": 2.14709772262953,
+        "y": 1.1096729383354766
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Right LL"
+      "linkedName": "Coral Right Deep"
     }
   ],
   "rotationTargets": [],
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
