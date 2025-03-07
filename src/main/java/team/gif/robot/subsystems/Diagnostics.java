@@ -46,7 +46,11 @@ public class Diagnostics extends SubsystemBase {
             result = true;
         }
 
-        if (Math.abs(angle - 135) <= tolerance) {
+        if (Math.abs(angle - 60) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 120) <= tolerance) {
             result = true;
         }
 
@@ -54,11 +58,11 @@ public class Diagnostics extends SubsystemBase {
             result = true;
         }
 
-        if (Math.abs(angle - 225) <= tolerance) {
+        if (Math.abs(angle - 240) <= tolerance) {
             result = true;
         }
 
-        if (Math.abs(angle - 270) <= tolerance) {
+        if (Math.abs(angle - 300) <= tolerance) {
             result = true;
         }
 
