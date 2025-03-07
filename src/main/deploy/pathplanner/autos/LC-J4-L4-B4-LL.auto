@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "lc-j4-LL"
+            "pathName": "lc-i4-LL-3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutonShootReset"
+            "name": "AutonShoot"
           }
         },
         {
@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "j-coral-LL"
+                        "pathName": "i-coral-LL-3"
                       }
                     },
                     {
@@ -43,7 +43,7 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.5
+                              "waitTime": 0.25
                             }
                           },
                           {
@@ -58,13 +58,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-l4-LL"
+                        "pathName": "coral-k4-LL-3"
                       }
                     }
                   ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonShoot"
           }
         },
         {
@@ -84,7 +90,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "l-coral-LL"
+                        "pathName": "k-coral-LL-3"
                       }
                     },
                     {
@@ -94,7 +100,7 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.5
+                              "waitTime": 0.25
                             }
                           },
                           {
@@ -109,7 +115,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-a4-LL"
+                        "pathName": "coral-a4-LL-3"
                       }
                     }
                   ]
@@ -121,13 +127,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonShootReset"
+            "name": "AutonShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "a-coral-LL"
+            "pathName": "a-coral-LL-3"
           }
         }
       ]
