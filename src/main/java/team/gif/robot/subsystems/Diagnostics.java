@@ -36,5 +36,33 @@ public class Diagnostics extends SubsystemBase {
         // if at least 1 motor hot, flash with 50% duty cycle
         return ++flashCounter % FLASH_CYCLES < FLASH_CYCLES/2;
     }
+
+    public boolean getAtTargetAngle() {
+        double angle = Robot.pigeon.getCompassHeading();
+        double tolerance = 3.0;
+        boolean result = false;
+
+        if (angle <= 3 || angle >= 357) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 135) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 180) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 225) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 270) <= tolerance) {
+            result = true;
+        }
+
+        return result;
+    }
 }
 
