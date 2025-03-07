@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 4.314600093408866,
-        "y": 2.317769062531801
+        "y": 2.3177690625318004
       },
       "isLocked": false,
       "linkedName": "F Branch LL"
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 2.228360807495772,
-        "y": 1.5545321565826165
+        "y": 1.5545321565826162
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,19 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "AutonElevatorReset",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutonElevatorL0"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,

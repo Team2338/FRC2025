@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
+import team.gif.robot.commands.shooter.AutonShoot;
 import team.gif.robot.commands.shooter.AutonShootReset;
 import team.gif.robot.commands.shooter.Shoot;
 import team.gif.robot.commands.shooter.AutonStrafeToTarget;
@@ -46,9 +47,12 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonElevatorL0", new SetElevatorPosition(0));
         NamedCommands.registerCommand("AutonAutoShoot", new AutonStrafeToTarget());
         NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
+        NamedCommands.registerCommand("AutonShoot", new AutonShoot());
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
         NamedCommands.registerCommand("StopDrive", new StopModules());
+        NamedCommands.registerCommand("DisableLimelights", new InstantCommand(() -> Robot.swerveDrive.setLimelightEnabled(false)));
+
 
 
         // Configure the trigger bindings
@@ -84,11 +88,12 @@ public class RobotContainer {
         List<String> autoNames = new ArrayList<>();
         autoNames.add("L-J4-L4-LL");
         autoNames.add("LC-J4-L4-LL");
+        autoNames.add("LC-J4-L4-B4-LL");
         autoNames.add("C-H4");
         autoNames.add("RC-F4-D4-LL");
+        autoNames.add("RC-F4-D4-B4-LL");
         autoNames.add("R-F4-D4-LL");
         autoNames.add("Mobility");
-        autoNames.add("RC-F4-D4-B4");
         autoNames.add("RC-E4-C4");
         autoNames.add("R-E4-C4");
         autoNames.add("R-F4-D4-B4");

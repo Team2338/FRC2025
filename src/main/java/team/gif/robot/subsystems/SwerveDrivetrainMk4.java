@@ -72,6 +72,8 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
     public SwerveDrivePoseEstimator poseEstimator;
     private drivePace drivePace;
 
+    public boolean limelightEnabled = true;
+
     // Network Table publishers for the swerve
     // states so that we can use them in advantage scope
     private static final StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
@@ -116,33 +118,33 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         LimelightHelpers.PoseEstimate frontEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
         LimelightHelpers.PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
         LimelightHelpers.PoseEstimate rearEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-rear");
-        boolean ignoreFrontEstimate = true;
-        boolean ignoreRightEstimate = true;
-        boolean ignoreRearEstimate = true;
+        boolean useFrontEstimate = false;
+        boolean useRightEstimate = false;
+        boolean useRearEstimate = false;
         double yawRate = Robot.pigeon.getYawRate();
 
-        if(frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreFrontEstimate = false;
+        if(limelightEnabled && frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
+            useFrontEstimate = true;
         }
-        if(rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreRightEstimate = false;
+        if(limelightEnabled && rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
+            useRightEstimate = true;
         }
-        if(rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
-            ignoreRearEstimate = false;
+        if(limelightEnabled && rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
+            useRearEstimate = true;
         }
-        if(!ignoreFrontEstimate) {
+        if(useFrontEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
             poseEstimator.addVisionMeasurement(
                     frontEstimate.pose,
                     frontEstimate.timestampSeconds);
         }
-        if(!ignoreRightEstimate) {
+        if(useRightEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
             poseEstimator.addVisionMeasurement(
                     rightEstimate.pose,
                     rightEstimate.timestampSeconds);
         }
-        if(!ignoreRearEstimate) {
+        if(useRearEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
             poseEstimator.addVisionMeasurement(rearEstimate.pose,
                     rearEstimate.timestampSeconds);
@@ -154,6 +156,22 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
             posePublisher.set(poseEstimator.getEstimatedPosition());
             updateShuffleboardDebug("Swerve");
         }
+    }
+
+    /**
+     * Set the limelight enabled status
+     * @param enabled
+     */
+    public void setLimelightEnabled(boolean enabled) {
+        limelightEnabled = enabled;
+    }
+
+    /**
+     * Get the limelight enabled status
+     * @return boolean for the current limelight enabled status
+     */
+    public boolean getLimelightEnabled() {
+        return limelightEnabled;
     }
 
     /**
