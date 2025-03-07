@@ -74,6 +74,8 @@ public class AutoDriveAndShoot extends Command {
                     new Shoot(),
                     new ShortDriveAway()
             ).schedule();
+            // only return the elevator if the grabber is retracted. This is so we can shoot and then immediately
+            // remove the algae, but need to strafe first
             if (!Robot.grabber.isOut()) {
                 new SequentialCommandGroup(
                         new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
