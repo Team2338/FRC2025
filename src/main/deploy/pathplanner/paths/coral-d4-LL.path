@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3665983606557375,
-        "y": 0.6204918032786884
+        "x": 1.2480000000000002,
+        "y": 1.0025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.077123828699529,
-        "y": 1.3110355919107344
+        "x": 1.9899984798476649,
+        "y": 1.648968457963408
       },
       "isLocked": false,
-      "linkedName": "Coral Right Deep"
+      "linkedName": "Coral Right LL"
     },
     {
       "anchor": {
-        "x": 3.7042008196721308,
-        "y": 2.934118852459016
+        "x": 3.7419074833937644,
+        "y": 2.9098447741068196
       },
       "prevControl": {
-        "x": 3.3596619975625206,
-        "y": 2.5941611432307496
+        "x": 3.378475551762006,
+        "y": 2.597960845976329
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.686868686868689,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

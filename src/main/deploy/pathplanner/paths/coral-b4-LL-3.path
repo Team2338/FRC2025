@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2480000000000002,
-        "y": 1.0025
+        "x": 1.4505122950819673,
+        "y": 0.7283811475409834
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8354055742320914,
-        "y": 1.7640964876005882
+        "x": 1.9895462171233975,
+        "y": 1.5215144130030216
       },
       "isLocked": false,
       "linkedName": "Coral Right LL"
     },
     {
       "anchor": {
-        "x": 3.158813053789737,
-        "y": 4.104242744372497
+        "x": 3.2127049180327862,
+        "y": 4.132889344262295
       },
       "prevControl": {
-        "x": 2.7701283741592677,
-        "y": 3.3474788857254043
+        "x": 2.8053682039416854,
+        "y": 3.414112061388911
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -62,5 +62,5 @@
     "velocity": 0,
     "rotation": 54.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

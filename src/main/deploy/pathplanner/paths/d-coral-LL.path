@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7042008196721308,
-        "y": 2.934118852459016
+        "x": 3.7419074833937644,
+        "y": 2.9098447741068196
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9653840582914284,
-        "y": 2.393966091317401
+        "x": 3.0111926598579966,
+        "y": 2.344027743341097
       },
       "isLocked": false,
       "linkedName": "D Branch LL"
     },
     {
       "anchor": {
-        "x": 1.4505122950819673,
-        "y": 0.7283811475409834
+        "x": 1.2480000000000002,
+        "y": 1.0025
       },
       "prevControl": {
-        "x": 2.5082301600948185,
-        "y": 1.553465014227564
+        "x": 2.335858172974842,
+        "y": 1.8897320705780958
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "AutonElevatorReset",
+      "name": "AutonShootReset",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": {
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
