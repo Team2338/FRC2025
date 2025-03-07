@@ -37,6 +37,11 @@ public class Diagnostics extends SubsystemBase {
         return ++flashCounter % FLASH_CYCLES < FLASH_CYCLES/2;
     }
 
+    /**
+     * Determines if robot is within angle tolerance to the reef
+     *
+     * @return true if robot is within tolerance of any of the 6 angles to the reef, false if not
+     */
     public boolean getAtTargetAngle() {
         double angle = Robot.pigeon.getCompassHeading();
         double tolerance = 3.0;
