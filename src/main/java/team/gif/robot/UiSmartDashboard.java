@@ -72,6 +72,8 @@ public class UiSmartDashboard {
         SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
         SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
 
+        SmartDashboard.putBoolean("Diagnostics/Angle", Robot.diagnostics.getAtTargetAngle());
+
         SmartDashboard.putBoolean("Shooter/Shooter", Robot.shooter.getExitSensorState());
         SmartDashboard.putBoolean("Shooter/Index", Robot.shooter.getIndexerSensorState());
         SmartDashboard.putBoolean("Shooter/Reef L", Robot.shooter.sensorLeftActive());

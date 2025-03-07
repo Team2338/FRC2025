@@ -252,7 +252,7 @@ public final class Constants {
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.30; //Meters per Second
         public static final double AUTON_STRAFE_SPEED_MPS = 0.15; //Meters per Second
 
-        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.040;
+        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.020;
     }
 
     public static final class Climber {
@@ -293,5 +293,6 @@ public final class Constants {
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double COLLECTOR_POSITION = 0.0;
+        public static final double GRABBER_POSITION = 11.0;
     }
 }
