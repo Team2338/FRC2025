@@ -12,6 +12,7 @@ import team.gif.robot.commands.climber.ClimberDeploy;
 import team.gif.robot.commands.climber.ClimberClimb;
 import team.gif.robot.commands.climber.PistonToggleState;
 import team.gif.robot.commands.driveModes.EnableRotatedMode;
+import team.gif.robot.commands.drivetrain.DriveRight;
 import team.gif.robot.commands.drivetrain.Reset180;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.Shoot;
@@ -126,6 +127,7 @@ public class OI {
         dB.whileTrue(new AutoDriveAndShoot(true));
         dRBump.whileTrue(new EnableRotatedMode());
         dLTrigger.whileTrue(new ShooterReverse());
+        dA.onTrue(new DriveRight());
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());
@@ -142,7 +144,8 @@ public class OI {
         aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
-        
+        aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRABBER_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
         aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));
         aLTrigger.onTrue(new InstantCommand(Robot.grabber::deploy));

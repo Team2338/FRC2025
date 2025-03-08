@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.584128144458068,
-        "y": 5.673767780002424
+        "x": 6.467912661685785,
+        "y": 5.682300412036625
       },
       "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.2065,
-        "y": 5.1365
+        "x": 5.274590163934427,
+        "y": 5.103893442622951
       },
       "prevControl": {
-        "x": 6.175976739955332,
-        "y": 5.913161420098912
+        "x": 6.4755055208630505,
+        "y": 5.9088179559140395
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "J Branch LL"
+      "isLocked": false,
+      "linkedName": "I Branch LL 3"
     }
   ],
   "rotationTargets": [],
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -62,5 +62,5 @@
     "velocity": 0,
     "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

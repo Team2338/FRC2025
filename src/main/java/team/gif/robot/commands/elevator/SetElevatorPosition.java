@@ -1,12 +1,15 @@
 package team.gif.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.drivetrain.LongDriveAway;
 
 public class SetElevatorPosition extends Command {
 
     private final double desiredPosition;
+    private boolean grabberMode;
 
     public SetElevatorPosition(double targetPosition) {
         super();
@@ -22,6 +25,8 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        grabberMode = Robot.grabber.isOut() && Robot.elevator.getPosition() > desiredPosition;
+
         if (desiredPosition > Robot.elevator.getPosition()) {
             Robot.elevator.configMotionMagicUp();
             Robot.elevator.setMotionMagic(desiredPosition);
@@ -33,7 +38,18 @@ public class SetElevatorPosition extends Command {
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
-    public void execute() {}
+    public void execute() {
+        //Only retract if elevator is on the way down (velocity < 0)
+        if (grabberMode && Robot.elevator.getVelTPS() < 0) {
+            if (desiredPosition == Constants.Elevator.LEVEL_2_POSITION && Robot.elevator.getPosition() < Constants.Elevator.LEVEL_2_POSITION + 5) {
+                Robot.grabber.retract();
+            }
+
+            if (desiredPosition == Constants.Elevator.GRABBER_POSITION && Robot.elevator.getPosition() < Constants.Elevator.GRABBER_POSITION + 5) {
+                Robot.grabber.retract();
+            }
+        }
+    }
 
     // Return true when the command should end, false if it should continue. Runs every ~20ms.
     @Override
@@ -45,5 +61,11 @@ public class SetElevatorPosition extends Command {
 
     // Called when the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        if (grabberMode && (desiredPosition == Constants.Elevator.LEVEL_2_POSITION || desiredPosition == Constants.Elevator.GRABBER_POSITION)) {
+            new LongDriveAway().schedule();
+            //This time should match the isFinished time from LongDriveAway
+            new WaitCommand(0.75).andThen(new SetElevatorPosition(0)).schedule();
+        }
+    }
 }

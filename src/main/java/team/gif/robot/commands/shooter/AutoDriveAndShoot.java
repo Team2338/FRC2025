@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import team.gif.lib.drivePace;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.drivetrain.DriveRight;
 import team.gif.robot.commands.drivetrain.ShortDriveAway;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 
@@ -65,19 +66,28 @@ public class AutoDriveAndShoot extends Command {
 
         // only shoot if the robot found the target during the command
         if (Robot.elevator.isReadyToShoot() && hasTarget) {
-            // Run the shooter using the standard shoot command and return the elevator
-            // The "drive away" and "move the elevator" need to be in separate schedulers
-            // or the driver won't be able to move the robot until the move elevator command
-            // has completed. Need to delay the elevator until the shooter times out.
-            // Effectively, this executes the drive away and moving of the elevator at the same time
-            new SequentialCommandGroup(
-                    new Shoot(),
-                    new ShortDriveAway()
-            ).schedule();
-            new SequentialCommandGroup(
-                    new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
-                    new SetElevatorPosition(0)
-            ).schedule();
+            if (!Robot.grabber.isOut()) {
+                // Run the shooter using the standard shoot command and return the elevator
+                // The "drive away" and "move the elevator" need to be in separate schedulers
+                // or the driver won't be able to move the robot until the move elevator command
+                // has completed. Need to delay the elevator until the shooter times out.
+                // Effectively, this executes the drive away and moving of the elevator at the same time
+                new SequentialCommandGroup(
+                        new Shoot(),
+                        new ShortDriveAway()
+                ).schedule();
+                // only return the elevator if the grabber is retracted. This is so we can shoot and then immediately
+                // remove the algae, but need to strafe first
+                new SequentialCommandGroup(
+                        new WaitCommand(Constants.Shooter.SHOOT_CYCLES * 0.020), // scheduler runs every 20 ms
+                        new SetElevatorPosition(0)
+                ).schedule();
+            } else {
+                new SequentialCommandGroup(
+                        new Shoot(),
+                        new DriveRight()
+                ).schedule();
+            }
         }
     }
 }

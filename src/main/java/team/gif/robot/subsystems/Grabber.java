@@ -20,4 +20,11 @@ public class Grabber extends SubsystemBase {
         grabber.set(false);
     }
 
+    /**
+     *
+     * @return true if grabber is out/deployed, false if in/retracted
+     */
+    public boolean isOut() {
+        return grabber.get();
+    }
 }

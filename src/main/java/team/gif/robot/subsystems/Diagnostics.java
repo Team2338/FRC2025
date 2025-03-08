@@ -36,5 +36,42 @@ public class Diagnostics extends SubsystemBase {
         // if at least 1 motor hot, flash with 50% duty cycle
         return ++flashCounter % FLASH_CYCLES < FLASH_CYCLES/2;
     }
+
+    /**
+     * Determines if robot is within angle tolerance to the reef
+     *
+     * @return true if robot is within tolerance of any of the 6 angles to the reef, false if not
+     */
+    public boolean getAtTargetAngle() {
+        double angle = Robot.pigeon.getCompassHeading();
+        double tolerance = 3.0;
+        boolean result = false;
+
+        if (angle <= 3 || angle >= 357) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 60) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 120) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 180) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 240) <= tolerance) {
+            result = true;
+        }
+
+        if (Math.abs(angle - 300) <= tolerance) {
+            result = true;
+        }
+
+        return result;
+    }
 }
 

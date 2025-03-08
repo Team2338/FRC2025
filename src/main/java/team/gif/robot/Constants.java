@@ -250,9 +250,11 @@ public final class Constants {
         public static final int SHOOT_CYCLES = 12;
         public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.30; //Meters per Second
+        public static final double GRABBER_STRAFE_SPEED_MPS = 0.50; //Meters per Second
+        public static final double LONG_DRIVE_SPEED_MPS = 1.25; // Meters per Second
         public static final double AUTON_STRAFE_SPEED_MPS = 0.15; //Meters per Second
 
-        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.040;
+        public static final double REEF_SENSOR_DEBOUNCE_SECS = 0.020;
     }
 
     public static final class Climber {
@@ -279,7 +281,7 @@ public final class Constants {
         public static final double ELEVATOR_KI = 0;
         public static final double ELEVATOR_KD = 0;
         public static final double ELEVATOR_KS = 1.0; // in volts (just enough to get it moving)
-        public static final int MAX_VELOCITY = 65;
+        public static final int MAX_VELOCITY = 70;
         public static final int REV_MAX_VELOCITY = 50;
         public static final double MAX_ACCELERATION = 130;
         public static final double REV_MAX_ACCELERATION = 80;
@@ -293,5 +295,6 @@ public final class Constants {
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double COLLECTOR_POSITION = 0.0;
+        public static final double GRABBER_POSITION = 11.0;
     }
 }
