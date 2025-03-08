@@ -12,7 +12,7 @@
         "y": 4.890977993457248
       },
       "isLocked": false,
-      "linkedName": "L Branch"
+      "linkedName": "L Branch LL"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Left"
+      "linkedName": "Coral Left LL"
     }
   ],
   "rotationTargets": [],
