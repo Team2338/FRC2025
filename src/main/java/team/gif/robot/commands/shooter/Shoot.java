@@ -3,6 +3,7 @@ package team.gif.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class Shoot extends Command {
     private int counter;
@@ -25,7 +26,13 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        Robot.shooter.runShooterMotor();
+        //Different speed for L1
+        if (Math.abs(Robot.elevator.getPosition() - Constants.Elevator.LEVEL_1_POSITION) < 3) {
+            Robot.shooter.runShooterMotor(Constants.Shooter.SHOOT_L1_PERCENT);
+        } else {
+            Robot.shooter.runShooterMotor(Constants.Shooter.SHOOT_PERCENT);
+        }
+
         counter++;
     }
 
@@ -39,5 +46,10 @@ public class Shoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.stopShooterMotor();
+
+        // if we are shooting LEVEL 1, we are using manual shoot so need to move elevator here
+        if (Robot.elevator.getTargetPosition() == Constants.Elevator.LEVEL_1_POSITION ){
+            new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION).schedule();
+        }
     }
 }

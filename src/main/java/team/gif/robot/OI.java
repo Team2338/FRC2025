@@ -136,6 +136,7 @@ public class OI {
         aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
+        aX.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_1_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
         // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns
@@ -144,7 +145,7 @@ public class OI {
         aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
-        aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRABBER_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRAB_ALGAE_LOW_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
 
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
         aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));
