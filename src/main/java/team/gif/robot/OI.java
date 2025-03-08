@@ -136,6 +136,7 @@ public class OI {
         aStart.and(aDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         aY.whileTrue(new ClimberClimb());
         aA.whileTrue(new ClimberDeploy());
+        aX.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_1_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aStart.and(aBack).toggleOnTrue(new ToggleManualControl());
         aRBump.onTrue(new PistonToggleState());
         // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns

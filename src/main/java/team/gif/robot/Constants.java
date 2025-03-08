@@ -244,6 +244,7 @@ public final class Constants {
     public static final class Shooter {
         public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
         public static final double SHOOT_PERCENT = 0.85; // todo: initial good - needs testing and final number
+        public static final double SHOOT_L1_PERCENT = 0.65;
         public static final double STAGE_PERCENT = 0.50;// todo: initial good - needs testing and final number
         public static final double REINDEX_PERCENT = 0.5;
 
@@ -294,6 +295,7 @@ public final class Constants {
         public static final double LEVEL_4_POSITION = 60.0;
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
+        public static final double LEVEL_1_POSITION = 8.7;
         public static final double COLLECTOR_POSITION = 0.0;
         public static final double GRABBER_POSITION = 11.0;
     }
