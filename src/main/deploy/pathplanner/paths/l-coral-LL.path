@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.89025,
-        "y": 5.204749999999999
+        "x": 3.9919057377049176,
+        "y": 5.247745901639345
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.337203375345098,
-        "y": 4.890977993457248
+        "x": 4.4388591130500155,
+        "y": 4.933973895096594
       },
       "isLocked": false,
-      "linkedName": "L Branch"
+      "linkedName": "L Branch LL"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Left"
+      "linkedName": "Coral Left LL"
     }
   ],
   "rotationTargets": [],
