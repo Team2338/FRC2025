@@ -3,6 +3,7 @@ package team.gif.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import team.gif.robot.Constants;
 import team.gif.robot.Robot;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 public class Shoot extends Command {
     private int counter;
@@ -45,5 +46,10 @@ public class Shoot extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.shooter.stopShooterMotor();
+
+        // if we are shooting LEVEL 1, we are using manual shoot so need to move elevator here
+        if (Robot.elevator.getTargetPosition() == Constants.Elevator.LEVEL_1_POSITION ){
+            new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION).schedule();
+        }
     }
 }

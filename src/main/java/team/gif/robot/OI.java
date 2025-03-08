@@ -145,7 +145,7 @@ public class OI {
         aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
-        aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRABBER_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRAB_ALGAE_LOW_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
 
         shooterSensor.debounce(Constants.DEBOUNCE_DEFAULT).onTrue(new Rumble().andThen(new WaitCommand(0.1).andThen(new Rumble())));
         aRTrigger.onTrue(new InstantCommand(Robot.grabber::retract));

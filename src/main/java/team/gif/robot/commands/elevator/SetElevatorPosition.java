@@ -45,7 +45,7 @@ public class SetElevatorPosition extends Command {
                 Robot.grabber.retract();
             }
 
-            if (desiredPosition == Constants.Elevator.GRABBER_POSITION && Robot.elevator.getPosition() < Constants.Elevator.GRABBER_POSITION + 5) {
+            if (desiredPosition == Constants.Elevator.GRAB_ALGAE_LOW_POSITION && Robot.elevator.getPosition() < Constants.Elevator.GRAB_ALGAE_LOW_POSITION + 5) {
                 Robot.grabber.retract();
             }
         }
@@ -62,7 +62,7 @@ public class SetElevatorPosition extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        if (grabberMode && (desiredPosition == Constants.Elevator.LEVEL_2_POSITION || desiredPosition == Constants.Elevator.GRABBER_POSITION)) {
+        if (grabberMode && (desiredPosition == Constants.Elevator.LEVEL_2_POSITION || desiredPosition == Constants.Elevator.GRAB_ALGAE_LOW_POSITION)) {
             new LongDriveAway().schedule();
             //This time should match the isFinished time from LongDriveAway
             new WaitCommand(0.75).andThen(new SetElevatorPosition(0)).schedule();
