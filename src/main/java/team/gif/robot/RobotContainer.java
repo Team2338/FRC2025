@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.robot.commands.drivetrain.DriveRight;
 import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
 import team.gif.robot.commands.shooter.AutonShoot;
@@ -44,10 +45,14 @@ public class RobotContainer {
         // register commands used in PathPlanner
         NamedCommands.registerCommand("Shoot", new Shoot());
         NamedCommands.registerCommand("AutonElevatorL4", new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION));
+        NamedCommands.registerCommand("AutonElevatorL2", new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION));
+        NamedCommands.registerCommand("AutonElevatorGrabber", new SetElevatorPosition(Constants.Elevator.GRAB_ALGAE_LOW_POSITION));
         NamedCommands.registerCommand("AutonElevatorL0", new SetElevatorPosition(0));
         NamedCommands.registerCommand("AutonAutoShoot", new AutonStrafeToTarget());
         NamedCommands.registerCommand("AutonShootReset", new AutonShootReset());
         NamedCommands.registerCommand("AutonShoot", new AutonShoot());
+        NamedCommands.registerCommand("GrabberDeploy", new InstantCommand(Robot.grabber::deploy));
+        NamedCommands.registerCommand("DriveRight", new DriveRight());
         NamedCommands.registerCommand("StageCoral", new StageCoral());
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
         NamedCommands.registerCommand("StopDrive", new StopModules());
