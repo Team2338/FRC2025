@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rc-f4-LL-3"
+            "pathName": "lc-j4-LL"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutonShoot"
+            "name": "AutonShootReset"
           }
         },
         {
@@ -33,7 +33,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "f-coral-LL-3"
+                        "pathName": "j-coral-LL"
                       }
                     },
                     {
@@ -43,7 +43,7 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.25
+                              "waitTime": 0.5
                             }
                           },
                           {
@@ -58,64 +58,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-d4-LL-3"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutonShoot"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "StageCoral"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "d-coral-LL-3"
-                      }
-                    },
-                    {
-                      "type": "race",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 0.25
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "StopDrive"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "coral-b4-AR-LL-3"
+                        "pathName": "coral-l4-AR-LL"
                       }
                     }
                   ]
@@ -139,7 +82,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AutonElevatorL2"
+            "name": "AutonElevatorGrabber"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "l-coral-LL"
           }
         }
       ]
