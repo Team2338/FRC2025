@@ -13,7 +13,11 @@ public class ElevatorPIDControl extends Command {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        // When manual control ends, motor may still
+        // be being commanded so need to reset it to 0
+        Robot.elevator.move(0);
+    }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override

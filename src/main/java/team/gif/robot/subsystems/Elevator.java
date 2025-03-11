@@ -74,7 +74,14 @@ public class Elevator extends SubsystemBase {
      * Holds the elevator at its given position with PID
      */
     public void PIDHold() {
-        move(Constants.Elevator.PID_HOLD_FF);
+        // Only command the motor whwen it is needs to be used (i.e. not near 0). This reduces the number
+        // of messages to the motor, reducing CAN utilization.
+        // This is not a true PID command, but rather a simple Feed Forward to hold the elevator up. Trur PID
+        // is overkill for this application
+        if (getPosition() >= 0.8) {
+            move(Constants.Elevator.PID_HOLD_FF);
+        }
+
         //PositionDutyCycle elevatorPos = new PositionDutyCycle(0);
         //elevatorMotor.setPosition(1, 0);
         // the elevator needs a different kF when it is lower to the ground, otherwise it doesn't stay at the position

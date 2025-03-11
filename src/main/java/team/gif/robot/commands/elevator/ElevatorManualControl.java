@@ -58,7 +58,6 @@ public class ElevatorManualControl extends Command {
     public void end(boolean interrupted) {
         Robot.elevator.setElevatorManualMode(false);
         Robot.elevator.setElevatorTargetPos(Robot.elevator.getPosition());
-        Robot.elevator.PIDHold();
         Robot.elevator.enableLowerSoftLimit(true);
     }
 }
