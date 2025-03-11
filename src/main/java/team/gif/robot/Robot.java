@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
+        pigeon.resetPigeonPosition(180);
         flapper = new Flapper(RobotMap.SERVO_PORT_ID);
         shooter.setDefaultCommand(new StageCoral());
 
