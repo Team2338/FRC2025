@@ -1,0 +1,66 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.7761270491803276,
+        "y": 2.9580942622950825
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.112434547695984,
+        "y": 2.3219048420776547
+      },
+      "isLocked": false,
+      "linkedName": "D Branch LL 3"
+    },
+    {
+      "anchor": {
+        "x": 1.6063524590163931,
+        "y": 0.7643442622950829
+      },
+      "prevControl": {
+        "x": 2.6268231901978223,
+        "y": 1.7208211792578607
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Coral Right LL 3 2nd collect"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "AutonElevatorReset",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutonElevatorL0"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 54.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 59.99999999999999
+  },
+  "useDefaultConstraints": false
+}
