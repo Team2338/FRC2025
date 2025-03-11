@@ -41,8 +41,6 @@ public class UiSmartDashboard {
 
         SmartDashboard.putData("Reset180", new Reset180());
 
-        SmartDashboard.putBoolean("Elevator Stall", Robot.elevator.isStalled());
-
         SmartDashboard.putData("Commands", CommandScheduler.getInstance());
     }
 
@@ -59,18 +57,22 @@ public class UiSmartDashboard {
         SmartDashboard.putString("Elevator", String.format("%11.2f", Robot.elevator.getPosition()));
         SmartDashboard.putString("Climber", String.format("%11.2f", Robot.climber.getPosition()));
 
-        SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
-        SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
+        if(Robot.fullDashboard) {
+            SmartDashboard.putNumber("Left", Robot.shooter.getLeftD());
+            SmartDashboard.putNumber("Right", Robot.shooter.getRightD());
+        }
         SmartDashboard.putBoolean("Mode(Std)", Robot.getRobotMode() == RobotMode.STANDARD_OP);
         SmartDashboard.putString("Piston", Robot.climber.getPistonStateAsString());
 
         SmartDashboard.putBoolean("Unlocked", Robot.elevator.getElevatorUnlocked());
 
         // Update Diagnostics tab
-        SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
-        SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
-        SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
-        SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
+        if(Robot.fullDashboard) {
+            SmartDashboard.putNumber("Diagnostics/Swerve FL temp", Robot.swerveDrive.fLDriveTemp());
+            SmartDashboard.putNumber("Diagnostics/Swerve FR temp", Robot.swerveDrive.fRDriveTemp());
+            SmartDashboard.putNumber("Diagnostics/Swerve RL temp", Robot.swerveDrive.rLDriveTemp());
+            SmartDashboard.putNumber("Diagnostics/Swerve RR temp", Robot.swerveDrive.rRDriveTemp());
+        }
 
         SmartDashboard.putBoolean("Diagnostics/Angle", Robot.diagnostics.getAtTargetAngle());
 

@@ -67,6 +67,7 @@ public abstract class RobotMap {
         public static final String SHOOTER_PERC = "Shooter %";
         public static final String INDEXER_PERC = "Indexer Speed";
         public static final String STAGE_PERC = "Stage %";
+        public static final String SHOOTER_LEVEL_1_PERC = "Level 1 %";
     }
 
     //Compressers

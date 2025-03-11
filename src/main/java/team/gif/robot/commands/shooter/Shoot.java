@@ -28,7 +28,7 @@ public class Shoot extends Command {
     public void execute() {
         //Different speed for L1
         if (Math.abs(Robot.elevator.getPosition() - Constants.Elevator.LEVEL_1_POSITION) < 3) {
-            Robot.shooter.runShooterMotor(Constants.Shooter.SHOOT_L1_PERCENT);
+            Robot.shooter.runShooterMotorLevelOne();
         } else {
             Robot.shooter.runShooterMotor(Constants.Shooter.SHOOT_PERCENT);
         }
