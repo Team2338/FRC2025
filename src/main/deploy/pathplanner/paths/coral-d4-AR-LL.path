@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.308606557377049,
-        "y": 4.420594262295082
+        "x": 1.2480000000000002,
+        "y": 1.0025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7399762001420784,
-        "y": 3.81700719103539
+        "x": 1.9899984798476649,
+        "y": 1.648968457963408
       },
       "isLocked": false,
-      "linkedName": "A Branch LL 3"
+      "linkedName": "Coral Right LL"
     },
     {
       "anchor": {
-        "x": 1.21875,
-        "y": 7.2035
+        "x": 3.7419074833937644,
+        "y": 2.9098447741068196
       },
       "prevControl": {
-        "x": 1.0859080048392853,
-        "y": 7.4152852788125765
+        "x": 3.378475551762006,
+        "y": 2.597960845976329
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Left LL 3"
+      "linkedName": "D Branch LL"
     }
   ],
   "rotationTargets": [],
@@ -33,20 +33,31 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "AutonElevatorReset",
-      "waypointRelativePos": 0,
+      "name": "AutonElevatorL4",
+      "waypointRelativePos": 0.686868686868689,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "AutonElevatorL0"
+          "name": "AutonElevatorL4"
+        }
+      }
+    },
+    {
+      "name": "GrabberDeploy",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "GrabberDeploy"
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -54,13 +65,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -53.13010235415602
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": 0.0
+    "velocity": 0,
+    "rotation": 54.0
   },
   "useDefaultConstraints": false
 }
