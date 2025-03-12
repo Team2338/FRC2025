@@ -128,6 +128,7 @@ public class OI {
         dRBump.whileTrue(new EnableRotatedMode());
         dLTrigger.whileTrue(new ShooterReverse());
         dA.onTrue(new DriveRight());
+        dBack.and(dY).onTrue(new InstantCommand(Robot::runAuto));
 
         // aux controls
         aStart.and(aDPadUp).onTrue(new Reset0());
