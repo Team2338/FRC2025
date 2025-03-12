@@ -250,4 +250,8 @@ public class Robot extends TimedRobot {
 
         elevator.enableElevator();
     }
+
+    static public void runAuto() {
+        robotContainer.getAutonomousCommand().schedule();
+    }
 }
