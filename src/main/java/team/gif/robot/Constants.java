@@ -274,8 +274,7 @@ public final class Constants {
         public static final double ELEVATOR_KD_HOLD = 0;
         public static final double TICKS_PER_INCH = 1;
         public static final double ZERO_OFFSET_TICKS = 1;
-        public static final double MAX_POS = 61;
-        public static final double MIN_POS = 0;
+        public static final double MAX_POS = 61;        public static final double MIN_POS = 0;
 
         // Motion Magic
         public static final double ELEVATOR_KP = 4.0; // 4 worked, 3 too low, 8 groaned
@@ -287,12 +286,12 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 130;
         public static final double REV_MAX_ACCELERATION = 80;
 
-        public static final double SHOOT_TOLERANCE = 0.3;
+        public static final double SHOOT_TOLERANCE = 0.4;
         public static final double MOTION_MAGIC_TOLERANCE = 0.1;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 
-        public static final double LEVEL_4_POSITION = 60.0;
+        public static final double LEVEL_4_POSITION = 59.6;
         public static final double LEVEL_3_POSITION = 37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double LEVEL_1_POSITION = 8.7; // needs to be differnet than ALGAE_LOW
