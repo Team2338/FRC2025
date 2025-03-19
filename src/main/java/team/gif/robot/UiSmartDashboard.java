@@ -39,7 +39,6 @@ public class UiSmartDashboard {
         delayChooser.addOption("15", delay.DELAY_15);
         SmartDashboard.putData("Delay", delayChooser);
 
-
         SmartDashboard.putData("Reset180", new Reset180());
 
         SmartDashboard.putData("Commands", CommandScheduler.getInstance());
