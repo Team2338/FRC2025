@@ -46,9 +46,10 @@ public class Shooter extends SubsystemBase {
         reefSensorRightDebouncer = new Debouncer(Constants.Shooter.REEF_SENSOR_DEBOUNCE_SECS, Debouncer.DebounceType.kRising);
 
         // todo: remove once specific values are determined
-        //SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, Constants.Shooter.SHOOT_PERCENT);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_PERC, Constants.Shooter.SHOOT_PERCENT);
         //SmartDashboard.putNumber(RobotMap.UI.INDEXER_PERC, Constants.Shooter.INDEX_PERCENT);
         //SmartDashboard.putNumber(RobotMap.UI.STAGE_PERC, Constants.Shooter.STAGE_PERCENT);
+        SmartDashboard.putNumber(RobotMap.UI.SHOOTER_LEVEL_3_PERC, Constants.Shooter.SHOOT_L3_PERCENT);
         SmartDashboard.putNumber(RobotMap.UI.SHOOTER_LEVEL_1_PERC, Constants.Shooter.SHOOT_L1_PERCENT);
     }
 
@@ -61,27 +62,38 @@ public class Shooter extends SubsystemBase {
     }
 
     /**
-     * runs the shooter motor at a power percentage determined by value on dashboard
+     * runs the shooter motor at a power percentage (currently level 4 and level 2)
+     * determined by constant or value on dashboard
      **/
     public void runShooterMotor() {
         // todo: change once value is determined
-        runShooterMotor(Constants.Shooter.SHOOT_PERCENT);
-        //runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0));
+        //runShooterMotor(Constants.Shooter.SHOOT_PERCENT); // use constant value
+        runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_PERC, 0)); // use value from dashboard
     }
 
     /**
-     * runs the shooter motor at a power percentage determined by value on dashboard
+     * runs the shooter motor for level 3 at a power percentage
+     * determined by constant or value on dashboard
+     **/
+    public void runShooterMotorLevelThree() {
+        // todo: change once value is determined
+//        runShooterMotor(Constants.Shooter.SHOOT_L3_PERCENT);
+        runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_LEVEL_3_PERC, Constants.Shooter.SHOOT_L3_PERCENT));
+    }
+
+    /**
+     * runs the shooter motor for level 1 at a power percentage
+     * determined by constant or value on dashboard
      **/
     public void runShooterMotorLevelOne() {
         // todo: change once value is determined
-        //runShooterMotor(Constants.Shooter.SHOOT_PERCENT);
+        //runShooterMotor(Constants.Shooter.SHOOT_L1_PERCENT);
         runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.SHOOTER_LEVEL_1_PERC, Constants.Shooter.SHOOT_L1_PERCENT));
     }
 
-
-
     /**
-     * runs the shooter motor at a power percentage determined by value on dashboard
+     * runs the shooter motor at a power set in constants
+     * commented code is to run percentage determined by value on dashboard
      **/
     public void stageShooterMotor() {
         // todo: change once value is determined

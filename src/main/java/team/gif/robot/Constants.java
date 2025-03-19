@@ -244,12 +244,13 @@ public final class Constants {
     public static final class Shooter {
         public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
         public static final double SHOOT_PERCENT = 0.85; // todo: initial good - needs testing and final number
+        public static final double SHOOT_L3_PERCENT = 0.65;
         public static final double SHOOT_L1_PERCENT = 0.65;
         public static final double STAGE_PERCENT = 0.50;// todo: initial good - needs testing and final number
         public static final double REINDEX_PERCENT = 0.5;
 
         public static final int SHOOT_CYCLES = 12;
-        public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 500;
+        public static final double REEF_SENSOR_TARGET_DISTANCE_MM = 381; // 500;
         public static final double ALIGN_STRAFE_SPEED_MPS = 0.30; //Meters per Second
         public static final double GRABBER_STRAFE_SPEED_MPS = 0.50; //Meters per Second
         public static final double LONG_DRIVE_SPEED_MPS = 1.25; // Meters per Second
@@ -293,7 +294,7 @@ public final class Constants {
         public static final double MAX_PERCENT_MANUAL = 0.15;
 
         public static final double LEVEL_4_POSITION = 60.0;
-        public static final double LEVEL_3_POSITION = 37.5;
+        public static final double LEVEL_3_POSITION = 35.8; //37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double LEVEL_1_POSITION = 8.7; // needs to be differnet than ALGAE_LOW
         public static final double COLLECTOR_POSITION = 0.0;
