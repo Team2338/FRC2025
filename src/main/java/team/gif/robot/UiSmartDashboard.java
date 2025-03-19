@@ -3,7 +3,6 @@ package team.gif.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import team.gif.lib.RobotMode;
 import team.gif.lib.delay;
 import team.gif.robot.commands.drivetrain.Reset180;
@@ -40,7 +39,6 @@ public class UiSmartDashboard {
         delayChooser.addOption("15", delay.DELAY_15);
         SmartDashboard.putData("Delay", delayChooser);
 
-        SmartDashboard.putData("RunAuto", new InstantCommand(Robot::runAuto));
 
         SmartDashboard.putData("Reset180", new Reset180());
 
