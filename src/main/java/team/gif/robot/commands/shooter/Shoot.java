@@ -26,11 +26,15 @@ public class Shoot extends Command {
     // Called every time the scheduler runs (~20ms) while the command is scheduled
     @Override
     public void execute() {
-        //Different speed for L1
-        if (Math.abs(Robot.elevator.getPosition() - Constants.Elevator.LEVEL_1_POSITION) < 3) {
+        double pos = Robot.elevator.getPosition();
+
+        // Different speed for L1 and Level 3
+        if (Math.abs(pos - Constants.Elevator.LEVEL_1_POSITION) < 3) {
             Robot.shooter.runShooterMotorLevelOne();
+        } else if (Math.abs(pos - Robot.elevator.getLevelThreeSetPosition()) < 3) {
+            Robot.shooter.runShooterMotorLevelThree();
         } else {
-            Robot.shooter.runShooterMotor(Constants.Shooter.SHOOT_PERCENT);
+            Robot.shooter.runShooterMotor();
         }
 
         counter++;

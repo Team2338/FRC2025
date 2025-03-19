@@ -188,7 +188,7 @@
           },
           {
             "title": "Commands",
-            "x": 256.0,
+            "x": 0.0,
             "y": 0.0,
             "width": 256.0,
             "height": 384.0,
@@ -251,7 +251,7 @@
           },
           {
             "title": "Level 1 %",
-            "x": 1024.0,
+            "x": 256.0,
             "y": 384.0,
             "width": 256.0,
             "height": 128.0,
@@ -281,6 +281,74 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Level 3 %",
+            "x": 256.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Level 3 %",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 0.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          },
+          {
+            "title": "Shooter %",
+            "x": 256.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Shooter %",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 0.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          },
+          {
+            "title": "Shooter %",
+            "x": 256.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Shooter %",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 0.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          },
+          {
+            "title": "Level 3 Pos",
+            "x": 512.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/SmartDashboard/Level 3 Pos",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 21.0,
+              "max_value": 60.0,
+              "divisions": 5,
+              "update_continuously": false
             }
           }
         ]
@@ -640,25 +708,8 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Shooter %",
-            "x": 640.0,
-            "y": 128.0,
-            "width": 256.0,
-            "height": 128.0,
-            "type": "Number Slider",
-            "properties": {
-              "topic": "/SmartDashboard/Shooter %",
-              "period": 0.06,
-              "data_type": "double",
-              "min_value": 0.0,
-              "max_value": 1.0,
-              "divisions": 5,
-              "update_continuously": false
-            }
-          },
-          {
             "title": "Stage %",
-            "x": 640.0,
+            "x": 896.0,
             "y": 256.0,
             "width": 256.0,
             "height": 128.0,

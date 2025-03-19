@@ -143,7 +143,7 @@ public class OI {
         // Only run the SetElevatorPosition if robot is in StandardOp mode, false condition (i.e. manual mode) still returns
         // to elevator defalt command which is PID mode, so need to restart ElevatorManualMode
         aLBump.onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_4_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
-        aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_3_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
+        aDPadUp.and(aStart.negate()).onTrue(new ConditionalCommand(new InstantCommand(Robot.elevator::setElevatorLevelThreePosition), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadLeft.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.LEVEL_2_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadDown.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.COLLECTOR_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));
         aDPadRight.and(aStart.negate()).onTrue(new ConditionalCommand(new SetElevatorPosition(Constants.Elevator.GRAB_ALGAE_LOW_POSITION), new InstantCommand(Robot::enableRobotModeManual), Robot::isRobotInStandardOpMode));

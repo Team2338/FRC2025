@@ -10,11 +10,13 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.robot.commands.elevator.SetElevatorPosition;
 
 import static com.ctre.phoenix6.signals.InvertedValue.Clockwise_Positive;
 import static edu.wpi.first.units.Units.Meters;
@@ -48,6 +50,8 @@ public class Elevator extends SubsystemBase {
 
         stallLastPosition = getPosition();
         stallCount = 0;
+
+        SmartDashboard.putNumber(RobotMap.UI.ELEVATOR_LEVEL_3, Constants.Elevator.LEVEL_3_POSITION);
 
         elevatorEnabled = true;
     }
@@ -125,7 +129,6 @@ public class Elevator extends SubsystemBase {
         return inches * Constants.Elevator.TICKS_PER_INCH;
     }
 
-
     /**
      * Get the target elevator position
      *
@@ -133,6 +136,21 @@ public class Elevator extends SubsystemBase {
      */
     public double getTargetPosition() {
         return elevatorTargetPos;
+    }
+
+    /**
+     * Get the level 3 set position (uses constant or from the dashboard)
+     */
+    public double getLevelThreeSetPosition() {
+//        return Constants.Elevator.LEVEL_3_POSITION; // use constant value
+        return SmartDashboard.getNumber(RobotMap.UI.ELEVATOR_LEVEL_3, Constants.Elevator.LEVEL_3_POSITION); // use value from dashboard
+    }
+
+    /**
+     * Moves the elevator to the level 3 position
+     */
+    public void setElevatorLevelThreePosition() {
+        new SetElevatorPosition(getLevelThreeSetPosition()).schedule();
     }
 
     /**

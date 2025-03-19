@@ -65,9 +65,11 @@ public abstract class RobotMap {
     //UI
     public static final class UI {
         public static final String SHOOTER_PERC = "Shooter %";
-        public static final String INDEXER_PERC = "Indexer Speed";
-        public static final String STAGE_PERC = "Stage %";
+        public static final String SHOOTER_LEVEL_3_PERC = "Level 3 %";
+        public static final String ELEVATOR_LEVEL_3 = "Level 3 Pos";
         public static final String SHOOTER_LEVEL_1_PERC = "Level 1 %";
+        public static final String STAGE_PERC = "Stage %";
+        public static final String INDEXER_PERC = "Indexer Speed";
     }
 
     //Compressers
