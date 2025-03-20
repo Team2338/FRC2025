@@ -115,7 +115,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-a4-LL-3"
+                        "pathName": "coral-k4-LL-3"
                       }
                     }
                   ]
@@ -133,7 +133,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "a-coral-LL-3"
+            "pathName": "k-coral-LL-3"
           }
         }
       ]
