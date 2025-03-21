@@ -42,6 +42,8 @@ public class UiSmartDashboard {
         SmartDashboard.putData("Reset180", new Reset180());
 
         SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+
+        SmartDashboard.putBoolean("PushBack", false);
     }
 
     /**
