@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.0785,
-        "y": 2.25
+        "x": 1.6063524590163931,
+        "y": 0.7643442622950829
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.318053677839955,
-        "y": 2.309002631734057
+        "x": 2.3028664336766482,
+        "y": 1.4567706375123544
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Coral Right LL 3 2nd collect"
     },
     {
       "anchor": {
-        "x": 5.0505,
-        "y": 2.8939999999999997
+        "x": 3.7761270491803276,
+        "y": 2.9580942622950825
       },
       "prevControl": {
-        "x": 6.582207843450142,
-        "y": 2.120618996196569
+        "x": 3.4160543648097623,
+        "y": 2.6028615253902494
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "F Branch LL 3"
+      "linkedName": "D Branch LL 3"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.6,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -54,13 +54,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 54.0
   },
   "useDefaultConstraints": false
 }

@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.6063524590163931,
-        "y": 0.7643442622950829
+        "x": 1.3665983606557375,
+        "y": 0.6204918032786884
       },
       "prevControl": {
-        "x": 2.430232541786601,
-        "y": 1.8354768349321071
+        "x": 2.1904784434259454,
+        "y": 1.6916243759157128
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Right LL 3 2nd collect"
+      "linkedName": "Coral Right LL 3"
     }
   ],
   "rotationTargets": [],

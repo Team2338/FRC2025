@@ -58,7 +58,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-d4-LL-3"
+                        "pathName": "coral-c4-LL-3"
                       }
                     }
                   ]
@@ -90,7 +90,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "d-coral-LL-3"
+                        "pathName": "c-coral-LL-3-side"
                       }
                     },
                     {
@@ -115,7 +115,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "coral-c4-LL-3"
+                        "pathName": "coral-d4-LL-3-side"
                       }
                     }
                   ]
@@ -133,7 +133,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "c-coral-LL-3"
+            "pathName": "d-coral-LL-3"
           }
         }
       ]

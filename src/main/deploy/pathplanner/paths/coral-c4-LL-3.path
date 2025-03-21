@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6063524590163931,
-        "y": 0.7643442622950829
+        "x": 1.3665983606557375,
+        "y": 0.6204918032786884
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.232036056036526,
-        "y": 1.5395046287430976
+        "x": 1.9922819576758704,
+        "y": 1.395652169726703
       },
       "isLocked": false,
-      "linkedName": "Coral Right LL 3 2nd collect"
+      "linkedName": "Coral Right LL 3"
     },
     {
       "anchor": {

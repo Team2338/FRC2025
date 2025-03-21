@@ -127,10 +127,10 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
             useFrontEstimate = true;
         }
         if(limelightEnabled && rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
-            useRightEstimate = true;
+            useRightEstimate = false; //true
         }
         if(limelightEnabled && rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
-            useRearEstimate = true;
+            useRearEstimate = false; //true
         }
         if(useFrontEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
