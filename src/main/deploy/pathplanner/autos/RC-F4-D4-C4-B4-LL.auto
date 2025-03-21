@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "BoostDrivePace"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "rc-f4-LL-4"

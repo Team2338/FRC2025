@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.lib.drivePace;
 import team.gif.robot.commands.drivetrain.DriveRight;
 import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
@@ -57,6 +58,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
         NamedCommands.registerCommand("StopDrive", new StopModules());
         NamedCommands.registerCommand("DisableLimelights", new InstantCommand(() -> Robot.swerveDrive.setLimelightEnabled(false)));
+        NamedCommands.registerCommand("BoostDrivePace", new InstantCommand(() -> Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR)));
 
 
 

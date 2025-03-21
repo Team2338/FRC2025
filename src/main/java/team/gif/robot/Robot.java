@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.delay;
 import team.gif.lib.RobotMode;
+import team.gif.lib.drivePace;
 import team.gif.robot.commands.climber.ClimberManualControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
@@ -186,6 +187,8 @@ public class Robot extends TimedRobot {
         climber.setPistonIn();
 
         flapper.setDown();
+
+        swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 
     /** This function is called periodically during operator control. */
