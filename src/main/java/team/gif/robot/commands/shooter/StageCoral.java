@@ -26,14 +26,14 @@ public class StageCoral extends Command {
         //if both not active, don't move
         if (!isExitSensorActive && !isIndexerSensorActive) {
             Robot.shooter.runIndexerMotor();
-            Robot.shooter.stageShooterMotor();
+            Robot.shooter.runTopIndexShooterMotor();
             return;
         }
 
         //if only indexer sensor active, move
         if (!isExitSensorActive && isIndexerSensorActive) {
             Robot.shooter.runIndexerMotor();
-            Robot.shooter.stageShooterMotor();
+            Robot.shooter.runStageShooterMotor();
             return;
         }
 

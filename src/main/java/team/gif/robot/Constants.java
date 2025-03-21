@@ -243,6 +243,7 @@ public final class Constants {
 
     public static final class Shooter {
         public static final double INDEX_PERCENT = 0.35; // todo: initial good - needs testing and final number
+        public static final double TOP_INDEX_PERCENT = 0.75; // todo: find better speed
         public static final double SHOOT_PERCENT = 0.85; // todo: initial good - needs testing and final number
         public static final double SHOOT_L3_PERCENT = 0.65;
         public static final double SHOOT_L1_PERCENT = 0.65;

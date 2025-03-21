@@ -95,10 +95,18 @@ public class Shooter extends SubsystemBase {
      * runs the shooter motor at a power set in constants
      * commented code is to run percentage determined by value on dashboard
      **/
-    public void stageShooterMotor() {
+    public void runStageShooterMotor() {
         // todo: change once value is determined
         runShooterMotor(Constants.Shooter.STAGE_PERCENT);
         //runShooterMotor(SmartDashboard.getNumber(RobotMap.UI.STAGE_PERC, 0));
+    }
+
+    /**
+     * Runs the Top Indeser and Shooter motor at a power set in constants
+     * The top indexer and shooter are tied together with a polycord
+     **/
+    public void runTopIndexShooterMotor(){
+        runShooterMotor(Constants.Shooter.TOP_INDEX_PERCENT);
     }
 
     /**
