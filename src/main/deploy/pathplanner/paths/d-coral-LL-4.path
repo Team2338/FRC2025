@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7401639344262296,
-        "y": 2.982069672131148
+        "x": 3.7719626168224285,
+        "y": 2.93411214953271
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.076471432941886,
-        "y": 2.3458802519137203
+        "x": 3.108270115338085,
+        "y": 2.297922729315282
       },
       "isLocked": false,
       "linkedName": "D Branch LL 4"
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 2.7,
+    "maxAcceleration": 10.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

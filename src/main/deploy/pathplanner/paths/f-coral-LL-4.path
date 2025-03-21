@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.0505,
-        "y": 2.8939999999999997
+        "x": 5.138707165109034,
+        "y": 2.846339563862928
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.264690136323715,
-        "y": 2.4059498749258013
+        "x": 4.3528973014327486,
+        "y": 2.3582894387887294
       },
       "isLocked": true,
       "linkedName": "F Branch LL 3"
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 2.7,
+    "maxAcceleration": 8.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
