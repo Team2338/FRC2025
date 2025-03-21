@@ -10,6 +10,7 @@ public class SetElevatorPosition extends Command {
 
     private final double desiredPosition;
     private boolean grabberMode;
+    private int finishCounter;
 
     public SetElevatorPosition(double targetPosition) {
         super();
@@ -25,6 +26,8 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        finishCounter = 0;
+
         grabberMode = Robot.grabber.isOut() && Robot.elevator.getPosition() > desiredPosition;
 
         if (desiredPosition > Robot.elevator.getPosition()) {
@@ -56,7 +59,12 @@ public class SetElevatorPosition extends Command {
     public boolean isFinished() {
         // need to keep this command running until elevator is at target position
         // so it doesn't let PIDHold take over
-        return Robot.elevator.isMotionMagicFinished();
+        if (Robot.elevator.isMotionMagicFinished()) {
+            finishCounter++;
+        } else {
+            finishCounter = 0;
+        }
+        return finishCounter > 3;
     }
 
     // Called when the command ends or is interrupted.

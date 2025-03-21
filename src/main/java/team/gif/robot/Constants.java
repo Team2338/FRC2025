@@ -288,12 +288,12 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 230;
         public static final double REV_MAX_ACCELERATION = 80;
 
-        public static final double SHOOT_TOLERANCE = 0.3;
+        public static final double SHOOT_TOLERANCE = 0.4;
         public static final double MOTION_MAGIC_TOLERANCE = 0.1;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 
-        public static final double LEVEL_4_POSITION = 60.0;
+        public static final double LEVEL_4_POSITION = 59.6;
         public static final double LEVEL_3_POSITION = 35.8; //37.5;
         public static final double LEVEL_2_POSITION = 21.2;
         public static final double LEVEL_1_POSITION = 8.7; // needs to be differnet than ALGAE_LOW
