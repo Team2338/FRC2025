@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     // custom fields
     private boolean autoSchedulerOnHold;
     private static delay chosenDelay;
-    public static final boolean fullDashboard = false;
+    public static final boolean fullDashboard = true;
     private final Timer elapsedTime;
     private static RobotMode robotMode;
 

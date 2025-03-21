@@ -272,6 +272,8 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
         rR.setDesiredState(swerveModuleStates[3]);
 
         if(Robot.fullDashboard) {
+            SwerveModuleState[] actualStates = { fL.getState(), fR.getState(), rL.getState(), rR.getState()};
+            targetPublisher.set(swerveModuleStates);
             chassisSpeedsStructPublisher.set(chassisSpeeds);
             targetPublisher.set(swerveModuleStates);
         }
