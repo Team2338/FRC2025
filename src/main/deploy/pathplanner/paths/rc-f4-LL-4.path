@@ -3,52 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.239,
-        "y": 2.846
+        "x": 7.0785,
+        "y": 2.25
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.453190136323714,
-        "y": 2.3579498749258017
+        "x": 6.318053677839955,
+        "y": 2.309002631734057
       },
-      "isLocked": true,
-      "linkedName": "F Branch LL 3"
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.805,
-        "y": 0.71
+        "x": 5.239,
+        "y": 2.846
       },
       "prevControl": {
-        "x": 2.445499361973792,
-        "y": 1.3391811350567884
+        "x": 6.7707078434501415,
+        "y": 2.0726189961965695
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Right LL 3"
+      "linkedName": "F Branch LL 4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.2753796962430025,
+      "minWaypointRelativePos": 0.7214228617106015,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 4.0,
-        "maxAcceleration": 4.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    },
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.0403677058353332,
-      "constraints": {
-        "maxVelocity": 4.0,
+        "maxVelocity": 2.2,
         "maxAcceleration": 4.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -60,20 +47,20 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "AutonElevatorReset",
-      "waypointRelativePos": 0,
+      "name": "AutonElevatorL4",
+      "waypointRelativePos": 0.4,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "AutonElevatorL0"
+          "name": "AutonElevatorL4"
         }
       }
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 2.2,
+    "maxAcceleration": 8.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -81,13 +68,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 119.99999999999999
+    "velocity": 0.0,
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

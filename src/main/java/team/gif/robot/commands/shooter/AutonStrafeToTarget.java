@@ -67,6 +67,6 @@ public class AutonStrafeToTarget extends Command {
     @Override
     public void end(boolean interrupted) {
         Robot.swerveDrive.drive(0.0, 0.0, 0.0);
-        Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
+        Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
     }
 }

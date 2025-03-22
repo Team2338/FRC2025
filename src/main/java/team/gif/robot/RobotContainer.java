@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import team.gif.lib.drivePace;
 import team.gif.robot.commands.drivetrain.DriveRight;
 import team.gif.robot.commands.drivetrain.StopModules;
 import team.gif.robot.commands.elevator.SetElevatorPosition;
@@ -57,6 +58,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Print Me", new InstantCommand(() -> System.out.println("Printing here")));
         NamedCommands.registerCommand("StopDrive", new StopModules());
         NamedCommands.registerCommand("DisableLimelights", new InstantCommand(() -> Robot.swerveDrive.setLimelightEnabled(false)));
+        NamedCommands.registerCommand("BoostDrivePace", new InstantCommand(() -> Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR)));
 
 
 
@@ -97,10 +99,14 @@ public class RobotContainer {
         autoNames.add("LC-J4-L4-LL");
         autoNames.add("LC-J4-L4-AR-LL");
         autoNames.add("LC-J4-L4-B4-LL");
+        autoNames.add("LC-3-Side-LL");
+        autoNames.add("LC-J4-L4-K4-B4-LL");
         autoNames.add("C-H4");
         autoNames.add("RC-F4-D4-LL");
         autoNames.add("RC-F4-D4-AR-LL");
         autoNames.add("RC-F4-D4-B4-LL");
+        autoNames.add("RC-3-Side-LL");
+        autoNames.add("RC-F4-D4-C4-B4-LL");
         autoNames.add("R-F4-D4-LL");
         autoNames.add("R-F4-D4-AR-LL");
         autoNames.add("R-F4-D4-B4-LL");

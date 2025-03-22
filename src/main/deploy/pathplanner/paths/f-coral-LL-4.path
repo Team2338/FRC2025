@@ -12,7 +12,7 @@
         "y": 2.3579498749258017
       },
       "isLocked": true,
-      "linkedName": "F Branch LL 3"
+      "linkedName": "F Branch LL 4"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 0.71
       },
       "prevControl": {
-        "x": 2.445499361973792,
-        "y": 1.3391811350567884
+        "x": 2.585499361973791,
+        "y": 1.1991811350567887
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral Right LL 3"
+      "linkedName": "Coral Right LL 4"
     }
   ],
   "rotationTargets": [],
@@ -73,7 +73,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 4.0,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 6.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7761270491803276,
-        "y": 2.9580942622950825
+        "x": 3.837,
+        "y": 2.989
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.112434547695984,
-        "y": 2.3219048420776547
+        "x": 3.1733074985156566,
+        "y": 2.352810579782572
       },
       "isLocked": false,
       "linkedName": "D Branch LL 3"
     },
     {
       "anchor": {
-        "x": 1.6063524590163931,
-        "y": 0.7643442622950829
+        "x": 1.635,
+        "y": 0.88
       },
       "prevControl": {
-        "x": 2.6268231901978223,
-        "y": 1.7208211792578607
+        "x": 2.6554707311814294,
+        "y": 1.8364769169627775
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 2.7,
+    "maxAcceleration": 10.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

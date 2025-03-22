@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.delay;
 import team.gif.lib.RobotMode;
 import team.gif.robot.commands.DriveBack;
+import team.gif.lib.drivePace;
 import team.gif.robot.commands.climber.ClimberManualControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
     // custom fields
     private boolean autoSchedulerOnHold;
     private static delay chosenDelay;
-    public static final boolean fullDashboard = false;
+    public static final boolean fullDashboard = true;
     private final Timer elapsedTime;
     private static RobotMode robotMode;
 
@@ -137,6 +138,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         climber.setPistonIn();
+        swerveDrive.setDrivePace(drivePace.BOOST_FR);
 
         if (SmartDashboard.getBoolean("PushBack", false)) {
             autonomousCommand = new SequentialCommandGroup(
@@ -197,6 +199,8 @@ public class Robot extends TimedRobot {
         climber.setPistonIn();
 
         flapper.setDown();
+
+        swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 
     /** This function is called periodically during operator control. */
