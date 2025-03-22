@@ -48,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.5279776179056788,
+      "waypointRelativePos": 0.3840927258193458,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

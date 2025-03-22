@@ -285,9 +285,9 @@ public final class Constants {
         public static final double ELEVATOR_KD = 0;
         public static final double ELEVATOR_KS = 1.0; // in volts (just enough to get it moving)
         public static final int MAX_VELOCITY = 100;
-        public static final int REV_MAX_VELOCITY = 50;
+        public static final int REV_MAX_VELOCITY = 70;
         public static final double MAX_ACCELERATION = 230;
-        public static final double REV_MAX_ACCELERATION = 80;
+        public static final double REV_MAX_ACCELERATION = 100;
 
         public static final double SHOOT_TOLERANCE = 0.4;
         public static final double MOTION_MAGIC_TOLERANCE = 0.1;
