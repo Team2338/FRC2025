@@ -25,11 +25,25 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "C Branch LL"
+      "linkedName": "C Branch LL 3"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+      {
+        "name": "Constraints Zone",
+        "minWaypointRelativePos": 0.5807354116706672,
+        "maxWaypointRelativePos": 1.0,
+        "constraints": {
+          "maxVelocity": 3.0,
+          "maxAcceleration": 4.0,
+          "maxAngularVelocity": 540.0,
+          "maxAngularAcceleration": 720.0,
+          "nominalVoltage": 12.0,
+          "unlimited": false
+        }
+      }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
@@ -45,8 +59,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 8.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

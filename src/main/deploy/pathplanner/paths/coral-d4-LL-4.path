@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.665,
-        "y": 0.85
+        "x": 1.805,
+        "y": 0.71
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3385673787463865,
-        "y": 1.5340287232675491
+        "x": 2.478567378746386,
+        "y": 1.394028723267549
       },
       "isLocked": false,
       "linkedName": "Coral Right LL 4"
     },
     {
       "anchor": {
-        "x": 3.767,
-        "y": 2.939
+        "x": 3.717,
+        "y": 2.989
       },
       "prevControl": {
-        "x": 3.4464776712317327,
-        "y": 2.621700633288126
+        "x": 3.396477671231733,
+        "y": 2.671700633288126
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.5279776179056788,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

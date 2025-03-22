@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.73,
-        "y": 0.78
+        "x": 1.635,
+        "y": 0.88
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.355683597020132,
-        "y": 1.5551603664480147
+        "x": 2.1450273416983734,
+        "y": 1.6592368645890885
       },
       "isLocked": false,
       "linkedName": "Coral Right LL 4 2nd collect"
     },
     {
       "anchor": {
-        "x": 3.433,
-        "y": 3.11
+        "x": 3.383,
+        "y": 3.16
       },
       "prevControl": {
-        "x": 3.122793082456353,
-        "y": 2.710296973125811
+        "x": 3.0821465690606753,
+        "y": 2.6942291568667702
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "AutonElevatorL4",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.5071942446043188,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
