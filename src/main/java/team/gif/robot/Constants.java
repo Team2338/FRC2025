@@ -105,7 +105,7 @@ public final class Constants {
     }
 
     public static final class DrivetrainAuto {
-        public static final double kP_FORWARD = 2;
+        public static final double kP_FORWARD = 2.5;
         public static final double kP_ROTATION = 2.5;
 
         public static final PPHolonomicDriveController AUTO_DRIVE_CONTROLLER = new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class

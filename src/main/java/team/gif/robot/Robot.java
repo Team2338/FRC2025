@@ -138,6 +138,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         climber.setPistonIn();
+        swerveDrive.setDrivePace(drivePace.BOOST_FR);
 
         if (SmartDashboard.getBoolean("PushBack", false)) {
             autonomousCommand = new SequentialCommandGroup(

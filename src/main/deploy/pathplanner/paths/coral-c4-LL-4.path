@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.402,
-        "y": 0.577
+        "x": 1.590186915887849,
+        "y": 0.7397975077881608
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0276835970201326,
-        "y": 1.3521603664480144
+        "x": 2.2158705129079808,
+        "y": 1.5149578742361753
       },
       "isLocked": false,
       "linkedName": "Coral Right LL 3 2nd collect"
@@ -29,7 +29,21 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.4816147082334132,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.7,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
