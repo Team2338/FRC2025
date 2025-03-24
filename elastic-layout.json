@@ -9,7 +9,7 @@
         "containers": [
           {
             "title": "Delay",
-            "x": 512.0,
+            "x": 640.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -36,7 +36,7 @@
           {
             "title": "Motor Temp",
             "x": 1152.0,
-            "y": 0.0,
+            "y": 256.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
@@ -52,7 +52,7 @@
           },
           {
             "title": "Auto",
-            "x": 640.0,
+            "x": 768.0,
             "y": 384.0,
             "width": 256.0,
             "height": 128.0,
@@ -78,7 +78,7 @@
           },
           {
             "title": "Elevator",
-            "x": 896.0,
+            "x": 1024.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
@@ -92,7 +92,7 @@
           },
           {
             "title": "Climber",
-            "x": 1024.0,
+            "x": 1152.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
@@ -107,7 +107,7 @@
           {
             "title": "Mode(Std)",
             "x": 1152.0,
-            "y": 128.0,
+            "y": 384.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
@@ -123,7 +123,7 @@
           },
           {
             "title": "Piston",
-            "x": 1024.0,
+            "x": 1152.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
@@ -137,7 +137,7 @@
           },
           {
             "title": "Index",
-            "x": 768.0,
+            "x": 896.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
@@ -154,7 +154,7 @@
           },
           {
             "title": "Shooter",
-            "x": 768.0,
+            "x": 896.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
@@ -171,7 +171,7 @@
           },
           {
             "title": "Reef R",
-            "x": 640.0,
+            "x": 768.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
@@ -187,20 +187,8 @@
             }
           },
           {
-            "title": "Commands",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 384.0,
-            "type": "Scheduler",
-            "properties": {
-              "topic": "/SmartDashboard/Commands",
-              "period": 0.06
-            }
-          },
-          {
             "title": "Reef L",
-            "x": 512.0,
+            "x": 640.0,
             "y": 0.0,
             "width": 128.0,
             "height": 128.0,
@@ -217,7 +205,7 @@
           },
           {
             "title": "Unlocked",
-            "x": 896.0,
+            "x": 1024.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
@@ -234,7 +222,7 @@
           },
           {
             "title": "Angle",
-            "x": 768.0,
+            "x": 896.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -251,7 +239,7 @@
           },
           {
             "title": "Level 1 %",
-            "x": 256.0,
+            "x": 384.0,
             "y": 384.0,
             "width": 256.0,
             "height": 128.0,
@@ -268,7 +256,7 @@
           },
           {
             "title": "LimelightsEnabled",
-            "x": 896.0,
+            "x": 1024.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -285,7 +273,7 @@
           },
           {
             "title": "Level 3 %",
-            "x": 256.0,
+            "x": 384.0,
             "y": 128.0,
             "width": 256.0,
             "height": 128.0,
@@ -302,7 +290,7 @@
           },
           {
             "title": "Shooter %",
-            "x": 256.0,
+            "x": 384.0,
             "y": 0.0,
             "width": 256.0,
             "height": 128.0,
@@ -319,7 +307,7 @@
           },
           {
             "title": "Shooter %",
-            "x": 256.0,
+            "x": 384.0,
             "y": 256.0,
             "width": 256.0,
             "height": 128.0,
@@ -336,7 +324,7 @@
           },
           {
             "title": "Level 3 Pos",
-            "x": 512.0,
+            "x": 640.0,
             "y": 128.0,
             "width": 256.0,
             "height": 128.0,
@@ -349,6 +337,19 @@
               "max_value": 60.0,
               "divisions": 5,
               "update_continuously": false
+            }
+          },
+          {
+            "title": "USB Camera 0",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 384.0,
+            "height": 384.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/USB Camera 0",
+              "period": 0.06,
+              "rotation_turns": 0
             }
           }
         ]

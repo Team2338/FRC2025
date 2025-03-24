@@ -4,6 +4,7 @@
 
 package team.gif.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -109,6 +110,7 @@ public class Robot extends TimedRobot {
 
         robotMode = RobotMode.STANDARD_OP;
 
+        CameraServer.startAutomaticCapture();
     }
 
     /**
