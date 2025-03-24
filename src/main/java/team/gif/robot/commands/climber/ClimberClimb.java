@@ -20,7 +20,14 @@ public class ClimberClimb extends Command {
         // Do not re-enable at the end of the command. Want to keep elevator disabled until
         // aux toggles manaul mode. Although Deploy called this, it is possible aux toggled manual
         // control after deploying so make sure the elevator continues to be disabled
-        //Robot.elevator.disableElevator();
+        Robot.elevator.disableElevator();
+
+//        Robot.shooter.removeDefaultCommand();
+        if (Robot.shooter.getDefaultCommand() != null) {
+            Robot.shooter.getDefaultCommand().cancel();
+            Robot.shooter.removeDefaultCommand();
+        }
+        Robot.shooter.stopShooterMotor();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

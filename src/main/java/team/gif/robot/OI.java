@@ -20,6 +20,7 @@ import team.gif.robot.commands.driveModes.EnableBoost;
 import team.gif.robot.commands.shooter.AutoDriveAndShoot;
 import team.gif.robot.commands.drivetrain.Reset0;
 import team.gif.robot.commands.shooter.ShooterReverse;
+import team.gif.robot.commands.shooter.ToggleShooterMotor;
 import team.gif.robot.commands.toggleManualControl.ToggleManualControl;
 
 public class OI {
@@ -121,6 +122,7 @@ public class OI {
         dStart.and(dDPadDown).onTrue(new Reset180());
         dStart.and(dDPadRight).onTrue(new InstantCommand(Robot.climber::zeroEncoder).ignoringDisable(true));
         dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
+        dBack.and(dRStickBtn).onTrue(new ToggleShooterMotor());
         dRTrigger.whileTrue(new Shoot());
         dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
