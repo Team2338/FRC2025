@@ -93,28 +93,28 @@ public class RobotContainer {
 
         // create list manually to control sort order
         List<String> autoNames = new ArrayList<>();
-        autoNames.add("L-J4-L4-LL");
-        autoNames.add("L-J4-L4-AR-LL");
-        autoNames.add("L-J4-L4-B4-LL");
-        autoNames.add("LC-J4-L4-LL");
-        autoNames.add("LC-J4-L4-AR-LL");
-        autoNames.add("LC-J4-L4-B4-LL");
-        autoNames.add("LC-3-Side-LL");
-        autoNames.add("LC-J4-L4-K4-B4-LL");
+//        autoNames.add("L-J4-L4-LL");
+//        autoNames.add("L-J4-L4-AR-LL");
+//        autoNames.add("L-J4-L4-B4-LL");
+//        autoNames.add("LC-J4-L4-LL");
+//        autoNames.add("LC-J4-L4-AR-LL");
+//        autoNames.add("LC-J4-L4-B4-LL");
+        autoNames.add("LC-3-coral-LL");
+        autoNames.add("LC-4-coral-LL");
         autoNames.add("C-H4");
-        autoNames.add("RC-F4-D4-LL");
-        autoNames.add("RC-F4-D4-AR-LL");
-        autoNames.add("RC-F4-D4-B4-LL");
-        autoNames.add("RC-3-Side-LL");
-        autoNames.add("RC-F4-D4-C4-B4-LL");
-        autoNames.add("R-F4-D4-LL");
-        autoNames.add("R-F4-D4-AR-LL");
-        autoNames.add("R-F4-D4-B4-LL");
+//        autoNames.add("RC-F4-D4-LL");
+//        autoNames.add("RC-F4-D4-AR-LL");
+//        autoNames.add("RC-F4-D4-B4-LL");
+        autoNames.add("RC-3-coral-LL");
+        autoNames.add("RC-4-coral-LL");
+//        autoNames.add("R-F4-D4-LL");
+//        autoNames.add("R-F4-D4-AR-LL");
+//        autoNames.add("R-F4-D4-B4-LL");
         autoNames.add("Mobility");
-        autoNames.add("L-J4-L4");
-        autoNames.add("RC-E4-C4");
-        autoNames.add("R-E4-C4");
-        autoNames.add("R-F4-D4-B4");
+//        autoNames.add("L-J4-L4");
+//        autoNames.add("RC-E4-C4");
+//        autoNames.add("R-E4-C4");
+//        autoNames.add("R-F4-D4-B4");
 
 //        PathPlannerAuto defaultOption = null;
         List<PathPlannerAuto> options = new ArrayList<>();

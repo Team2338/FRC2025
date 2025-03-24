@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import team.gif.lib.LimelightHelpers;
 import team.gif.lib.delay;
 import team.gif.lib.RobotMode;
 import team.gif.robot.commands.DriveBack;
@@ -79,6 +80,7 @@ public class Robot extends TimedRobot {
         // Instantiate all the framework and device objects
         pigeon = new Pigeon2_0(RobotMap.PIGEON_ID);
         limelightFront = new Limelight("limelight-front");
+        LimelightHelpers.setStreamMode_PiPSecondary("limelight-front");
         limelightRight = new Limelight("limelight-right");
         limelightRear = new Limelight("limelight-rear");
 //        swerveDrive = new SwerveDrivetrainMk3();
