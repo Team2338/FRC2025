@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
 
         robotMode = RobotMode.STANDARD_OP;
 
-        CameraServer.startAutomaticCapture();
+//        CameraServer.startAutomaticCapture();
     }
 
     /**
