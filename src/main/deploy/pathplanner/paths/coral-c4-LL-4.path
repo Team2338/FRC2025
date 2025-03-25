@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0610273416983733,
-        "y": 1.7112368645890885
+        "x": 2.0610273416983738,
+        "y": 1.7112368645890887
       },
       "isLocked": false,
       "linkedName": "Coral Right LL 4 2nd collect"
     },
     {
       "anchor": {
-        "x": 3.338,
-        "y": 3.1346
+        "x": 3.3414,
+        "y": 3.077
       },
       "prevControl": {
-        "x": 3.0371465690606754,
-        "y": 2.66882915686677
+        "x": 3.0405465690606754,
+        "y": 2.61122915686677
       },
       "nextControl": null,
       "isLocked": false,
