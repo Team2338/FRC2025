@@ -22,7 +22,7 @@ public class ClimberClimb extends Command {
         // control after deploying so make sure the elevator continues to be disabled
         Robot.elevator.disableElevator();
 
-//        Robot.shooter.removeDefaultCommand();
+        // while climbing, disable the shooter motor to reduce battery drain
         if (Robot.shooter.getDefaultCommand() != null) {
             Robot.shooter.getDefaultCommand().cancel();
             Robot.shooter.removeDefaultCommand();

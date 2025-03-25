@@ -141,7 +141,12 @@ public class Robot extends TimedRobot {
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
+        // reset robot to regular modes (needed while practicing in shop)
+        if (shooter.getDefaultCommand() == null) {
+            shooter.setDefaultCommand(new StageCoral());
+        }
         climber.setPistonIn();
+
         swerveDrive.setDrivePace(drivePace.BOOST_FR);
 
         if (SmartDashboard.getBoolean("PushBack", false)) {
@@ -191,6 +196,11 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        // reset robot to regular modes (needed while practicing in shop)
+        if (shooter.getDefaultCommand() == null) {
+            shooter.setDefaultCommand(new StageCoral());
+        }
+
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove

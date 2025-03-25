@@ -26,11 +26,12 @@ public class SetElevatorPosition extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        double position = Robot.elevator.getPosition();
         finishCounter = 0;
 
-        grabberMode = Robot.grabber.isOut() && Robot.elevator.getPosition() > desiredPosition;
+        grabberMode = Robot.grabber.isOut() && position > desiredPosition;
 
-        if (desiredPosition > Robot.elevator.getPosition()) {
+        if (desiredPosition > position) {
             Robot.elevator.configMotionMagicUp();
             Robot.elevator.setMotionMagic(desiredPosition);
         } else {
@@ -59,6 +60,16 @@ public class SetElevatorPosition extends Command {
     public boolean isFinished() {
         // need to keep this command running until elevator is at target position
         // so it doesn't let PIDHold take over
+
+        // using the finishCounter algorithm broke the algae grabber sequence
+        // most likely due to the elevator no longer in the correct position
+        // while leaning on the algae, so it never gets to 3 and then
+        // doesn't finish. So when in grabber mode, just need one
+        // good finished result
+        if (grabberMode) {
+            return Robot.elevator.isMotionMagicFinished();
+        }
+
         if (Robot.elevator.isMotionMagicFinished()) {
             finishCounter++;
         } else {
