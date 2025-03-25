@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.3414,
-        "y": 3.077
+        "x": 3.3283,
+        "y": 3.0545
       },
       "prevControl": {
-        "x": 3.0405465690606754,
-        "y": 2.61122915686677
+        "x": 3.0274465690606753,
+        "y": 2.58872915686677
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,7 @@
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.7,
-        "maxAcceleration": 4.0,
+        "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
