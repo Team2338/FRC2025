@@ -18,7 +18,7 @@ public class ClimberDeploy extends Command {
         // Disable the elevator when climbing preventing the aux from accidentally raising the elevator
         // Do not re-enable at the end of the command. Want to keep elevator disabled until
         // aux toggles manaul mode.
-        Robot.elevator.disableElevator();
+        //Robot.elevator.disableElevator();
     }
 
     // Called every time the scheduler runs (~20ms) while the command is scheduled

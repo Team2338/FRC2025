@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.23142132997533,
-        "y": 5.363978630125598
+        "x": 4.0965,
+        "y": 5.4363
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.420698444867952,
-        "y": 5.826453466212616
+        "x": 3.3101030824623607,
+        "y": 5.974043281366308
       },
       "isLocked": false,
-      "linkedName": "K Branch LL"
+      "linkedName": "K Branch LL 4"
     },
     {
       "anchor": {
-        "x": 1.3785860655737705,
-        "y": 7.021926229508197
+        "x": 1.8067187499999986,
+        "y": 7.232421875
       },
       "prevControl": {
-        "x": 1.1198081092212644,
-        "y": 7.1773259416375055
+        "x": 1.602096909288276,
+        "y": 7.37605300778028
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,8 +45,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 2.7,
+    "maxAcceleration": 10.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
