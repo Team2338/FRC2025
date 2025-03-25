@@ -351,6 +351,19 @@
               "period": 0.06,
               "rotation_turns": 0
             }
+          },
+          {
+            "title": "PushBack",
+            "x": 1024.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/PushBack",
+              "period": 0.06,
+              "data_type": "boolean"
+            }
           }
         ]
       }
