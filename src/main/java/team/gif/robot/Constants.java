@@ -263,8 +263,8 @@ public final class Constants {
     public static final class Climber {
         public static final double DEPLOY_PERCENT = 1.00;
         public static final double CLIMB_PERCENT = 0.75;
-        public static final double FORWARD_SOFT_LIMIT = 354; //332;
-        public static final double REVERSE_SOFT_LIMIT = 153; //164; //175;
+        public static final double FORWARD_SOFT_LIMIT = 373.66; //332;
+        public static final double REVERSE_SOFT_LIMIT = 153; //153
         public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
         public static final double DRIVE_SPEED_MPS = 0.1; //Speed to drive while climbing in meters per second
     }
@@ -294,9 +294,9 @@ public final class Constants {
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
 
-        public static final double LEVEL_4_POSITION = 59.6;
-        public static final double LEVEL_3_POSITION = 35.8; //37.5;
-        public static final double LEVEL_2_POSITION = 21.2;
+        public static final double LEVEL_4_POSITION = 59.35; //59.6;
+        public static final double LEVEL_3_POSITION = 35.55; //35.8;
+        public static final double LEVEL_2_POSITION = 20.7; //20.95
         public static final double LEVEL_1_POSITION = 8.7; // needs to be differnet than ALGAE_LOW
         public static final double COLLECTOR_POSITION = 0.0;
         public static final double GRAB_ALGAE_LOW_POSITION = 8.8;
