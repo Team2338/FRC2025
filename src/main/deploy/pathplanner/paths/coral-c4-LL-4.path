@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.509,
-        "y": 0.869
+        "x": 1.551,
+        "y": 0.932
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.019027341698374,
-        "y": 1.6482368645890886
+        "x": 2.0610273416983738,
+        "y": 1.7112368645890887
       },
       "isLocked": false,
       "linkedName": "Coral Right LL 4 2nd collect"
