@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
-        compressor = new Compressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
+        compressor = new Compressor(PneumaticsModuleType.CTREPCM);
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
@@ -207,8 +207,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
-        //-compressor.enableDigital();
-        compressor.disable();
+        compressor.enableDigital();
+//        compressor.disable();
         climber.setPistonIn();
 
         flapper.setDown();
