@@ -1,0 +1,80 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.551,
+        "y": 0.932
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.252344060101217,
+        "y": 1.2777939298354823
+      },
+      "isLocked": false,
+      "linkedName": "Coral Right LL 4 2nd collect"
+    },
+    {
+      "anchor": {
+        "x": 4.578349278336864,
+        "y": 2.6223885229078383
+      },
+      "prevControl": {
+        "x": 3.7420001662819096,
+        "y": 2.1786246962725104
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "E Branch LL 4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.5769832835477937,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "AutonElevatorL4",
+      "waypointRelativePos": 0.624992819393382,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "AutonElevatorL4"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 8.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 54.0
+  },
+  "useDefaultConstraints": false
+}
