@@ -50,6 +50,7 @@ public abstract class RobotMap {
     public static final int EXIT_GP_SENSOR_PORT = 1;
     public static final int REEF_LEFT_SENSOR_ID = 51;
     public static final int REEF_RIGHT_SENSOR_ID = 52;
+    public static final int COLLECTOR_SIDE_SENSOR_ID = 53;
 
     //Elevator
     public static final int ELEVATOR_MOTOR_ID = 44;
