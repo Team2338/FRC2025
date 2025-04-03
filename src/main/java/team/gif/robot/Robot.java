@@ -238,6 +238,7 @@ public class Robot extends TimedRobot {
         if( alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red ){
             heading = heading - 180;
         }
+        limelightFront.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
     }
 
     @Override
