@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5596978861692135,
-        "y": 6.699366675097154
+        "x": 2.5798224582710296,
+        "y": 6.746658645273969
       },
       "isLocked": false,
       "linkedName": "Coral Left LL 3 Second Collect"
     },
     {
       "anchor": {
-        "x": 5.259193082177015,
-        "y": 5.13802123838449
+        "x": 5.1153,
+        "y": 5.194
       },
       "prevControl": {
-        "x": 4.777204897558489,
-        "y": 5.423650917054922
+        "x": 4.881024399676713,
+        "y": 5.329745879293784
       },
       "nextControl": null,
       "isLocked": false,
