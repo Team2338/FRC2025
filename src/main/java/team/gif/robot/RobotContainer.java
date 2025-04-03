@@ -101,6 +101,7 @@ public class RobotContainer {
 //        autoNames.add("LC-J4-L4-B4-LL");
         autoNames.add("LC-3-coral-LL");
         autoNames.add("LC-4-coral-LL");
+        autoNames.add("LC-4-side-coral-LL");
         autoNames.add("C-H4");
 //        autoNames.add("RC-F4-D4-LL");
 //        autoNames.add("RC-F4-D4-AR-LL");
