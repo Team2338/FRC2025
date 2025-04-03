@@ -116,21 +116,11 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
 
 
         LimelightHelpers.PoseEstimate frontEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
-        LimelightHelpers.PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
-        LimelightHelpers.PoseEstimate rearEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-rear");
         boolean useFrontEstimate = false;
-        boolean useRightEstimate = false;
-        boolean useRearEstimate = false;
         double yawRate = Robot.pigeon.getYawRate();
 
         if(limelightEnabled && frontEstimate != null && frontEstimate.tagCount > 0 && yawRate < 720) {
             useFrontEstimate = true;
-        }
-        if(limelightEnabled && rightEstimate != null && rightEstimate.tagCount > 0 && yawRate < 720) {
-            useRightEstimate = false; //true
-        }
-        if(limelightEnabled && rearEstimate != null && rearEstimate.tagCount > 0 && yawRate < 720) {
-            useRearEstimate = false; //true
         }
         if(useFrontEstimate) {
             poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
@@ -138,19 +128,6 @@ public class SwerveDrivetrainMk4 extends SubsystemBase {
                     frontEstimate.pose,
                     frontEstimate.timestampSeconds);
         }
-        if(useRightEstimate) {
-            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-            poseEstimator.addVisionMeasurement(
-                    rightEstimate.pose,
-                    rightEstimate.timestampSeconds);
-        }
-        if(useRearEstimate) {
-            poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-            poseEstimator.addVisionMeasurement(rearEstimate.pose,
-                    rearEstimate.timestampSeconds);
-        }
-
-
 
         if (Robot.fullDashboard) {
             posePublisher.set(poseEstimator.getEstimatedPosition());

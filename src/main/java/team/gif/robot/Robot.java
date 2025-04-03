@@ -239,8 +239,6 @@ public class Robot extends TimedRobot {
             heading = heading - 180;
         }
         limelightFront.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
-        limelightRight.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
-        limelightRear.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
     }
 
     @Override
