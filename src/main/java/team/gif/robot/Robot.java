@@ -32,6 +32,7 @@ import team.gif.robot.subsystems.Elevator;
 import team.gif.robot.subsystems.Grabber;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.SwerveDrivetrainMk4;
+import team.gif.robot.subsystems.WallDetector;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
 
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot {
     public static Elevator elevator;
     public static Flapper flapper;
     public static Grabber grabber;
+    public static WallDetector wallDetector;
 
     // custom fields
     private boolean autoSchedulerOnHold;
@@ -94,13 +96,14 @@ public class Robot extends TimedRobot {
 
         robotContainer = new RobotContainer();
         diagnostics = new Diagnostics();
-        compressor = new Compressor(RobotMap.COMPRESSER, PneumaticsModuleType.CTREPCM);
+        compressor = new Compressor(PneumaticsModuleType.CTREPCM);
         oi = new OI();
         uiSmartDashboard = new UiSmartDashboard();
         pigeon.addToShuffleboard("Heading");
         pigeon.resetPigeonPosition(180);
         flapper = new Flapper(RobotMap.SERVO_PORT_ID);
         shooter.setDefaultCommand(new StageCoral());
+        wallDetector = new WallDetector();
 
         // Add a second periodic function to remove non-essential updates from the main scheduler
         addPeriodic(this::secondPeriodic, 0.080, 0.05);
@@ -207,8 +210,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
-        //-compressor.enableDigital();
-        compressor.disable();
+        compressor.enableDigital();
+//        compressor.disable();
         climber.setPistonIn();
 
         flapper.setDown();
@@ -236,8 +239,6 @@ public class Robot extends TimedRobot {
             heading = heading - 180;
         }
         limelightFront.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
-        limelightRight.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
-        limelightRear.setRobotOrientation(heading, yawRate, 0, 0, 0, 0);
     }
 
     @Override
