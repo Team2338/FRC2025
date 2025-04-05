@@ -61,7 +61,7 @@ public abstract class RobotMap {
     public static final int CLIMBER_SOLENOID_OUT_PORT = 4;
 
     //Grabber
-    public static final int GRABBER_SOLENOID_PORT = 6;
+    public static final int GRABBER_SOLENOID_PORT = 7;
 
     //UI
     public static final class UI {
