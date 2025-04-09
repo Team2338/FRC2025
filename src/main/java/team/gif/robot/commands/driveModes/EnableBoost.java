@@ -5,7 +5,7 @@ import team.gif.lib.drivePace;
 import team.gif.robot.Robot;
 
 public class EnableBoost extends Command {
-    private drivePace drivePace;
+//    private drivePace drivePace;
     public EnableBoost() {
         super();
         //addRequirements(Robot.climber); // uncomment
@@ -14,7 +14,7 @@ public class EnableBoost extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        drivePace = Robot.swerveDrive.getDrivePace();
+//        drivePace = Robot.swerveDrive.getDrivePace();
         Robot.swerveDrive.setDrivePace(drivePace.BOOST_FR);
     }
 
@@ -31,6 +31,6 @@ public class EnableBoost extends Command {
     // Called when the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.swerveDrive.setDrivePace(drivePace);
+        Robot.swerveDrive.setDrivePace(drivePace.COAST_FR);
     }
 }
