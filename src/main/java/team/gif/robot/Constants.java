@@ -274,7 +274,7 @@ public final class Constants {
         public static final double LEVEL_4_POSITION = 59.6; //59.35
         public static final double LEVEL_3_POSITION = 35.8; //35.55
         public static final double LEVEL_2_POSITION = 21.7; //21.2; //20.7
-        public static final double LEVEL_1_POSITION = 9.3; // 8.7; // needs to be differnet than ALGAE_LOW
+        public static final double LEVEL_1_POSITION = 9.0; // 9.3; // 8.7; // needs to be differnet than ALGAE_LOW
         public static final double COLLECTOR_POSITION = 0.0;
         public static final double GRAB_ALGAE_LOW_POSITION = 8.8;
 
