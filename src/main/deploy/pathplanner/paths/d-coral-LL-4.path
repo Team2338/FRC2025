@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6066,
-        "y": 2.851
+        "x": 3.6327000000000003,
+        "y": 2.8955
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9429074985156563,
-        "y": 2.214810579782572
+        "x": 2.9690074985156567,
+        "y": 2.2593105797825723
       },
       "isLocked": false,
       "linkedName": "D Branch LL 4"

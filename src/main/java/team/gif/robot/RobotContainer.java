@@ -109,6 +109,7 @@ public class RobotContainer {
         autoNames.add("RC-3-coral-LL");
         autoNames.add("RC-4-coral-LL");
         autoNames.add("RC-4-side-coral-LL");
+        autoNames.add("RC-roboteers");
 //        autoNames.add("R-F4-D4-LL");
 //        autoNames.add("R-F4-D4-AR-LL");
 //        autoNames.add("R-F4-D4-B4-LL");

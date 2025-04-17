@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.8067187499999986,
-        "y": 7.232421875
+        "x": 1.779,
+        "y": 7.274
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4343791495989073,
-        "y": 6.784266645948226
+        "x": 2.406660399598908,
+        "y": 6.825844770948226
       },
       "isLocked": true,
       "linkedName": "Coral Left LL 3 Second Collect"

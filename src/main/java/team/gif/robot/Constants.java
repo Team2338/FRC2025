@@ -264,7 +264,7 @@ public final class Constants {
         public static final double DEPLOY_PERCENT = 1.00;
         public static final double CLIMB_PERCENT = 0.75;
         public static final double FORWARD_SOFT_LIMIT = 373.66; //332;
-        public static final double REVERSE_SOFT_LIMIT = 158; //153
+        public static final double REVERSE_SOFT_LIMIT = 163; //158
         public static final double PISTON_DEPLOY_POS = FORWARD_SOFT_LIMIT - 10;
         public static final double DRIVE_SPEED_MPS = 0.1; //Speed to drive while climbing in meters per second
     }
@@ -297,7 +297,7 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 230;
         public static final double REV_MAX_ACCELERATION = 200;
 
-        public static final double SHOOT_TOLERANCE = 0.4;
+        public static final double SHOOT_TOLERANCE = 0.6;
         public static final double MOTION_MAGIC_TOLERANCE = 0.1;
         public static final double MIN_PERCENT_MANUAL = -0.15;
         public static final double MAX_PERCENT_MANUAL = 0.15;
