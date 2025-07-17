@@ -124,7 +124,7 @@ public class OI {
         dStart.and(dDPadLeft).onTrue(new InstantCommand(Robot.elevator::zeroEncoder).ignoringDisable(true));
         dBack.and(dRStickBtn).onTrue(new ToggleShooterMotor());
         dRTrigger.whileTrue(new Shoot());
-        dLBump.whileTrue(new EnableBoost());
+//        dLBump.whileTrue(new EnableBoost());
         dX.whileTrue(new AutoDriveAndShoot(false));
         dB.whileTrue(new AutoDriveAndShoot(true));
         dRBump.whileTrue(new EnableRotatedMode());
