@@ -284,8 +284,10 @@ public class Elevator extends SubsystemBase {
         if (getTargetPosition() == Constants.Elevator.COLLECTOR_POSITION) {
             return false;
         }
-
-        return Math.abs(getTargetPosition() - getPosition()) < Constants.Elevator.SHOOT_TOLERANCE;
+        double tolerance = getTargetPosition() == Constants.Elevator.LEVEL_2_POSITION ?
+                Constants.Elevator.SHOOT_TOLERANCE_L2 :
+                Constants.Elevator.SHOOT_TOLERANCE;
+        return Math.abs(getTargetPosition() - getPosition()) < tolerance;
     }
 
     /**
