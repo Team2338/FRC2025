@@ -4,6 +4,11 @@
 
 package team.gif.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -12,6 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import team.gif.lib.LimelightHelpers;
 import team.gif.lib.delay;
@@ -21,6 +27,7 @@ import team.gif.lib.drivePace;
 import team.gif.robot.commands.climber.ClimberManualControl;
 import team.gif.robot.commands.elevator.ElevatorManualControl;
 import team.gif.robot.commands.elevator.ElevatorPIDControl;
+import team.gif.robot.commands.fancyAutos.Shoot;
 import team.gif.robot.commands.shooter.StageCoral;
 import team.gif.robot.commands.drivetrain.DriveSwerve;
 //import team.gif.robot.commands.StageCoral;
@@ -35,6 +42,8 @@ import team.gif.robot.subsystems.SwerveDrivetrainMk4;
 import team.gif.robot.subsystems.WallDetector;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon2_0;
+
+import java.nio.file.Path;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -69,7 +78,7 @@ public class Robot extends TimedRobot {
     // custom fields
     private boolean autoSchedulerOnHold;
     private static delay chosenDelay;
-    public static final boolean fullDashboard = true;
+    public static final boolean fullDashboard = false;
     private final Timer elapsedTime;
     private static RobotMode robotMode;
 
@@ -113,6 +122,9 @@ public class Robot extends TimedRobot {
         elapsedTime = new Timer();
 
         robotMode = RobotMode.STANDARD_OP;
+
+        FollowPathCommand.warmupCommand().schedule();
+
 
 //        CameraServer.startAutomaticCapture();
     }
@@ -163,6 +175,17 @@ public class Robot extends TimedRobot {
         chosenDelay = uiSmartDashboard.delayChooser.getSelected();
         compressor.disable();
 
+        Command command1 = uiSmartDashboard.fancyAutoChooser.getSelected();
+        Command command2 = uiSmartDashboard.fancyAutoChooser1.getSelected();
+        Command command3 = uiSmartDashboard.fancyAutoChooser2.getSelected();
+        Command command4 = uiSmartDashboard.fancyAutoChooser3.getSelected();
+        Command command5 = uiSmartDashboard.fancyAutoChooser4.getSelected();
+
+        autonomousCommand = new SequentialCommandGroup(command1, command2, command3 , command4, command5);
+
+        autonomousCommand.schedule();
+
+        /*
         // run scheduler immediately if no delay is selected
         if (chosenDelay.getValue() == 0) {
             if (autonomousCommand != null) {
@@ -175,6 +198,7 @@ public class Robot extends TimedRobot {
             elapsedTime.start();
             autoSchedulerOnHold = true;
         }
+        */
 
         //drops servo at start of match
         flapper.setDown();
@@ -282,5 +306,20 @@ public class Robot extends TimedRobot {
 
     static public void runAuto() {
         robotContainer.getAutonomousCommand().schedule();
+    }
+
+    static public Command generateAuto(String pathName) {
+
+        try {
+            PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+            //TODO: update constraints
+            PathConstraints constraints = new PathConstraints(3,4, Units.degreesToRadians(540), Units.degreesToRadians(720));
+            return AutoBuilder.pathfindThenFollowPath(path, constraints);
+        } catch (Exception e) {
+            DriverStation.reportError("Failed to generate Auto Path: " + e.getMessage(), e.getStackTrace());
+            return Commands.none();
+
+        }
+
     }
 }
